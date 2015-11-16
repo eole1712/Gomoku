@@ -6,7 +6,7 @@
 class IGameMap
 {
 public:
-  enum		CaseContent
+  enum		caseContent
     {EMPTY, BLUE, RED};
 
 public:
@@ -14,8 +14,8 @@ public:
 
 public:
   virtual void		clear() = 0;
-  virtual CaseContent	getCase(unsigned int x, unsigned int y) const = 0;
-  virtual void		setCase(unsigned int x, unsigned int y, CaseContent) = 0;
+  virtual caseContent	getCase(unsigned int x, unsigned int y) const = 0;
+  virtual void		setCase(unsigned int x, unsigned int y, caseContent) = 0;
 };
 
 #endif /* !IGAMEMAP_H_ */
