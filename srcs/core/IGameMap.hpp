@@ -1,8 +1,6 @@
 #ifndef IGAMEMAP_H_
 # define IGAMEMAP_H_
 
-# include <string>
-
 class IGameMap
 {
 public:

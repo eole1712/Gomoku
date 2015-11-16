@@ -1,8 +1,6 @@
 #ifndef IPLAYER_H_
 # define IPLAYER_H_
 
-# include <string>
-
 class IPlayer
 {
 public:
