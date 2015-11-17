@@ -11,8 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _colors[1] = "red";
     _colors[2] = "blue";
     ui->setupUi(this);
-    //connect(this, &MainWindow::drawMap, ui->graphicsView, &drawingArea::drawSomething);
-    for(int i = 0; i != 19 * 20; ++i)
+    for(int i = 0; i != 19 * 19; ++i)
     {
         GomokuButton* tmp = new GomokuButton(i - 19 * (i / 19), i / 19);
         connect(tmp, &GomokuButton::clicked, [this, tmp](){
@@ -25,12 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     std::cout << x << ", " << y << std::endl;
     for (auto button : _buttons)
     {
-        ui->gridLayout->addWidget(button, x, y);
-        ++x;
-        if (x == 20) {
-            y += 1;
-            x = 0;
-        }
+        ui->gridLayout->addWidget(button, button->getX(), button->getY());
+
     }
 }
 
@@ -48,8 +43,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_PvP_clicked()
 {
     ui->PvP->setText("Will Player win ?");
-
-    //emit drawMap();
 }
 
 void MainWindow::getPlayerCss(int x, int y)

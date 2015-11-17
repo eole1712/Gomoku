@@ -55,7 +55,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::NonModal);
-        MainWindow->resize(900, 600);
+        MainWindow->resize(925, 635);
         actionChangeName = new QAction(MainWindow);
         actionChangeName->setObjectName(QStringLiteral("actionChangeName"));
         actionChangeName->setCheckable(true);
@@ -64,7 +64,7 @@ public:
         centralWidget->setEnabled(true);
         stackedWidget = new winChanger(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
-        stackedWidget->setGeometry(QRect(10, 0, 891, 541));
+        stackedWidget->setGeometry(QRect(10, 0, 891, 571));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -78,7 +78,7 @@ public:
         frame_2 = new QFrame(page);
         frame_2->setObjectName(QStringLiteral("frame_2"));
         frame_2->setEnabled(true);
-        frame_2->setGeometry(QRect(0, 10, 881, 551));
+        frame_2->setGeometry(QRect(0, 10, 901, 571));
         sizePolicy.setHeightForWidth(frame_2->sizePolicy().hasHeightForWidth());
         frame_2->setSizePolicy(sizePolicy);
         frame_2->setSizeIncrement(QSize(10, 10));
@@ -145,7 +145,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 900, 20));
+        menuBar->setGeometry(QRect(0, 0, 925, 20));
         MainWindow->setMenuBar(menuBar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QStringLiteral("toolBar"));

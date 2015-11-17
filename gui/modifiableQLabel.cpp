@@ -13,6 +13,5 @@ modifiableQLabel::modifiableQLabel(QWidget *parent) :
 
 void modifiableQLabel::setQLabel()
 {
-    std::cout << "yolo je passe" << std::endl;
     this->setText("Un bouton a été Cliqué !");
 }
