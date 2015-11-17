@@ -11,14 +11,19 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Gomoku
 TEMPLATE = app
 
+CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     modifiableQLabel.cpp \
-    winchanger.cpp
+    winchanger.cpp \
+    drawingArea.cpp \
+    gomokuButton.cpp
 
 HEADERS  += mainwindow.h \
     modifiableQLabel.hpp \
-    winchanger.hpp
+    winchanger.hpp \
+    drawingArea.hpp \
+    gomokuButton.hpp
 
 FORMS    += mainwindow.ui

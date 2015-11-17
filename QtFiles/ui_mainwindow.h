@@ -14,7 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
-#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -36,8 +36,9 @@ public:
     winChanger *stackedWidget;
     QWidget *page;
     QFrame *frame_2;
-    QGraphicsView *graphicsView;
     QPushButton *pushButton;
+    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout;
     QWidget *page_2;
     QFrame *frame;
     QPushButton *PvP;
@@ -54,7 +55,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::NonModal);
-        MainWindow->resize(509, 341);
+        MainWindow->resize(900, 600);
         actionChangeName = new QAction(MainWindow);
         actionChangeName->setObjectName(QStringLiteral("actionChangeName"));
         actionChangeName->setCheckable(true);
@@ -63,49 +64,65 @@ public:
         centralWidget->setEnabled(true);
         stackedWidget = new winChanger(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
-        stackedWidget->setGeometry(QRect(10, 0, 501, 281));
+        stackedWidget->setGeometry(QRect(10, 0, 891, 541));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
+        stackedWidget->setSizePolicy(sizePolicy);
+        stackedWidget->setSizeIncrement(QSize(2, 2));
         page = new QWidget();
         page->setObjectName(QStringLiteral("page"));
+        sizePolicy.setHeightForWidth(page->sizePolicy().hasHeightForWidth());
+        page->setSizePolicy(sizePolicy);
         frame_2 = new QFrame(page);
         frame_2->setObjectName(QStringLiteral("frame_2"));
         frame_2->setEnabled(true);
-        frame_2->setGeometry(QRect(0, 0, 491, 281));
+        frame_2->setGeometry(QRect(0, 10, 881, 551));
+        sizePolicy.setHeightForWidth(frame_2->sizePolicy().hasHeightForWidth());
+        frame_2->setSizePolicy(sizePolicy);
+        frame_2->setSizeIncrement(QSize(10, 10));
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
-        graphicsView = new QGraphicsView(frame_2);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(35, 21, 311, 211));
-        QBrush brush(QColor(0, 0, 0, 255));
-        brush.setStyle(Qt::Dense1Pattern);
-        graphicsView->setBackgroundBrush(brush);
-        graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
         pushButton = new QPushButton(frame_2);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(359, 132, 111, 41));
+        pushButton->setGeometry(QRect(760, 240, 111, 41));
+        gridLayoutWidget = new QWidget(frame_2);
+        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(10, 16, 741, 541));
+        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
+        sizePolicy.setHeightForWidth(page_2->sizePolicy().hasHeightForWidth());
+        page_2->setSizePolicy(sizePolicy);
         frame = new QFrame(page_2);
         frame->setObjectName(QStringLiteral("frame"));
         frame->setEnabled(true);
-        frame->setGeometry(QRect(0, 0, 491, 281));
+        frame->setGeometry(QRect(0, 0, 871, 531));
+        sizePolicy.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
+        frame->setSizePolicy(sizePolicy);
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
         PvP = new QPushButton(frame);
         PvP->setObjectName(QStringLiteral("PvP"));
-        PvP->setGeometry(QRect(250, 120, 171, 31));
+        PvP->setGeometry(QRect(570, 240, 211, 51));
         PvE = new QPushButton(frame);
         PvE->setObjectName(QStringLiteral("PvE"));
-        PvE->setGeometry(QRect(250, 180, 171, 31));
+        PvE->setGeometry(QRect(570, 330, 211, 61));
         name = new QLabel(frame);
         name->setObjectName(QStringLiteral("name"));
         name->setEnabled(true);
-        name->setGeometry(QRect(20, 20, 241, 71));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(8);
-        sizePolicy.setVerticalStretch(8);
-        sizePolicy.setHeightForWidth(name->sizePolicy().hasHeightForWidth());
-        name->setSizePolicy(sizePolicy);
+        name->setGeometry(QRect(70, 30, 491, 201));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(8);
+        sizePolicy1.setVerticalStretch(8);
+        sizePolicy1.setHeightForWidth(name->sizePolicy().hasHeightForWidth());
+        name->setSizePolicy(sizePolicy1);
         name->setMinimumSize(QSize(10, 0));
         name->setSizeIncrement(QSize(100, 100));
         QFont font;
@@ -128,7 +145,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 509, 20));
+        menuBar->setGeometry(QRect(0, 0, 900, 20));
         MainWindow->setMenuBar(menuBar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QStringLiteral("toolBar"));
@@ -148,7 +165,7 @@ public:
         QObject::connect(PvP, SIGNAL(clicked()), stackedWidget, SLOT(nextWidget()));
         QObject::connect(pushButton, SIGNAL(clicked()), stackedWidget, SLOT(prevWidget()));
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

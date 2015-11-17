@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[5];
-    char stringdata[44];
+    QByteArrayData data[4];
+    char stringdata[36];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,12 +30,11 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 11),
-QT_MOC_LITERAL(2, 23, 0),
-QT_MOC_LITERAL(3, 24, 3),
-QT_MOC_LITERAL(4, 28, 14)
+QT_MOC_LITERAL(1, 11, 7),
+QT_MOC_LITERAL(2, 19, 0),
+QT_MOC_LITERAL(3, 20, 14)
     },
-    "MainWindow\0changeLabel\0\0msg\0on_PvP_clicked\0"
+    "MainWindow\0drawMap\0\0on_PvP_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,13 +52,13 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   24,    2, 0x06,
+       1,    0,   24,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   27,    2, 0x08,
+       3,    0,   25,    2, 0x08,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
@@ -72,7 +71,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->changeLabel((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 0: _t->drawMap(); break;
         case 1: _t->on_PvP_clicked(); break;
         default: ;
         }
@@ -80,12 +79,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (MainWindow::*_t)(QString );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::changeLabel)) {
+            typedef void (MainWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::drawMap)) {
                 *result = 0;
             }
         }
     }
+    Q_UNUSED(_a);
 }
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -125,9 +125,8 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void MainWindow::changeLabel(QString _t1)
+void MainWindow::drawMap()
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 QT_END_MOC_NAMESPACE

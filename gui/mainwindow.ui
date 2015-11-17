@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>509</width>
-    <height>341</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,14 +25,32 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>501</width>
-      <height>281</height>
+      <width>891</width>
+      <height>541</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="sizeIncrement">
+     <size>
+      <width>2</width>
+      <height>2</height>
+     </size>
+    </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <widget class="QFrame" name="frame_2">
       <property name="enabled">
        <bool>true</bool>
@@ -40,10 +58,22 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>491</width>
-        <height>281</height>
+        <y>10</y>
+        <width>881</width>
+        <height>551</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>10</width>
+        <height>10</height>
+       </size>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -51,33 +81,11 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QGraphicsView" name="graphicsView">
-       <property name="geometry">
-        <rect>
-         <x>35</x>
-         <y>21</y>
-         <width>311</width>
-         <height>211</height>
-        </rect>
-       </property>
-       <property name="backgroundBrush">
-        <brush brushstyle="Dense1Pattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>0</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </property>
-       <property name="dragMode">
-        <enum>QGraphicsView::ScrollHandDrag</enum>
-       </property>
-      </widget>
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
         <rect>
-         <x>359</x>
-         <y>132</y>
+         <x>760</x>
+         <y>240</y>
          <width>111</width>
          <height>41</height>
         </rect>
@@ -86,9 +94,26 @@
         <string>Back</string>
        </property>
       </widget>
+      <widget class="QWidget" name="gridLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>16</y>
+         <width>741</width>
+         <height>541</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout"/>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="page_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <widget class="QFrame" name="frame">
       <property name="enabled">
        <bool>true</bool>
@@ -97,9 +122,15 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>491</width>
-        <height>281</height>
+        <width>871</width>
+        <height>531</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -110,10 +141,10 @@
       <widget class="QPushButton" name="PvP">
        <property name="geometry">
         <rect>
-         <x>250</x>
-         <y>120</y>
-         <width>171</width>
-         <height>31</height>
+         <x>570</x>
+         <y>240</y>
+         <width>211</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="text">
@@ -123,10 +154,10 @@
       <widget class="QPushButton" name="PvE">
        <property name="geometry">
         <rect>
-         <x>250</x>
-         <y>180</y>
-         <width>171</width>
-         <height>31</height>
+         <x>570</x>
+         <y>330</y>
+         <width>211</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="text">
@@ -139,10 +170,10 @@
        </property>
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>241</width>
-         <height>71</height>
+         <x>70</x>
+         <y>30</y>
+         <width>491</width>
+         <height>201</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -218,7 +249,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>509</width>
+     <width>900</width>
      <height>20</height>
     </rect>
    </property>
@@ -319,8 +350,8 @@
    <slot>setFocus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>451</x>
-     <y>193</y>
+     <x>462</x>
+     <y>287</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -351,8 +382,8 @@
    <slot>prevWidget()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>469</x>
-     <y>191</y>
+     <x>480</x>
+     <y>287</y>
     </hint>
     <hint type="destinationlabel">
      <x>506</x>
