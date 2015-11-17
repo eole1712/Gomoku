@@ -7,12 +7,17 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    _colors[0] = "grey";
+    _colors[1] = "red";
+    _colors[2] = "blue";
     ui->setupUi(this);
     //connect(this, &MainWindow::drawMap, ui->graphicsView, &drawingArea::drawSomething);
     for(int i = 0; i != 19 * 20; ++i)
     {
-        GomokuButton* tmp = new GomokuButton();
-        connect(tmp, &GomokuButton::clicked, [this, tmp](){tmp->setStyleSheet(getPlayerCss().c_str());});
+        GomokuButton* tmp = new GomokuButton(i - 19 * (i / 19), i / 19);
+        connect(tmp, &GomokuButton::clicked, [this, tmp](){
+            getPlayerCss(tmp->getX(), tmp->getY());
+        });
         _buttons.push_back(tmp);
     }
     int x = 0;
@@ -47,10 +52,21 @@ void MainWindow::on_PvP_clicked()
     //emit drawMap();
 }
 
-std::string MainWindow::getPlayerCss()
+void MainWindow::getPlayerCss(int x, int y)
 {
     static bool player = true;
 
     player = !player;
-    return (player) ? "background-color:red" : "background-color:blue";
+    setButtonColor(x, y, (player) ? Red : Blue);
+}
+
+void MainWindow::setButtonColor(int x, int y, buttonColor col)
+{
+    for(auto button : _buttons)
+    {
+        if (button->getX() == x && button->getY() == y)
+        {
+            button->setStyleSheet(std::string("background-color:" + _colors[col]).c_str());
+        }
+    }
 }
