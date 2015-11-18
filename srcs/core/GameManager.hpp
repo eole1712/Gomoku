@@ -14,9 +14,6 @@ public:
 
 private:
   mode		_mode;
-  bool		_turn;
-  IPlayer *	_players[2];
-
   Judge		_judge;
   Game *	_game;
 
