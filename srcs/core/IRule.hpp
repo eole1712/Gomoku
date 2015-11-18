@@ -9,7 +9,7 @@ public:
   virtual ~IRule() {}
 
 public:
-  virtual bool			isOk() const;
+  virtual bool			isOk(IGame *);
   virtual std::string const	&getRuleName() const;
   virtual std::string const	&getError() const;
 };

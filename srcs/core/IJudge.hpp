@@ -11,7 +11,7 @@ public:
 
 public:
   virtual std::string const	&getLastError() const = 0;
-  virtual bool			checkRules() = 0;
+  virtual bool			checkRules(IGame *) = 0;
 
 public:
   virtual void			addRule(IRule *) = 0;
