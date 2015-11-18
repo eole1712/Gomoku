@@ -5,7 +5,7 @@
 # include <string>
 # include "IJudge.hpp"
 
-class Judge
+class Judge : IJudge
 {
 public:
   Judge();

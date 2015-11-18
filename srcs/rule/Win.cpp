@@ -4,7 +4,7 @@ Win::Win()
   : _lastError()
 {}
 
-bool			Win::isOk()
+bool			Win::isOk(Game * game)
 {
   if (0)
     {

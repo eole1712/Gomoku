@@ -14,7 +14,9 @@ public:
 
 private:
   mode		_mode;
+  bool		_turn;
   IPlayer *	_players[2];
+
   Judge		_judge;
   Game *	_game;
 
@@ -23,8 +25,11 @@ protected:
   void			initPlayer();
 
 public:
+
   IGame *		createGame();
-  void			changeMode(mode);
+  void			setMode(mode);
+  mode			getMode() const;
+  Game *		getGame() const;
   IGameMap::caseContent didClickCase(unsigned int x, unsigned y);
 };
 

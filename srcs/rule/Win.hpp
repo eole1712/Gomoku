@@ -14,7 +14,7 @@ private:
   std::string		_lastError;
 
 public:
-  bool			isOk();
+  bool			isOk(Game *);
   std::string const	&getRuleName() const;
   std::string const	&getError() const;
 };

@@ -3,7 +3,7 @@
 
 # include "IPlayer.hpp"
 
-class Humain
+class Humain : IPlayer
 {
 public:
   Humain();
