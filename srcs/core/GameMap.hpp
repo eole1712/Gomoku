@@ -7,11 +7,15 @@ class GameMap
   : public IGameMap
 {
 public:
+  static const unsigned int	size_x = 19;
+  static const unsigned int	size_y = 19;
+
+public:
   GameMap();
   virtual ~GameMap() {}
 
 private:
-  caseContent	_map[19][19];
+  caseContent	_map[size_x][size_y];
 
 public:
   virtual void		clear();
