@@ -8,8 +8,8 @@ GameMap::GameMap()
 
 void		GameMap::clear()
 {
-  for (int x = 0; x < size_x; x++)
-    for (int y = 0; y < size_y; y++)
+  for (unsigned int x = 0; x < size_x; x++)
+    for (unsigned int y = 0; y < size_y; y++)
       _map[x][y] = EMPTY;
 }
 
