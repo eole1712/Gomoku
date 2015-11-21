@@ -1,22 +1,24 @@
+#include "IGameMap.hpp"
 #include "GameMap.hpp"
 
 GameMap::GameMap()
-  : map{{0}}
 {
-
+  clear();
 }
 
 void		GameMap::clear()
 {
-  map = {{0}};
+  for (int x = 0; x < 19; x++)
+    for (int y = 0; y < 19; y++)
+      _map[x][y] = EMPTY;
 }
 
-caseContent	GameMap::getCase(unsigned int x, unsigned int y) const
+IGameMap::caseContent	GameMap::getCase(unsigned int x, unsigned int y) const
 {
-  return map[x][y];
+  return _map[x][y];
 }
 
-void		GameMap::setCase(unsigned int x, unsigned int y, caseContent content)
+void		GameMap::setCase(unsigned int x, unsigned int y, IGameMap::caseContent content)
 {
-  map[x][y] = content;
+  _map[x][y] = content;
 }

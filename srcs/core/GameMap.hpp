@@ -1,14 +1,17 @@
 #ifndef GAMEMAP_HPP_
 # define GAMEMAP_HPP_
 
+#include "IGameMap.hpp"
+
 class GameMap
+  : public IGameMap
 {
 public:
   GameMap();
   virtual ~GameMap() {}
 
 private:
-  caseContent	map[19][19];
+  caseContent	_map[19][19];
 
 public:
   void		clear();
