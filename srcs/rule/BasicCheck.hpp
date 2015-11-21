@@ -14,7 +14,7 @@ public:
 public:
   virtual IRule::RuleType	getRuleType() const;
   virtual std::string const&	getError() const;
-  virtual bool			isOk(Game*);
+  virtual bool			isOk(IGame*);
 
 private:
   std::string		_lastError;

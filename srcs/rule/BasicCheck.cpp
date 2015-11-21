@@ -7,6 +7,9 @@ BasicCheck::BasicCheck()
   : _lastError()
 {}
 
+BasicCheck::~BasicCheck()
+{}
+
 IRule::RuleType	BasicCheck::getRuleType() const
 {
   return IRule::BASICCHECK;
@@ -17,7 +20,7 @@ std::string const	&BasicCheck::getError() const
   return _lastError;
 }
 
-bool			BasicCheck::isOk(Game * game)
+bool			BasicCheck::isOk(IGame * game)
 {
   // case empty -> [check]
   return (game->getMap()->getCase(game->getActivePlayer()->getX(),

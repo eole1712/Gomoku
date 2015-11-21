@@ -15,7 +15,7 @@ public:
 public:
   virtual type		getType() const = 0;
   virtual color		getColor() const = 0;
-  virtual void		setPosition(unsigned int x, unsigned int y);
+  virtual void		setPosition(unsigned int x, unsigned int y) = 0;
   virtual unsigned int	getX() const = 0;
   virtual unsigned int	getY() const = 0;
 };

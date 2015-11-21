@@ -20,7 +20,7 @@ std::string const&	EatThem::getError() const
   return (_lastError);
 }
 
-bool	EatThem::isOk(Game* game)
+bool	EatThem::isOk(IGame* game)
 {
   int			posX = game->getActivePlayer()->getX();
   int			posY = game->getActivePlayer()->getY();

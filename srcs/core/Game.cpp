@@ -9,6 +9,9 @@ Game::Game(mode gameMode)
   initPlayer();
 }
 
+Game::~Game()
+{}
+
 void		Game::initPlayer()
 {
   if (_mode == PVE)

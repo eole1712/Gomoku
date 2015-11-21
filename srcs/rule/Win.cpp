@@ -7,7 +7,7 @@ Win::Win()
 Win::~Win()
 {}
 
-bool	Win::isOk(Game*)// game)
+bool	Win::isOk(IGame*)// game)
 {
   // conditions de win à gérer
   if (0)

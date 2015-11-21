@@ -12,7 +12,7 @@ public:
 
 public:
   GameMap();
-  virtual ~GameMap() {}
+  virtual ~GameMap();
 
 private:
   caseContent	_map[size_x][size_y];

@@ -3,6 +3,7 @@
 
 # include <map>
 # include <string>
+# include "IRule.hpp"
 # include "IJudge.hpp"
 
 class Judge : public IJudge
@@ -12,7 +13,7 @@ public:
   ~Judge() {}
 
 private:
-  typedef std::map<std::string, IRule *> ruleMap;
+  typedef std::map<IRule::RuleType, IRule *> ruleMap;
 
   ruleMap		_rules;
   std::string		_lastError;
@@ -23,7 +24,7 @@ public:
 
 public:
   virtual void			addRule(IRule *);
-  virtual void			removeRule(std::string const &ruleName);
+  virtual void			removeRule(IRule::RuleType ruleType);
 };
 
 #endif /* !JUDGE_HPP_ */

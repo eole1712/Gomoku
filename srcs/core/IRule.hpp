@@ -12,9 +12,9 @@ public:
 public:
   enum				RuleType { BASICCHECK = 0, WIN, EATTHEM };
 
-  virtual RuleType		getRuleType() const;
-  virtual std::string const	&getError() const;
-  virtual bool			isOk(IGame *);
+  virtual RuleType		getRuleType() const = 0;
+  virtual std::string const	&getError() const = 0;
+  virtual bool			isOk(IGame *) = 0;
 };
 
 #endif /* !IRULE_H_ */

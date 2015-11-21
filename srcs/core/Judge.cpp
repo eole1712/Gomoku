@@ -1,3 +1,4 @@
+#include "IRule.hpp"
 #include "Judge.hpp"
 
 Judge::Judge()
@@ -25,13 +26,13 @@ bool			Judge::checkRules(IGame * game)
 
 void			Judge::addRule(IRule *rule)
 {
-  _rules[rule->getRuleName()] = rule;
+  _rules[rule->getRuleType()] = rule;
 }
 
-void			Judge::removeRule(std::string const &ruleName)
+void			Judge::removeRule(IRule::RuleType ruleType)
 {
   ruleMap::const_iterator i;
 
-  if ((i = _rules.find(ruleName)) != _rules.end())
+  if ((i = _rules.find(ruleType)) != _rules.end())
     _rules.erase(i);
 }

@@ -6,6 +6,9 @@ GameMap::GameMap()
   clear();
 }
 
+GameMap::~GameMap()
+{}
+
 void		GameMap::clear()
 {
   for (unsigned int x = 0; x < size_x; x++)
