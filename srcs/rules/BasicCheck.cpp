@@ -22,8 +22,10 @@ std::string const	&BasicCheck::getError() const
 
 bool			BasicCheck::isOk(IGame * game)
 {
-  // case empty -> [check]
-  return (game->getMap()->getCase(game->getActivePlayer()->getX(),
-				  game->getActivePlayer()->getY())
-	  == GameMap::EMPTY);
+  int	posX = game->getActivePlayer()->getX();
+  int	posY = game->getActivePlayer()->getY();
+
+  if (!game->getMap()->isIn(posX, posY))
+    return (false);
+  return (game->getMap()->getCase(posX, posY) == GameMap::EMPTY);
 }
