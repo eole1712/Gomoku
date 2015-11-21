@@ -1,9 +1,9 @@
 #ifndef HUMAN_HPP_
 # define HUMAN_HPP_
 
-# include "IPlayer.hpp"
+# include "Player.hpp"
 
-class Human : public IPlayer
+class Human : public Player
 {
 public:
   Human();
@@ -14,12 +14,10 @@ public:
 
 private:
   color		_color;
-  unsigned int	_position[2];
 
 public:
   virtual type		getType() const;
   virtual color		getColor() const;
-  virtual void		setPosition(unsigned int x, unsigned int y);
 };
 
 #endif /* !HUMAN_HPP_ */
