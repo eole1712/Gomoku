@@ -2,21 +2,21 @@
 # define BASICCHECK_HPP_
 
 # include <string>
+# include "Game.hpp"
 
 class BasicCheck : IRule
 {
 public:
   BasicCheck();
+  virtual ~BasicCheck();
 
-  virtual ~BasicCheck() {}
+public:
+  std::string const&	getRuleName() const;
+  std::string const&	getError() const;
+  bool			isOk(Game*);
 
 private:
   std::string		_lastError;
-
-public:
-  bool			isOk(Game *);
-  std::string const	&getRuleName() const;
-  std::string const	&getError() const;
 };
 
 #endif /* !BASICCHECK_HPP_ */

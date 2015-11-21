@@ -10,9 +10,9 @@ public:
   virtual ~IRule() {}
 
 public:
-  virtual bool			isOk(IGame *);
   virtual std::string const	&getRuleName() const;
   virtual std::string const	&getError() const;
+  virtual bool			isOk(IGame *);
 };
 
 #endif /* !IRULE_H_ */
