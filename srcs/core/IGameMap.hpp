@@ -14,6 +14,7 @@ public:
   virtual void		clear() = 0;
   virtual caseContent	getCase(unsigned int x, unsigned int y) const = 0;
   virtual void		setCase(unsigned int x, unsigned int y, caseContent) = 0;
+  virtual bool		isIn(unsigned int x, unsigned int y) const;
 };
 
 #endif /* !IGAMEMAP_H_ */
