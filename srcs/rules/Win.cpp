@@ -16,10 +16,16 @@ bool	Win::isOk(IGame* game)
 
   // conditions de win à gérer :
   // - check 5 alignés horizontalement
-  // et pas de haut = ennemi && (bas == ennemi || bas = empty) (ou inverse) sur chacune des 5
+  // et pas de cas 1, 2, 3 ou 4 :
+  // X   E
+  // O E O X
+  // O O O O O (<--- ligne horizontale)
+  // E O X O
+  //   X   E
+  // 1 2 3 4   (<--- cas)
   // ||
   // - check 5 alignés verticalement
-  // et pas de gauche = ennemi && (droite == ennemi || droite = empty) (ou inverse) sur chacune des 5
+  // et pas de : pareil qu'horizontal mais à la verticale
   return (returnValue);
 }
 
