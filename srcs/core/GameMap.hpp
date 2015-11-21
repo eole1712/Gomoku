@@ -17,6 +17,7 @@ public:
   virtual void		clear();
   virtual caseContent	getCase(unsigned int x, unsigned int y) const;
   virtual void		setCase(unsigned int x, unsigned int y, caseContent);
+  virtual bool		isIn(unsigned int x, unsigned int y) const;
 };
 
 #endif /* !GAMEMAP_HPP_ */
