@@ -9,10 +9,23 @@ class IGame
 public:
   virtual ~Game() {};
 
+
 public:
-  virtual IGameMap *	getMap() const = 0;
-  virtual IPlayer *	getPlayer() const = 0;
-  virtual bool		nextAction() const = 0;
+  enum		mode
+    {PVP, PVE, EVE};
+
+public:
+  virtual void		initPlayer() = 0;
+  virtual Player *	getPlayer() const = 0;
+  virtual Player *	getActivePlayer() const = 0;
+
+  virtual GameMap *	getMap() const = 0;
+  virtual mode		getMode() const = 0;
+  virtual mode		getMode() const = 0;
+  virtual void		changeMode(mode newMode) = 0;
+
+  virtual IGameMap::caseContent	play(Judge * judge, unsigned int x, unsigned int y) = 0;
+
   virtual bool		isFinished() const = 0;
   virtual IPlayer *	getWinner() const = 0;
 };

@@ -2,8 +2,9 @@
 # define GAME_HPP_
 
 #include "IGame.hpp"
+#include "GameMap.hpp"
 
-class Game
+class Game : IGame
 {
 public:
   Game();
@@ -11,18 +12,25 @@ public:
 
 private:
   GameMap	_map;
-  IPlayer 	_players[2];
-  IPlayer *	_winner;
+  mode		_mode;
+  Player 	_players[2];
+  Player *	_winner;
   bool		_finish;
   bool		_turn;
 
 public:
-  IGameMap *	getMap() const;
-  IPlayer *	getPlayer() const;
-  bool		nextAction() const;
+  void		initPlayer();
+  Player *	getPlayer() const;
+  Player *	getActivePlayer() const;
+
+  GameMap *	getMap() const;
+  mode		getMode() const;
+  mode		getMode() const;
+  void		changeMode(mode newMode);
+
+  IGameMap::caseContent	play(Judge * judge, unsigned int x, unsigned int y);
+
   bool		isFinished() const;
-  bool		getTurn() const;
-  void		setTurn(bool);
   IPlayer *	getWinner() const;
 };
 

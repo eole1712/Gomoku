@@ -2,32 +2,25 @@
 # define GAMEMANAGER_HPP_
 
 # include <string>
-# include "IPlayer.hpp"
-# include "GameMap.hpp"
-# include "Judge.hpp"
+# include "IGameManager.hpp"
 
-class GameManager
+class GameManager : public IGameMager
 {
 public:
   GameManager(mode gameMode = PVE);
-  virtual ~GameManager() {}
+  virtual ~GameManager();
 
 private:
-  mode		_mode;
   Judge		_judge;
   Game *	_game;
 
-protected:
-  bool			initJudge();
-  void			initPlayer();
-
 public:
 
-  IGame *		createGame();
-  void			setMode(mode);
-  mode			getMode() const;
+  bool			initJudge();
+  Judge *		getJudge() const;
+  Game *		createGame();
   Game *		getGame() const;
-  IGameMap::caseContent didClickCase(unsigned int x, unsigned y);
+  IGameMap::caseContent didClickCase(unsigned int x, unsigned y) const;
 };
 
 #endif  /* !GAMEMANAGER_HPP_ */
