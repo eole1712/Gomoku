@@ -5,7 +5,7 @@ class IPlayer
 {
 public:
   enum		type
-    {HUMAN, IA};
+    {HUMAN, AI};
   enum		color
     {BLUE = 1, RED};
 
@@ -15,6 +15,7 @@ public:
 public:
   virtual type		getType() const = 0;
   virtual color		getColor() const = 0;
+  virtual void		setPosition(unsigned int x, unsigned int y) = 0;
 };
 
 #endif /* !IPLAYER_H_ */

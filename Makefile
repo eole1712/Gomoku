@@ -8,7 +8,7 @@ RULEDIR		= $(SRCSDIR)/rule/
 
 CORESRCS	= GameMap.cpp \
 		  GameManager.cpp \
-		  Humain.cpp \
+		  Human.cpp \
 		  AI.cpp \
 		  Game.cpp \
 		  Judge.cpp

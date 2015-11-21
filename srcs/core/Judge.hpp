@@ -5,7 +5,7 @@
 # include <string>
 # include "IJudge.hpp"
 
-class Judge : IJudge
+class Judge : public IJudge
 {
 public:
   Judge();
@@ -18,12 +18,12 @@ private:
   std::string		_lastError;
 
 public:
-  std::string const	&getLastError() const;
-  bool			checkRules(IRule *);
+  virtual std::string const	&getLastError() const;
+  virtual bool			checkRules(IGame *);
 
 public:
-  void			addRule(IRule *);
-  bool			removeRule(std::string const &ruleName);
+  virtual void			addRule(IRule *);
+  virtual void			removeRule(std::string const &ruleName);
 };
 
 #endif /* !JUDGE_HPP_ */

@@ -2,36 +2,37 @@
 # define GAME_HPP_
 
 #include "IGame.hpp"
-#include "GameMap.hpp"
+#include "IGameMap.hpp"
+#include "IPlayer.hpp"
 
-class Game : IGame
+class Game : public IGame
 {
 public:
-  Game();
+  Game(mode gameMode);
   virtual ~Game();
 
 private:
-  GameMap	_map;
+  IGameMap *	_map;
   mode		_mode;
-  Player 	_players[2];
-  Player *	_winner;
+  IPlayer * 	_players[2];
+  IPlayer *	_winner;
   bool		_finish;
   bool		_turn;
 
 public:
-  void		initPlayer();
-  Player *	getPlayer() const;
-  Player *	getActivePlayer() const;
+  virtual void		initPlayer();
+  virtual IPlayer *	getPlayer(unsigned int id) const;
+  virtual IPlayer *	getActivePlayer() const;
 
-  GameMap *	getMap() const;
-  mode		getMode() const;
-  mode		getMode() const;
-  void		changeMode(mode newMode);
+  virtual IGameMap *	getMap() const;
+  virtual mode		getMode() const;
+  virtual void		changeMode(mode newMode);
 
-  IGameMap::caseContent	play(Judge * judge, unsigned int x, unsigned int y);
+  virtual void		playTurn(unsigned int x, unsigned int y);
+  virtual void		endTurn();
 
-  bool		isFinished() const;
-  IPlayer *	getWinner() const;
+  virtual bool		isFinished() const;
+  virtual IPlayer *	getWinner() const;
 };
 
 #endif /* !GAME_HPP_ */

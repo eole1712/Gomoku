@@ -4,7 +4,7 @@
 # include <string>
 # include "Game.hpp"
 
-class BasicCheck : IRule
+class BasicCheck : public IRule
 {
 public:
   BasicCheck();

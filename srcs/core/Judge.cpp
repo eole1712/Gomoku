@@ -5,19 +5,19 @@ Judge::Judge()
 {
 }
 
-std::string const	&getLastError() const
+std::string const	&Judge::getLastError() const
 {
   return _lastError;
 }
 
-bool			Judge::checkRules()
+bool			Judge::checkRules(IGame * game)
 {
   ruleMap::const_iterator i;
 
-  for (i = _rules.begin(); i != _rules.end() && (*i).isOk(); i++);
+  for (i = _rules.begin(); i != _rules.end() && (*i).second->isOk(game); i++);
   if (i != _rules.end())
     {
-      _lastError = (*i).getError();
+      _lastError = (*i).second->getError();
       return false;
     }
   return true;
@@ -25,10 +25,10 @@ bool			Judge::checkRules()
 
 void			Judge::addRule(IRule *rule)
 {
-  _rules[rule.getRuleName()] = rule;
+  _rules[rule->getRuleName()] = rule;
 }
 
-bool			Judge::removeRule(std::string const &ruleName)
+void			Judge::removeRule(std::string const &ruleName)
 {
   ruleMap::const_iterator i;
 

@@ -4,11 +4,11 @@
 # include <string>
 # include "Game.hpp"
 
-class EatThem : IRule
+class EatThem : public IRule
 {
 public:
   EatThem();
-  virtual ~EatThem()
+  virtual ~EatThem();
 
 public:
   std::string const&	getRuleName() const;

@@ -1,55 +1,78 @@
-Game::Game()
-  : _map(), _mode(gameMode), _turn(false), _winner(NULL), _finish(false), _turn(false)
+#include <string>
+#include "Human.hpp"
+#include "AI.hpp"
+#include "Game.hpp"
+
+Game::Game(mode gameMode)
+  : _map(), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
 {
   initPlayer();
 }
 
-void		Game::initPlayer();
+void		Game::initPlayer()
 {
-  _players[0] = (_mode != EVE) ? new Player() : new AI();
-  _players[1] = (_mode != PVP) ? new AI() : new Player();
+  if (_mode == PVE)
+    {
+      _players[0] = new Human();
+      _players[1] = new AI();
+    }
+  if (_mode == PVP)
+    {
+      _players[0] = new Human();
+      _players[1] = new Human();
+    }
 }
 
-Player *	Game::getPlayer() const
+IPlayer *	Game::getPlayer(unsigned int id) const
 {
-  return _palyer;
+  if (id > 1)
+    return NULL;
+  return _players[id];
 }
 
-Player *	Game::getActivePlayer() const
+IPlayer *	Game::getActivePlayer() const
 {
   return _players[_turn];
 }
 
-GameMap *	Game::getMap() const
+IGameMap *	Game::getMap() const
 {
   return _map;
 }
 
 
-mode		Game::getMode() const
+IGame::mode		Game::getMode() const
 {
   return _mode;
 }
 
-void		Game::channgeMode(mode newMode);
+void		Game::changeMode(IGame::mode newMode)
 {
   if (_mode == newMode)
     return ;
   _mode = newMode;
-  _players[0] = (_mode != EVE) ? new Player(_players[0]) : new AI(_players[0]);
-  _players[1] = (_mode != PVP) ? new AI(_players[1]) : new Player(_players[1]);
-  // initPlayer() avec heritage des info
+  if (_mode != EVE)
+    _players[0] = new Human(_players[0]);
+  else
+    _players[0] = new AI(_players[0]);
+
+  if (_mode != PVP)
+    _players[1] = new AI(_players[1]);
+  else
+    _players[1] = new Human(_players[1]);
 }
 
-IGameMap::caseContent	Game::play(Judge * judge, unsigned int x, unsigned int y)
+void		Game::playTurn(unsigned int x, unsigned int y)
 {
-  getActivePlayer().setPosition(x, y);
-  if (!judge.checkRules(game))
-    return game.getMap().getCase(x, y);
-  _turn = !_turn;
+  _players[_turn]->setPosition(x, y);
   // if ai ? player[_turn].play(_game.getMap());
-  return player[!_turn].getColor();
 }
+
+void		Game::endTurn()
+{
+  _turn = !_turn;
+}
+
 
 bool		Game::isFinished() const
 {

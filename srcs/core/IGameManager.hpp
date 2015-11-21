@@ -2,23 +2,22 @@
 # define IGAMEMANAGER_HPP_
 
 # include <string>
-# include "GameMap.hpp"
-# include "Player.hpp"
-# include "Game.hpp"
-# include "Judge.hpp"
+# include "IGameMap.hpp"
+# include "IPlayer.hpp"
+# include "IGame.hpp"
+# include "IJudge.hpp"
 
 class IGameManager
 {
 public:
   virtual ~IGameManager() {}
 
-
 public:
-  virtual bool			initJudge();
-  virtual Judge *		getJudge() const = 0;
-  virtual Game *		createGame() = 0;
-  virtual Game *		getGame() const  = 0;
- virtual IGameMap::caseContent	didClickCase(unsigned int x, unsigned y) const = 0;
+  virtual bool			initJudge() = 0;
+  virtual IJudge *		getJudge() const = 0;
+  virtual IGame *		createGame(IGame::mode gameMode) = 0;
+  virtual IGame *		getGame() const  = 0;
+  virtual IGameMap::caseContent	didClickCase(unsigned int x, unsigned y) const = 0;
 };
 
 #endif  /* !IGAMEMANAGER_HPP_ */

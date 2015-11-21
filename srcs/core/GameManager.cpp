@@ -1,7 +1,11 @@
+#include "IGame.hpp"
 #include "GameManager.hpp"
+#include "BasicCheck.hpp"
+#include "Win.hpp"
+#include "EatThem.hpp"
 
-GameManager::GameManager(mode gameMode)
-  : _game(createGame())
+GameManager::GameManager()
+  : _game(NULL)
 {
   initJudge();
 }
@@ -14,29 +18,35 @@ GameManager::~GameManager()
 bool			GameManager::initJudge()
 {
   // ne pas modifier l'ordre des régles !
-  _judge.addRule(new basicCheck());
+  _judge->addRule(new BasicCheck());
   // ...
-  _judge.addRule(new Win());
-  _judge.addRule(new EatThem());
+  _judge->addRule(new Win());
+  _judge->addRule(new EatThem());
+  return true;
 }
 
-Judge *			GameManager::getJudge() const
+IJudge *		GameManager::getJudge() const
 {
   return _judge;
 }
 
-
-Game *			GameManager::createGame()
+IGame *			GameManager::createGame(IGame::mode gameMode)
 {
-  return new Game();
+  _game = new Game(gameMode);
+  return _game;
 }
 
-Game *			GameManager::getGame() const
+IGame *			GameManager::getGame() const
 {
   return _game;
 }
 
 IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y) const
 {
-  return game.play(&_judge, x, y);
+  if (_game == NULL)
+    return IGameMap::EMPTY;
+  _game->playTurn(x, y);
+  _judge->checkRules(_game);
+  _game->endTurn();
+  return _game->getMap()->getCase(x, y);
 }

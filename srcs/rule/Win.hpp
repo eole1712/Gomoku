@@ -3,7 +3,7 @@
 
 # include <string>
 
-class Win : IRule
+class Win : public IRule
 {
 public:
   Win();
@@ -14,9 +14,9 @@ private:
   std::string		_lastError;
 
 public:
-  bool			isOk(Game *);
-  std::string const	&getRuleName() const;
-  std::string const	&getError() const;
+  virtual bool			isOk(Game *);
+  virtual std::string const	&getRuleName() const;
+  virtual std::string const	&getError() const;
 };
 
 #endif /* !WIN_HPP_ */

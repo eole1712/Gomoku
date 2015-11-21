@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+
+./emacsproject
+./emacsproject/flags
+./emacsproject/includes

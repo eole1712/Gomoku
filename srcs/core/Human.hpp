@@ -1,20 +1,20 @@
-#ifndef AI_HPP_
-# define AI_HPP_
+#ifndef HUMAN_HPP_
+# define HUMAN_HPP_
 
 # include "IPlayer.hpp"
 
-class AI : public IPlayer
+class Human : public IPlayer
 {
 public:
-  AI();
-  AI(IPlayer *);
+  Human();
+  Human(IPlayer *);
 
 public:
-  virtual ~AI() {}
+  virtual ~Human() {}
 
 private:
-  unsigned int	_position[2];
   color		_color;
+  unsigned int	_position[2];
 
 public:
   virtual type		getType() const;
@@ -22,4 +22,4 @@ public:
   virtual void		setPosition(unsigned int x, unsigned int y);
 };
 
-#endif /* !AI_HPP_ */
+#endif /* !HUMAN_HPP_ */

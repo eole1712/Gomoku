@@ -14,9 +14,9 @@ private:
   caseContent	_map[19][19];
 
 public:
-  void		clear();
-  caseContent	getCase(unsigned int x, unsigned int y) const;
-  void		setCase(unsigned int x, unsigned int y, caseContent);
+  virtual void		clear();
+  virtual caseContent	getCase(unsigned int x, unsigned int y) const;
+  virtual void		setCase(unsigned int x, unsigned int y, caseContent);
 };
 
 #endif /* !GAMEMAP_HPP_ */

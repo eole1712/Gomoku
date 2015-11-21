@@ -3,6 +3,7 @@
 
 # include <string>
 # include "IRule.hpp"
+# include "IGame.hpp"
 
 class IJudge
 {
@@ -14,8 +15,8 @@ public:
   virtual bool			checkRules(IGame *) = 0;
 
 public:
-  virtual void			addRule(IRule *) = 0;
-  virtual bool			removeRule(std::string const &ruleName) = 0;
+  virtual void			addRule(IGame *) = 0;
+  virtual void			removeRule(std::string const &ruleName) = 0;
 };
 
 
