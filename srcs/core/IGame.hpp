@@ -7,7 +7,7 @@
 class IGame
 {
 public:
-  virtual ~Game() {};
+  virtual ~IGame() {}
 
 
 public:

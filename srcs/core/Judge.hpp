@@ -24,6 +24,6 @@ public:
 public:
   void			addRule(IRule *);
   bool			removeRule(std::string const &ruleName);
-}
+};
 
 #endif /* !JUDGE_HPP_ */
