@@ -10,7 +10,9 @@ public:
   virtual ~IRule() {}
 
 public:
-  virtual std::string const	&getRuleName() const;
+  enum				RuleType { BASICCHECK = 0, WIN, EATTHEM };
+
+  virtual RuleType		getRuleType() const;
   virtual std::string const	&getError() const;
   virtual bool			isOk(IGame *);
 };

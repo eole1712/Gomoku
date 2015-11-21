@@ -14,7 +14,8 @@ CORESRCS	= GameMap.cpp \
 		  Judge.cpp
 
 RULESRCS	= BasicCheck.cpp \
-		  Win.cpp
+		  Win.cpp \
+		  EatThem.cpp
 
 
 SRCS		+= $(addprefix $(COREDIR), $(CORESRCS))

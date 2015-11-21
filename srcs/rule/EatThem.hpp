@@ -2,6 +2,7 @@
 # define EATTHEM_HPP_
 
 # include <string>
+# include "IRule.hpp"
 # include "Game.hpp"
 
 class EatThem : public IRule
@@ -11,10 +12,11 @@ public:
   virtual ~EatThem();
 
 public:
-  std::string const&	getRuleName() const;
-  std::string const&	getError() const;
-  bool			isOk(Game*);
+  virtual IRule::RuleType	getRuleType() const;
+  virtual std::string const&	getError() const;
+  virtual bool			isOk(Game*);
 
+private:
   void			eatBetween(unsigned int posX, unsigned int posY,
 				   unsigned int x, unsigned int y);
   void			eat(unsigned int posX, unsigned int posY);

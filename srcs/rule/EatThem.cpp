@@ -1,4 +1,6 @@
 #include "Game.hpp"
+#include "GameMap.hpp"
+#include "IRule.hpp"
 #include "EatThem.hpp"
 
 EatThem::EatThem()
@@ -8,9 +10,9 @@ EatThem::EatThem()
 EatThem::~EatThem()
 {}
 
-std::string const&	EatThem::getRuleName() const
+IRule::RuleType	EatThem::getRuleType() const
 {
-  return ("EatThem");
+  return (IRule::EATTHEM);
 }
 
 std::string const&	EatThem::getError() const
@@ -20,18 +22,21 @@ std::string const&	EatThem::getError() const
 
 bool	EatThem::isOk(Game* game)
 {
-  caseContent	masterColor = map->getCase(posX, posY);
-  int		posX = game.getAction().getX();
-  int		posY = game.getAction().getY();
+  int			posX = game->getActivePlayer()->getX();
+  int			posY = game->getActivePlayer()->getY();
+  IGameMap*		map = game->getMap();
+  IGameMap::caseContent	masterColor = map->getCase(posX, posY);
 
   for (int y = -3; y <= 3; y = y + 3)
     for (int x = -3; x <= 3; x = x + 3)
-      if (!game->isOutOfBound(posX + x, posY + y))
-	if (map->getCase(posX + x, posY + y) == masterColor)
-	  {
-	    this->eatBetween(posX, posY, posX + x, posY + y);
-	    //TODO ADD 2 POINT TO PLAYER(masterColor);
-	  }
+      if (map->isIn(posX + x, posY + y))
+  	if (map->getCase(posX + x, posY + y) == masterColor)
+  	  {
+  	    this->eatBetween(posX, posY, posX + x, posY + y);
+  	    //TODO ADD 2 POINT TO PLAYER(masterColor);
+  	  }
+  // return à gérer
+  return (true);
 }
 
 void EatThem::eatBetween(unsigned int posX, unsigned int posY, unsigned int x, unsigned int y)
@@ -41,7 +46,6 @@ void EatThem::eatBetween(unsigned int posX, unsigned int posY, unsigned int x, u
 }
 
 //TODO SET CASE COLOR TO GRAY
-void	EatThem::eat(unsigned int posX, unsigned int posY)
-{
-
-}
+void	EatThem::eat(unsigned int, //posX,
+		     unsigned int)// posY)
+{}

@@ -1,13 +1,15 @@
-#include "BasicCheck.hpp"
 #include "Game.hpp"
+#include "GameMap.hpp"
+#include "IRule.hpp"
+#include "BasicCheck.hpp"
 
 BasicCheck::BasicCheck()
   : _lastError()
 {}
 
-std::string const	&BasicCheck::getRuleName() const
+IRule::RuleType	BasicCheck::getRuleType() const
 {
-  return "BasicCheck";
+  return IRule::BASICCHECK;
 }
 
 std::string const	&BasicCheck::getError() const
@@ -17,6 +19,8 @@ std::string const	&BasicCheck::getError() const
 
 bool			BasicCheck::isOk(Game * game)
 {
-  // case empty ?
-  return (game.getMap().getCase(game.getAction().getX(), game.getAction().getY()) == EMPTY);
+  // case empty -> [check]
+  return (game->getMap()->getCase(game->getActivePlayer()->getX(),
+				  game->getActivePlayer()->getY())
+	  == GameMap::EMPTY);
 }

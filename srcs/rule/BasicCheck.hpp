@@ -2,6 +2,7 @@
 # define BASICCHECK_HPP_
 
 # include <string>
+# include "IRule.hpp"
 # include "Game.hpp"
 
 class BasicCheck : public IRule
@@ -11,9 +12,9 @@ public:
   virtual ~BasicCheck();
 
 public:
-  std::string const&	getRuleName() const;
-  std::string const&	getError() const;
-  bool			isOk(Game*);
+  virtual IRule::RuleType	getRuleType() const;
+  virtual std::string const&	getError() const;
+  virtual bool			isOk(Game*);
 
 private:
   std::string		_lastError;

@@ -4,22 +4,26 @@ Win::Win()
   : _lastError()
 {}
 
-bool			Win::isOk(Game * game)
+Win::~Win()
+{}
+
+bool	Win::isOk(Game*)// game)
 {
+  // conditions de win à gérer
   if (0)
     {
 
-      return false
+      return (false);
     }
-  return true;
+  return (true);
 }
 
-std::string const	&Win::getRuleName() const
+IRule::RuleType	Win::getRuleType() const
 {
-  return std::string("Win");
+  return (IRule::WIN);
 }
 
-std::string const	&Win::getError() const
+std::string const&	Win::getError() const
 {
-  return _lastError;
+  return (this->_lastError);
 }
