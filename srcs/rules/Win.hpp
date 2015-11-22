@@ -13,9 +13,9 @@ public:
 
 public:
   bool			canEatThis(IGameMap *,
-				   unsigned int , unsigned int ,
-				   unsigned int , unsigned int ,
-				   IGameMap::caseContent , IGameMap::caseContent) const;
+				   int , int ,
+				   int , int ,
+				   IGameMap::caseContent) const;
 
   virtual IRule::RuleType	getRuleType() const;
   virtual std::string const	&getError() const;

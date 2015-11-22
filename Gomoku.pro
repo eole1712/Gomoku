@@ -54,4 +54,5 @@ SOURCES += srcs/gui/drawingArea.cpp \
            srcs/rules/BasicCheck.cpp \
            srcs/rules/EatThem.cpp \
            srcs/rules/Win.cpp \
-           srcs/rules/DoubleThree.cpp
+           srcs/rules/DoubleThree.cpp \
+           srcs/core/main.cpp
