@@ -8,6 +8,7 @@
 #include "Judge.hpp"
 #include "EatThem.hpp"
 #include "DoubleThree.hpp"
+#include "IPlayer.hpp"
 
 GameManager::GameManager()
   : _game(NULL)
