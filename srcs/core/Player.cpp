@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player(IPlayer::color color)
-  : _position{0}, _color(color)
+  : _position{0}, _color(color), _points(0)
 {
 }
 
