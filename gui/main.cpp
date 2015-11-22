@@ -5,7 +5,6 @@
 
 int main()
 {
-  IGui* gui;
   IGameManager* gm;
 
    gm = new GameManager();
