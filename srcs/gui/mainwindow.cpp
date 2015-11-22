@@ -1,3 +1,4 @@
+#include "IPlayer.hpp"
 #include "mainwindow.h"
 #include "drawingArea.hpp"
 #include "ui_mainwindow.h"
@@ -21,12 +22,9 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
       connect(tmp, &GomokuButton::clicked, [this, tmp](){
 
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
-
 	_gm->didClickCase(tmp->getX(), tmp->getY());
-
-
-	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
-
+	setPlayer1Text(_gm->getGame()->getPlayer(0)->getPoints());
+	setPlayer2Text(_gm->getGame()->getPlayer(1)->getPoints());
       });
       _buttons.push_back(tmp);
     }
