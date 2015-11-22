@@ -5,18 +5,17 @@
 TEMPLATE = app
 TARGET = Gomoku
 INCLUDEPATH += . gui srcs/core srcs/rules
+QMAKE_POST_LINK += cp Gomoku ..
 
 QMAKE_CXXFLAGS += -std=c++11
 
 QT += core gui widgets
 
 # Input
-HEADERS += ui_mainwindow.h \
-           gui/drawingArea.hpp \
+HEADERS += gui/drawingArea.hpp \
            gui/gomokuButton.hpp \
            gui/mainwindow.h \
            gui/modifiableQLabel.hpp \
-           gui/ui_mainwindow.h \
            gui/winchanger.hpp \
            QtFiles/ui_mainwindow.h \
            srcs/core/AI.hpp \
