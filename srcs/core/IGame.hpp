@@ -22,6 +22,8 @@ public:
   virtual mode		getMode() const = 0;
   virtual void		changeMode(mode newMode) = 0;
 
+  virtual void    setCase(unsigned int x, unsigned int y, IGameMap::caseContent color) = 0;
+
   virtual void		playTurn(unsigned int x, unsigned int y) = 0;
   virtual void		endTurn() = 0;
 
