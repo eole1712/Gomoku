@@ -64,7 +64,6 @@ bool	Win::isOk(IGame* game)
   int		pos[2][2];
   int		i[3];
 
-  game->getMap()->setCase(game->getActivePlayer()->getX(), game->getActivePlayer()->getX(), v);
   if (game->getActivePlayer()->getPoints() > 9)
     {
       game->setWinner();
