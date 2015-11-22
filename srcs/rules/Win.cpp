@@ -3,8 +3,6 @@
 #include "IRule.hpp"
 #include "Win.hpp"
 
-#include <iostream>
-
 Win::Win()
   : _lastError("Win error")
 {}
@@ -68,7 +66,6 @@ bool	Win::isOk(IGame* game)
   game->getMap()->setCase(game->getActivePlayer()->getX(), game->getActivePlayer()->getX(), v);
   if (game->getActivePlayer()->getPoints() > 9)
     {
-      std::cout << "BRA" << std::endl;
       game->setWinner();
       return true;
     }
@@ -95,7 +92,6 @@ bool	Win::isOk(IGame* game)
       if (i[1] == 4)
 	{
 	  game->setWinner();
-	  std::cout << "BRA2" << std::endl;
 	  return true;
 	}
       i[2] = i[1];
@@ -114,7 +110,6 @@ bool	Win::isOk(IGame* game)
 	}
       if (i[2] == 4)
 	{
-	  std::cout << "BRA3" << std::endl;
 	  game->setWinner();
 	  return true;
 	}

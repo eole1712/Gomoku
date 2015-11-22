@@ -10,8 +10,9 @@ public:
   virtual ~Player();
 
 private:
-	unsigned int _points;
   unsigned int _position[2];
+  color   _color;
+  unsigned int _points;
 
 public:
 	virtual unsigned int	getPoints() const;
@@ -23,7 +24,6 @@ public:
   virtual unsigned int	getY() const;
 
 private:
-  color		_color;
 };
 
 #endif /* PLAYER_HPP_ */

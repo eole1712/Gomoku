@@ -76,16 +76,6 @@ void MainWindow::on_PvE_clicked()
     ui->PvE->setText("I'm not Implemented Yet");
 }
 
-//deprecated
-void MainWindow::getPlayerCss(int x, int y)
-{
-  std::cerr << "deprecated function" << std::endl;
-    // static bool player = true;
-
-    // player = !player;
-    // setButtonColor(x, y, (player) ? RED : );
-}
-
 void MainWindow::setButtonColor(int x, int y, IGameMap::caseContent col)
 {
     for(auto button : _buttons)
