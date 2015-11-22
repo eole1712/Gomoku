@@ -62,15 +62,11 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   if (_game == NULL)
     return;
 
-  std::cout << "playTurn" << std::endl;
   _game->playTurn(x, y);
 
-  std::cout << "checkRules" << std::endl;
   if (_judge->checkRules(_game)) {
     _gui->setButtonColor(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
     _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
-
-    std::cout << "endTurn" << std::endl;
     _game->endTurn();
   }
   else
