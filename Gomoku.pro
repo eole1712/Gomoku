@@ -40,7 +40,6 @@ FORMS += gui/mainwindow.ui
 SOURCES += gui/drawingArea.cpp \
            gui/Gui.cpp \
            gui/gomokuButton.cpp \
-           gui/main.cpp \
            gui/mainwindow.cpp \
            gui/modifiableQLabel.cpp \
            gui/winchanger.cpp \
@@ -54,4 +53,5 @@ SOURCES += gui/drawingArea.cpp \
            srcs/rules/BasicCheck.cpp \
            srcs/rules/EatThem.cpp \
            srcs/rules/Win.cpp \
-           srcs/rules/DoubleThree.cpp
+           srcs/rules/DoubleThree.cpp \
+           srcs/core/main.cpp
