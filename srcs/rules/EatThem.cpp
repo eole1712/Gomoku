@@ -32,20 +32,31 @@ bool	EatThem::isOk(IGame* game)
       if (map->isIn(posX + x, posY + y))
   	if (map->getCase(posX + x, posY + y) == masterColor)
   	  {
-  	    this->eatBetween(posX, posY, posX + x, posY + y);
-  	    //TODO ADD 2 POINT TO PLAYER(masterColor);
+  	    this->checkBetween(posX, posY, posX + x, posY + y);
   	  }
   // return à gérer
   return (true);
 }
 
-void EatThem::eatBetween(unsigned int posX, unsigned int posY, unsigned int x, unsigned int y)
+void EatThem::checkBetween(IGame* game, unsigned int posX, unsigned int posY, unsigned int x, unsigned int y)
 {
-  eat(x + (posX > x) - (posX < x), y + (posY > y) - (posY < y));
-  eat(x + 2 * ((posX > x) - (posX < x)), y + 2 * ((posY > y) - (posY < y)));
-}
+  IGameMap::caseContent case1;
+  IGameMap::caseContent case2;
+
+  case1 = game->getMap->getCase(x + (posX > x) - (posX < x), y + (posY > y) - (posY < y));
+  case2 = game->getMap->getCase(x + 2 * ((posX > x) - (posX < x)), y + 2 * ((posY > y) - (posY < y))
+ 
+    if (case1 == ((game->getMap->getCase(posX, posY) == IGameMap::caseContent::RED) ? IGameMap::caseContent::BLUE : IGameMap::caseContent::RED) && case1 == case2)
+    {
+      eat(game, x + (posX > x) - (posX < x), y + (posY > y) - (posY < y));
+      eat(game, x + 2 * ((posX > x) - (posX < x)), y + 2 * ((posY > y) - (posY < y));
+    }
+
+ }
 
 //TODO SET CASE COLOR TO GRAY
-void	EatThem::eat(unsigned int, //posX,
-		     unsigned int)// posY)
-{}
+void	EatThem::eat(IGame* game, unsigned int posX, unsigned int posY)
+{
+  game->setCase(posX, posY, IGameMap::caseContent::GRAY);
+  game->getActivePlayer->addPoint(2);
+}
