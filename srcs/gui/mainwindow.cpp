@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
 
 	_gm->didClickCase(tmp->getX(), tmp->getY());
-	
+
 
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
 
@@ -31,8 +31,15 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     }
 
   connect(ui->PvP, &QPushButton::clicked, [this](){
+
     this->_gm->createGame(IGame::PVP);
+
     std::cout << "Clicked on launch button" << std::endl;
+  });
+
+  connect(ui->pushButton, &QPushButton::clicked, [this](){
+    this->_gm->removeGame();
+    this->reset();
   });
 
 
@@ -42,6 +49,14 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
   for (auto button : _buttons)
     {
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
+    }
+}
+
+void	MainWindow::reset()
+{
+  for (auto button : _buttons)
+    {
+      button->setStyleSheet(std::string("background-color:grey").c_str());
     }
 }
 

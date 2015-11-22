@@ -45,6 +45,13 @@ IGame *			GameManager::createGame(IGame::mode gameMode)
   return _game;
 }
 
+void			GameManager::removeGame()
+{
+  if (_game)
+    delete _game;
+  _game = NULL;
+}
+
 IGame *			GameManager::getGame() const
 {
   return _game;

@@ -25,6 +25,7 @@ public:
     explicit MainWindow(QWidget *parent, IGameManager*);
     ~MainWindow();
     void setButtonColor(int x, int y, IGameMap::caseContent);
+    void reset();
 
 /*!
  * \brief slots : récepteurs d'events
