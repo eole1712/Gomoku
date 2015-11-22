@@ -16,7 +16,7 @@ public:
 
 public:
   virtual void			addRule(IRule *) = 0;
-  virtual void			removeRule(std::string const &ruleName) = 0;
+  virtual void			removeRule(IRule::RuleType ruleType) = 0;
 };
 
 

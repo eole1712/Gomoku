@@ -3,7 +3,8 @@
 Gui::Gui(IGameManager* gm, int argc, char** argv)
   :IGui(), _app(argc, argv), _win(nullptr, gm), _gm(gm)
 {
-  ;
+  _win.show();
+  _app.exec();
 }
 
 Gui::~Gui()

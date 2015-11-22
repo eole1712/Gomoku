@@ -2,6 +2,7 @@
 #include "GameManager.hpp"
 #include "BasicCheck.hpp"
 #include "Win.hpp"
+#include "Judge.hpp"
 #include "EatThem.hpp"
 
 GameManager::GameManager()
@@ -17,6 +18,7 @@ GameManager::~GameManager()
 
 bool			GameManager::initJudge()
 {
+  _judge = new Judge();
   // ne pas modifier l'ordre des régles !
   _judge->addRule(new BasicCheck());
   // ...
