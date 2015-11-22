@@ -74,15 +74,16 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   else
     std::cout << _judge->getLastError() << std::endl;
 
-  if (_game->isFinished())
-    std::cout << "WINNNNNNNNNNNN" << std::endl;
+  // if (_game->isFinished())
+  //   std::cout << "WINNNNNNNNNNNN" << std::endl;
 
-  for (int x = 0; x < 19; x++)
-    {
-      for (int y = 0; y < 19; y++)
-	{
-	  std::cout << _game->getMap()->getCase(x, y);
-	}
-      std::cout << std::endl;
-    }
+  // affichage de la map (terminal)
+  // for (int x = 0; x < 19; x++)
+  //   {
+  //     for (int y = 0; y < 19; y++)
+  // 	{
+  // 	  std::cout << _game->getMap()->getCase(x, y);
+  // 	}
+  //     std::cout << std::endl;
+  //   }
 }

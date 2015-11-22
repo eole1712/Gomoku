@@ -50,6 +50,8 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
     }
   ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
+  ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
+  ui->score2->setStyleSheet(std::string("background-color:red").c_str());
 }
 
 void	MainWindow::reset()

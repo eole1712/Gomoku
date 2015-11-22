@@ -87,6 +87,7 @@ void		Game::playTurn(unsigned int x, unsigned int y)
 void		Game::endTurn()
 {
   _turn = !_turn;
+  _gui->changeTurn();
 }
 
 
