@@ -34,7 +34,8 @@ HEADERS += gui/drawingArea.hpp \
            srcs/core/Player.hpp \
            srcs/rules/BasicCheck.hpp \
            srcs/rules/EatThem.hpp \
-           srcs/rules/Win.hpp
+           srcs/rules/Win.hpp \
+           srcs/rules/DoubleThree.hpp
 FORMS += gui/mainwindow.ui
 SOURCES += gui/drawingArea.cpp \
            gui/Gui.cpp \
@@ -52,4 +53,5 @@ SOURCES += gui/drawingArea.cpp \
            srcs/core/Player.cpp \
            srcs/rules/BasicCheck.cpp \
            srcs/rules/EatThem.cpp \
-           srcs/rules/Win.cpp
+           srcs/rules/Win.cpp \
+           srcs/rules/DoubleThree.hpp
