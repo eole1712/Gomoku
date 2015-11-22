@@ -58,5 +58,5 @@ void EatThem::checkBetween(IGame* game, unsigned int posX, unsigned int posY, un
 void	EatThem::eat(IGame* game, unsigned int posX, unsigned int posY)
 {
   game->setCase(posX, posY, IGameMap::caseContent::EMPTY);
-  game->getActivePlayer()->addPoints(2);
+  game->getActivePlayer()->addPoints(1);
 }
