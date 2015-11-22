@@ -17,7 +17,6 @@ HEADERS += gui/drawingArea.hpp \
            gui/mainwindow.h \
            gui/modifiableQLabel.hpp \
            gui/winchanger.hpp \
-           QtFiles/ui_mainwindow.h \
            srcs/core/AI.hpp \
            srcs/core/Game.hpp \
            srcs/core/GameManager.hpp \
