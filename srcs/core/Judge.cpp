@@ -15,7 +15,9 @@ bool			Judge::checkRules(IGame * game)
 {
   ruleMap::const_iterator i;
 
-  for (i = _rules.begin(); i != _rules.end() && (*i).second->isOk(game); i++);
+  for (i = _rules.begin();
+       i != _rules.end() && (*i).second->isOk(game) && !game->isFinished();
+       i++);
   if (i != _rules.end())
     {
       _lastError = (*i).second->getError();
