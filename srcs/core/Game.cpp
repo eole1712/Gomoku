@@ -51,8 +51,8 @@ IGame::mode		Game::getMode() const
 
 void		Game::setCase(unsigned int x, unsigned int y, IGameMap::caseContent color)
 {
-	getMap->setCase(x, y, color);
- 	getGameManager->getGui->setCase(x, y, color);
+	getMap()->setCase(x, y, color);
+ 	//getGameManager->getGui->setCase(x, y, color);
 }
 
 void		Game::changeMode(IGame::mode newMode)

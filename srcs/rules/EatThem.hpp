@@ -17,9 +17,9 @@ public:
   virtual bool			isOk(IGame*);
 
 private:
-  void			eatBetween(unsigned int posX, unsigned int posY,
+  void			checkBetween(IGame* game, unsigned int posX, unsigned int posY,
 				   unsigned int x, unsigned int y);
-  void			eat(unsigned int posX, unsigned int posY);
+  void			eat(IGame* game, unsigned int posX, unsigned int posY);
 
 private:
   std::string		_lastError;
