@@ -9,24 +9,17 @@
 GameManager::GameManager()
   : _game(NULL)
 {
-  initJudge();
+  _judge = new Judge();
+  _judge->addRule(new BasicCheck());
+  _judge->addRule(new DoubleThree());
+  _judge->addRule(new EatThem());
+  _judge->addRule(new Win());  initJudge();
 }
 
 GameManager::~GameManager()
 {
   if (_game)
     delete _game;
-}
-
-bool			GameManager::initJudge()
-{
-  _judge = new Judge();
-  // ne pas modifier l'ordre des régles !
-  _judge->addRule(new BasicCheck());
-  // ...
-  _judge->addRule(new Win());
-  _judge->addRule(new EatThem());
-  return true;
 }
 
 IJudge *		GameManager::getJudge() const
