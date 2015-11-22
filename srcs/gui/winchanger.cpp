@@ -16,11 +16,9 @@ void winChanger::nextWidget()
 {
 
     this->setCurrentIndex(0);
-    std::cout << this->currentIndex() << std::endl;
 }
 
 void winChanger::prevWidget()
 {
     this->setCurrentIndex(1);
-    std::cout << this->currentIndex() << std::endl;
 }
