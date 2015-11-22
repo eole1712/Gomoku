@@ -28,7 +28,8 @@ public:
     void reset();
     void setPlayer1Text(int score);
     void setPlayer2Text(int score);
-
+    void setWin(int Player);
+    void changeTurn();
 /*!
  * \brief slots : récepteurs d'events
  */

@@ -49,6 +49,9 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     {
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
     }
+  ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
+  ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
+  ui->score2->setStyleSheet(std::string("background-color:red").c_str());
 }
 
 void	MainWindow::reset()
@@ -94,7 +97,8 @@ void MainWindow::setPlayer1Text(int score)
 
   ss << score;
   ss >> scoreStr;
-  str = "Player1 : " + scoreStr;
+  str = scoreStr;
+  ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
   ui->score1->setText(str.c_str());
 }
 
@@ -106,6 +110,30 @@ void MainWindow::setPlayer2Text(int score)
 
   ss << score;
   ss >> scoreStr;
-  str = "Player2 : " + scoreStr;
+  str = scoreStr;
+  ui->score2->setStyleSheet(std::string("background-color:red").c_str());
   ui->score2->setText(str.c_str());
+}
+
+void MainWindow::setWin(int Player)
+{
+    std::string str;
+
+    if (Player == 0)
+        str += "Player1 ";
+    if (Player == 1)
+        str += "Player2 ";
+    str += "Won !";
+    ui->WinLabel->setText(str.c_str());
+}
+
+void MainWindow::changeTurn()
+{
+    static bool turn = true;
+
+    if (turn)
+        ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
+    else
+        ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
+    turn = !turn;
 }
