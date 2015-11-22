@@ -5,7 +5,7 @@
 #include "BasicCheck.hpp"
 
 BasicCheck::BasicCheck()
-  : _lastError("Basic check error")
+  : _lastError("Case non disponible !")
 {}
 
 BasicCheck::~BasicCheck()

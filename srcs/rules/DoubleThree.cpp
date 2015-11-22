@@ -5,7 +5,7 @@
 #include "DoubleThree.hpp"
 
 DoubleThree::DoubleThree()
-  : _lastError(std::string("Double three rule forbidden your action!"))
+  : _lastError(std::string("Regle des trois non respecté !"))
 {}
 
 DoubleThree::~DoubleThree()

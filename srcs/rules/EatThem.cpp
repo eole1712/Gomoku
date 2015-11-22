@@ -6,7 +6,7 @@
 #include "EatThem.hpp"
 
 EatThem::EatThem()
-  : _lastError("Eat them error")
+  : _lastError("ON S'EN FOU")
 {}
 
 EatThem::~EatThem()
