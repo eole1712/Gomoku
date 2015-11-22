@@ -10,7 +10,7 @@
 #include "DoubleThree.hpp"
 #include "IPlayer.hpp"
 
-GameManager::GameManager()
+GameManager::GameManager(int &ac, char **av)
   : _game(NULL)
 {
   _judge = new Judge();
@@ -18,7 +18,7 @@ GameManager::GameManager()
   _judge->addRule(new DoubleThree());
   _judge->addRule(new EatThem());
   _judge->addRule(new Win());
-  _gui = new Gui(this, 0, nullptr);
+  _gui = new Gui(this, ac, av);
 }
 
 GameManager::~GameManager()
@@ -66,7 +66,6 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   _game->playTurn(x, y);
 
   if (_judge->checkRules(_game)) {
-    _gui->setButtonColor(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
     _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
     _game->endTurn();
     std::cout << "player 1 score : " << getGame()->getPlayer(0)->getPoints() << std::endl;
@@ -75,12 +74,16 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   else
     std::cout << _judge->getLastError() << std::endl;
 
-  for (int x = 0; x < 19; x++)
-    {
-      for (int y = 0; y < 19; y++)
-	{
-	  std::cout << _game->getMap()->getCase(x, y);
-	}
-      std::cout << std::endl;
-    }
+  // if (_game->isFinished())
+  //   std::cout << "WINNNNNNNNNNNN" << std::endl;
+
+  // affichage de la map (terminal)
+  // for (int x = 0; x < 19; x++)
+  //   {
+  //     for (int y = 0; y < 19; y++)
+  // 	{
+  // 	  std::cout << _game->getMap()->getCase(x, y);
+  // 	}
+  //     std::cout << std::endl;
+  //   }
 }

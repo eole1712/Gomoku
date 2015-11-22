@@ -87,6 +87,7 @@ void		Game::playTurn(unsigned int x, unsigned int y)
 void		Game::endTurn()
 {
   _turn = !_turn;
+  _gui->changeTurn();
 }
 
 
@@ -94,6 +95,7 @@ void		Game::setWinner()
 {
   _winner = getActivePlayer();
   setFinish();
+  _gui->setWin(_turn);
 }
 
 void		Game::setFinish()

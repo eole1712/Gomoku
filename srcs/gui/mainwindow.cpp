@@ -1,3 +1,4 @@
+#include "IPlayer.hpp"
 #include "mainwindow.h"
 #include "drawingArea.hpp"
 #include "ui_mainwindow.h"
@@ -21,12 +22,9 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
       connect(tmp, &GomokuButton::clicked, [this, tmp](){
 
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
-
 	_gm->didClickCase(tmp->getX(), tmp->getY());
-
-
-	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
-
+	setPlayer1Text(_gm->getGame()->getPlayer(0)->getPoints());
+	setPlayer2Text(_gm->getGame()->getPlayer(1)->getPoints());
       });
       _buttons.push_back(tmp);
     }
@@ -51,6 +49,9 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     {
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
     }
+  ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
+  ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
+  ui->score2->setStyleSheet(std::string("background-color:red").c_str());
 }
 
 void	MainWindow::reset()
@@ -96,7 +97,8 @@ void MainWindow::setPlayer1Text(int score)
 
   ss << score;
   ss >> scoreStr;
-  str = "Player1 : " + scoreStr;
+  str = scoreStr;
+  ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
   ui->score1->setText(str.c_str());
 }
 
@@ -108,6 +110,29 @@ void MainWindow::setPlayer2Text(int score)
 
   ss << score;
   ss >> scoreStr;
-  str = "Player2 : " + scoreStr;
+  str = scoreStr;
+  ui->score2->setStyleSheet(std::string("background-color:red").c_str());
   ui->score2->setText(str.c_str());
+}
+
+void MainWindow::setWin(int Player)
+{
+    std::string str;
+
+    if (Player == 0)
+      ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
+    if (Player == 1)
+      ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
+    ui->playerTurn->setText("Winner !");
+}
+
+void MainWindow::changeTurn()
+{
+    static bool turn = true;
+
+    if (turn)
+        ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
+    else
+      ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
+    turn = !turn;
 }
