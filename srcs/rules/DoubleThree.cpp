@@ -26,7 +26,7 @@ bool		DoubleThree::isOk(IGame * game)
     (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? GameMap::BLUE : GameMap::RED;
   GameMap::caseContent	nope = (v == GameMap::BLUE) ? GameMap::RED : GameMap::BLUE;
   IGameMap *	map = game->getMap();
-  char		vecTest[4][2] = {{1, 0}, {0, 1}, {1, 1}, {-1, 1}};
+  const char	vecTest[4][2] = {{1, 0}, {0, 1}, {1, 1}, {-1, 1}};
   int		x = game->getActivePlayer()->getX();
   int		y = game->getActivePlayer()->getY();
   int		pos[2][2];

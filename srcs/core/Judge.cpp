@@ -24,8 +24,13 @@ bool			Judge::checkRules(IGame * game)
 {
   ruleMap::const_iterator i;
 
+  if (game->isFinished())
+    {
+      _lastError = "Game is finish!";
+      return false;
+    }
   for (i = _rules.begin();
-       i != _rules.end() && (*i).second->isOk(game) && !game->isFinished();
+       i != _rules.end() && (*i).second->isOk(game);
        i++);
   if (i != _rules.end())
     {
