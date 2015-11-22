@@ -48,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
 
 MainWindow::~MainWindow()
 {
+  delete ui;
+  delete _gm;
 }
 
 /*!

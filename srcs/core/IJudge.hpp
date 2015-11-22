@@ -8,7 +8,7 @@
 class IJudge
 {
 public:
-  ~IJudge() {}
+  virtual ~IJudge() {}
 
 public:
   virtual std::string const	&getLastError() const = 0;

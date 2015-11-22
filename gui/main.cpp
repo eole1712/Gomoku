@@ -3,14 +3,13 @@
 #include "../srcs/core/GameManager.hpp"
 #include <QApplication>
 
-int main(int argc, char *argv[])
+int main()
 {
   IGui* gui;
   IGameManager* gm;
 
    gm = new GameManager();
-   gui = new Gui(gm, 0, nullptr);
-
+   (void)gm;
    /*QApplication a(argc, argv);
     MainWindow w;
     w.show();
