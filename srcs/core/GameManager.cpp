@@ -11,12 +11,12 @@
 GameManager::GameManager()
   : _game(NULL)
 {
-  _gui = new Gui(this, 0, nullptr);
   _judge = new Judge();
   _judge->addRule(new BasicCheck());
   _judge->addRule(new DoubleThree());
   _judge->addRule(new EatThem());
   _judge->addRule(new Win());
+  _gui = new Gui(this, 0, nullptr);
 }
 
 GameManager::~GameManager()
