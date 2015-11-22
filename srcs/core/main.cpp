@@ -3,16 +3,10 @@
 #include "../srcs/core/GameManager.hpp"
 #include <QApplication>
 
-int main()
+int main(int argc, char** argv)
 {
-  IGameManager* gm = new GameManager();
+  IGameManager* gm = new GameManager(argc, argv);
 
   gm->start();
-  /*QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();*/
-  //gui->run();
   return 0;
 }
