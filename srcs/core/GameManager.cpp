@@ -1,3 +1,4 @@
+#include <iostream>
 #include "IGame.hpp"
 #include "GameManager.hpp"
 #include "BasicCheck.hpp"
@@ -13,7 +14,8 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-  delete _game;
+  if (_game)
+    delete _game;
 }
 
 bool			GameManager::initJudge()
@@ -34,6 +36,8 @@ IJudge *		GameManager::getJudge() const
 
 IGame *			GameManager::createGame(IGame::mode gameMode)
 {
+  if (gameMode == IGame::PVE)
+    return NULL;
   _game = new Game(gameMode);
   return _game;
 }
@@ -47,8 +51,16 @@ IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y) cons
 {
   if (_game == NULL)
     return IGameMap::EMPTY;
+
+  std::cout << "playTurn" << std::endl;
   _game->playTurn(x, y);
+
+  std::cout << "checkRules" << std::endl;
   _judge->checkRules(_game);
+
+  std::cout << "endTurn" << std::endl;
   _game->endTurn();
+
+  std::cout << "getCase" << std::endl;
   return _game->getMap()->getCase(x, y);
 }
