@@ -4,7 +4,7 @@
 #include "BasicCheck.hpp"
 
 BasicCheck::BasicCheck()
-  : _lastError()
+  : _lastError("Basic check error")
 {}
 
 BasicCheck::~BasicCheck()

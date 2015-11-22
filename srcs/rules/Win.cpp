@@ -4,7 +4,7 @@
 #include "Win.hpp"
 
 Win::Win()
-  : _lastError()
+  : _lastError("Win error")
 {}
 
 Win::~Win()
