@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "drawingArea.hpp"
 #include "ui_mainwindow.h"
+#include <sstream>
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
@@ -22,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
 
 	_gm->didClickCase(tmp->getX(), tmp->getY());
-	
+
 
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
 
@@ -31,8 +32,15 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     }
 
   connect(ui->PvP, &QPushButton::clicked, [this](){
+
     this->_gm->createGame(IGame::PVP);
+
     std::cout << "Clicked on launch button" << std::endl;
+  });
+
+  connect(ui->pushButton, &QPushButton::clicked, [this](){
+    this->_gm->removeGame();
+    this->reset();
   });
 
 
@@ -42,6 +50,14 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
   for (auto button : _buttons)
     {
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
+    }
+}
+
+void	MainWindow::reset()
+{
+  for (auto button : _buttons)
+    {
+      button->setStyleSheet(std::string("background-color:grey").c_str());
     }
 }
 
@@ -70,4 +86,28 @@ void MainWindow::setButtonColor(int x, int y, IGameMap::caseContent col)
             button->setStyleSheet(std::string("background-color:" + _colors[col]).c_str());
 	  }
     }
+}
+
+void MainWindow::setPlayer1Text(int score)
+{
+  std::stringstream ss;
+  std::string scoreStr;
+  std::string str;
+
+  ss << score;
+  ss >> scoreStr;
+  str = "Player1 : " + scoreStr;
+  ui->score1->setText(str.c_str());
+}
+
+void MainWindow::setPlayer2Text(int score)
+{
+  std::stringstream ss;
+  std::string scoreStr;
+  std::string str;
+
+  ss << score;
+  ss >> scoreStr;
+  str = "Player2 : " + scoreStr;
+  ui->score2->setText(str.c_str());
 }

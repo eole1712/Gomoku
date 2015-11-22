@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include "gomokuButton.hpp"
-#include "../srcs/core/GameMap.hpp"
-#include "../srcs/core/IGameManager.hpp"
+#include "GameMap.hpp"
+#include "IGameManager.hpp"
 #include <QPushButton>
 #include <QMainWindow>
 

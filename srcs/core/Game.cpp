@@ -3,9 +3,10 @@
 #include "AI.hpp"
 #include "Game.hpp"
 #include "GameMap.hpp"
+#include "IGui.hpp"
 
-Game::Game(mode gameMode)
-  : _map(new GameMap()), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
+Game::Game(mode gameMode, IGui* gui)
+  : _gui(gui), _map(new GameMap()), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
 {
   initPlayer();
 }
@@ -39,6 +40,11 @@ IPlayer *	Game::getActivePlayer() const
   return _players[_turn];
 }
 
+IGui*	Game::getGui() const
+{
+  return _gui;
+}
+
 IGameMap *	Game::getMap() const
 {
   return _map;
@@ -52,8 +58,8 @@ IGame::mode		Game::getMode() const
 
 void		Game::setCase(unsigned int x, unsigned int y, IGameMap::caseContent color)
 {
-	getMap()->setCase(x, y, color);
- 	//getGameManager->getGui->setCase(x, y, color);
+  getMap()->setCase(x, y, color);
+  getGui()->setButtonColor(x, y, color);
 }
 
 void		Game::changeMode(IGame::mode newMode)

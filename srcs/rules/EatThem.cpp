@@ -4,7 +4,7 @@
 #include "EatThem.hpp"
 
 EatThem::EatThem()
-  : _lastError()
+  : _lastError("Eat them error")
 {}
 
 EatThem::~EatThem()
@@ -45,7 +45,7 @@ void EatThem::checkBetween(IGame* game, unsigned int posX, unsigned int posY, un
 
   case1 = game->getMap()->getCase(x + (posX > x) - (posX < x), y + (posY > y) - (posY < y));
   case2 = game->getMap()->getCase(x + 2 * ((posX > x) - (posX < x)), y + 2 * ((posY > y) - (posY < y)));
- 
+
   if (case1 == ((game->getMap()->getCase(posX, posY) == IGameMap::caseContent::RED) ? IGameMap::caseContent::BLUE : IGameMap::caseContent::RED) && case1 == case2)
   {
       eat(game, x + (posX > x) - (posX < x), y + (posY > y) - (posY < y));
