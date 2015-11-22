@@ -13,8 +13,8 @@ public:
   void setButtoncolor(int x, int y, IGameMap::caseContent);
   void run();
 protected:
-  QApplication _app;
-  MainWindow _win;
+  QApplication* _app;
+  MainWindow* _win;
   IGameManager* _gm;
 };
 

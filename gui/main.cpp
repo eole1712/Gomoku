@@ -9,7 +9,8 @@ int main(int argc, char *argv[])
   IGameManager* gm;
 
    gm = new GameManager();
-   gui = new Gui(gm, 0, nullptr);
+   gui = new Gui(gm, argc, argv);
+
 
    /*QApplication a(argc, argv);
     MainWindow w;
@@ -17,5 +18,6 @@ int main(int argc, char *argv[])
 
     return a.exec();*/
   //gui->run();
-  return 0;
+
+   return 0;
 }
