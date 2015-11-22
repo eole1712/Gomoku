@@ -10,7 +10,7 @@
 #include "DoubleThree.hpp"
 #include "IPlayer.hpp"
 
-GameManager::GameManager(int argc, char** argv)
+GameManager::GameManager(int &ac, char **av)
   : _game(NULL)
 {
   _judge = new Judge();
@@ -18,7 +18,7 @@ GameManager::GameManager(int argc, char** argv)
   _judge->addRule(new DoubleThree());
   _judge->addRule(new EatThem());
   _judge->addRule(new Win());
-  _gui = new Gui(this, argc, argv);
+  _gui = new Gui(this, ac, av);
 }
 
 GameManager::~GameManager()

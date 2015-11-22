@@ -95,6 +95,7 @@ void		Game::setWinner()
 {
   _winner = getActivePlayer();
   setFinish();
+  _gui->setWin(_turn);
 }
 
 void		Game::setFinish()

@@ -11,7 +11,7 @@ class IJudge;
 class GameManager : public IGameManager
 {
 public:
-  GameManager(int argc, char** argv);
+  GameManager(int &ac, char **av);
   virtual ~GameManager();
 
 private:

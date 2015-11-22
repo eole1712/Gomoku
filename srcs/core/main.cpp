@@ -3,9 +3,9 @@
 #include "../srcs/core/GameManager.hpp"
 #include <QApplication>
 
-int main(int argc, char** argv)
+int main(int ac, char **av)
 {
-  IGameManager* gm = new GameManager(argc, argv);
+  IGameManager* gm = new GameManager(ac, av);
 
   gm->start();
   return 0;

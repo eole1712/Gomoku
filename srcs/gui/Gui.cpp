@@ -1,6 +1,6 @@
 #include "Gui.hpp"
 #include <iostream>
-Gui::Gui(IGameManager* gm, int argc, char** argv)
+Gui::Gui(IGameManager* gm, int &argc, char** argv)
   :IGui(), _app(new QApplication(argc, argv)), _win(new MainWindow(0, gm)), _gm(gm)
 {
 }

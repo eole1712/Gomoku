@@ -8,7 +8,7 @@
 class Gui : public IGui
 {
 public:
-  Gui(IGameManager*, int argc, char** argv);
+  Gui(IGameManager*, int &argc, char** argv);
   virtual ~Gui();
 
   virtual void start();
