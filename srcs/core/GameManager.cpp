@@ -24,7 +24,6 @@ GameManager::~GameManager()
   if (_game)
     delete _game;
   delete _judge;
- // delete _gui;
 }
 
 void        GameManager::start() const
@@ -41,7 +40,7 @@ IGame *			GameManager::createGame(IGame::mode gameMode)
 {
   if (gameMode == IGame::PVE)
     return NULL;
-  _game = new Game(gameMode);
+  _game = new Game(gameMode, _gui);
   return _game;
 }
 

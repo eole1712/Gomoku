@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "drawingArea.hpp"
 #include "ui_mainwindow.h"
+#include <sstream>
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
@@ -87,12 +88,26 @@ void MainWindow::setButtonColor(int x, int y, IGameMap::caseContent col)
     }
 }
 
-void MainWindow::setPlayer1Text(std::string const& str)
+void MainWindow::setPlayer1Text(int score)
 {
-    ui->score1->setText(str.c_str());
+  std::stringstream ss;
+  std::string scoreStr;
+  std::string str;
+
+  ss << score;
+  ss >> scoreStr;
+  str = "Player1 : " + scoreStr;
+  ui->score1->setText(str.c_str());
 }
 
-void MainWindow::setPlayer2Text(std::string const& str)
+void MainWindow::setPlayer2Text(int score)
 {
-    ui->score2->setText(str.c_str());
+  std::stringstream ss;
+  std::string scoreStr;
+  std::string str;
+
+  ss << score;
+  ss >> scoreStr;
+  str = "Player2 : " + scoreStr;
+  ui->score2->setText(str.c_str());
 }

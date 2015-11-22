@@ -1,8 +1,8 @@
 #ifndef IGUI_H_
 # define IGUI_H_
 
-#include "../srcs/core/IGameMap.hpp"
-#include "../srcs/core/IGameManager.hpp"
+#include "IGameMap.hpp"
+#include "IGameManager.hpp"
 
 class IGui
 {
