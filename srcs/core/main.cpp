@@ -7,7 +7,7 @@ int main()
 {
   IGameManager* gm = new GameManager();
 
-  gm.start();
+  gm->start();
   /*QApplication a(argc, argv);
     MainWindow w;
     w.show();
