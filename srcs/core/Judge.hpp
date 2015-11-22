@@ -3,8 +3,10 @@
 
 # include <map>
 # include <string>
-# include "IRule.hpp"
 # include "IJudge.hpp"
+# include "IRule.hpp"
+
+class IGame;
 
 class Judge : public IJudge
 {

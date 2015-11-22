@@ -3,7 +3,8 @@
 
 # include <string>
 # include "IRule.hpp"
-# include "Game.hpp"
+
+class IGame;
 
 class BasicCheck : public IRule
 {

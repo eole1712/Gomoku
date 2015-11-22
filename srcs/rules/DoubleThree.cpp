@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "GameMap.hpp"
 #include "IRule.hpp"
+#include "IPlayer.hpp"
 #include "DoubleThree.hpp"
 
 DoubleThree::DoubleThree()

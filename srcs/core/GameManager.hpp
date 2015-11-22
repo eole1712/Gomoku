@@ -2,9 +2,11 @@
 # define GAMEMANAGER_HPP_
 
 # include <string>
-# include "IGame.hpp"
 # include "IGameManager.hpp"
-# include "IGui.hpp"
+
+class IGui;
+class IJudge;
+class IGame;
 
 class GameManager : public IGameManager
 {

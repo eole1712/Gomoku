@@ -2,9 +2,10 @@
 # define GAME_HPP_
 
 #include "IGame.hpp"
-#include "IGameMap.hpp"
-#include "IGui.hpp"
-#include "IPlayer.hpp"
+
+class IGui;
+class IGameMap;
+class IPlayer;
 
 class Game : public IGame
 {
