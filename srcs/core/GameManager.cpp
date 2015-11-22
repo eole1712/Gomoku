@@ -27,6 +27,11 @@ GameManager::~GameManager()
  // delete _gui;
 }
 
+void        GameManager::start() const
+{
+  _gui->start();
+}
+
 IJudge *		GameManager::getJudge() const
 {
   return _judge;

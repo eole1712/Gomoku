@@ -16,6 +16,7 @@ public:
   virtual IJudge *		getJudge() const = 0;
   virtual IGame *		createGame(IGame::mode gameMode) = 0;
   virtual IGame *		getGame() const  = 0;
+  virtual void			start() const = 0;
   virtual IGameMap::caseContent	didClickCase(unsigned int x, unsigned y) = 0;
 };
 
