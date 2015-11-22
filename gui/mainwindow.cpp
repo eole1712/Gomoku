@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     _colors[1] = "blue";
     _colors[2] = "red";
     ui->setupUi(this);
+    ui->stackedWidget->setCurrentIndex(1);
     for(int i = 0; i != 19 * 19; ++i)
       {
         GomokuButton* tmp = new GomokuButton(i - 19 * (i / 19), i / 19);

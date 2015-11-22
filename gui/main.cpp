@@ -16,4 +16,5 @@ int main(int argc, char *argv[])
 
     return a.exec();*/
   //gui->run();
+  return 0;
 }
