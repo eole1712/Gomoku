@@ -27,7 +27,7 @@ bool	EatThem::isOk(IGame* game)
   int			posX = game->getActivePlayer()->getX();
   int			posY = game->getActivePlayer()->getY();
   IGameMap*		map = game->getMap();
-  IGameMap::caseContent	masterColor = map->getCase(posX, posY);
+  IGameMap::caseContent	masterColor = static_cast<IGameMap::caseContent>(game->getActivePlayer()->getColor());
 
   for (int y = -3; y <= 3; y = y + 3)
     for (int x = -3; x <= 3; x = x + 3)
@@ -36,7 +36,6 @@ bool	EatThem::isOk(IGame* game)
   	  {
   	    this->checkBetween(game, posX, posY, posX + x, posY + y);
   	  }
-  // return à gérer
   return (true);
 }
 
@@ -48,7 +47,8 @@ void EatThem::checkBetween(IGame* game, unsigned int posX, unsigned int posY, un
   case1 = game->getMap()->getCase(x + (posX > x) - (posX < x), y + (posY > y) - (posY < y));
   case2 = game->getMap()->getCase(x + 2 * ((posX > x) - (posX < x)), y + 2 * ((posY > y) - (posY < y)));
 
-  if (case1 == ((game->getMap()->getCase(posX, posY) == IGameMap::caseContent::RED) ? IGameMap::caseContent::BLUE : IGameMap::caseContent::RED) && case1 == case2)
+
+  if (case1 == ((static_cast<IGameMap::caseContent>(game->getActivePlayer()->getColor()) == IGameMap::caseContent::RED) ? IGameMap::caseContent::BLUE : IGameMap::caseContent::RED) && case1 == case2)
   {
       eat(game, x + (posX > x) - (posX < x), y + (posY > y) - (posY < y));
       eat(game, x + 2 * ((posX > x) - (posX < x)), y + 2 * ((posY > y) - (posY < y)));
@@ -56,10 +56,8 @@ void EatThem::checkBetween(IGame* game, unsigned int posX, unsigned int posY, un
 
  }
 
-//TODO SET CASE COLOR TO GRAY
 void	EatThem::eat(IGame* game, unsigned int posX, unsigned int posY)
 {
-  std::cout << "EAT IT !! EAT !!" << std::endl;
   game->setCase(posX, posY, IGameMap::caseContent::EMPTY);
   game->getActivePlayer()->addPoints(1);
 }
