@@ -9,14 +9,15 @@ Gui::~Gui()
 {
 }
 
-void	Gui::start() 
+void	Gui::start()
 {
-	if (_win && _app) {
-    	_win->show();
-    	_app->exec();
-    	delete _win;
-    	delete _app;
-  	}
+  if (_win && _app) {
+    std::cout << std::endl;
+    _win->show();
+    _app->exec();
+    delete _win;
+    delete _app;
+  }
 }
 
 void Gui::setButtonColor(int x, int y, IGameMap::caseContent col)
