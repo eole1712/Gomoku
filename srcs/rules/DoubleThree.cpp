@@ -4,7 +4,7 @@
 #include "DoubleThree.hpp"
 
 DoubleThree::DoubleThree()
-  : _lastError()
+  : _lastError(std::string("Double three rule forbidden your action!"))
 {}
 
 DoubleThree::~DoubleThree()
@@ -12,7 +12,7 @@ DoubleThree::~DoubleThree()
 
 IRule::RuleType	DoubleThree::getRuleType() const
 {
-  return IRule::BASICCHECK;
+  return IRule::DOUBLETHREE;
 }
 
 std::string const	&DoubleThree::getError() const
@@ -24,6 +24,7 @@ bool		DoubleThree::isOk(IGame * game)
 {
   GameMap::caseContent	v =
     (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? GameMap::BLUE : GameMap::RED;
+  GameMap::caseContent	nope = (v == GameMap::BLUE) ? GameMap::RED : GameMap::BLUE;
   IGameMap *	map = game->getMap();
   char		vecTest[4][2] = {{1, 0}, {0, 1}, {1, 1}, {-1, 1}};
   int		x = game->getActivePlayer()->getX();
@@ -50,11 +51,14 @@ bool		DoubleThree::isOk(IGame * game)
       i[1] = 0;
       i[2] = 0;
       while (i[1] < 3 && i[2] < 2 &&
-	      (pos[0][0] += vecTest[i[0]][0]) < 19 && pos[0][0] >= 0 &&
-	      (pos[0][1] += vecTest[i[0]][1]) < 19 && pos[0][1] >= 0)
+	      pos[0][0] < 19 && pos[0][0] >= 0 &&
+	      pos[0][1] < 19 && pos[0][1] >= 0 &&
+	     map->getCase(pos[0][0], pos[0][1]) != nope)
 	{
 	  i[2] += (map->getCase(pos[0][0], pos[0][1]) == v);
 	  i[1]++;
+	  pos[0][0] += vecTest[i[0]][0];
+	  pos[0][1] += vecTest[i[0]][1];
 	}
       if (i[2] == 2)
 	{
@@ -65,11 +69,14 @@ bool		DoubleThree::isOk(IGame * game)
       i[1] = 0;
       i[2] = 0;
       while (i[1] < 3 && i[2] < 2 &&
-	      (pos[1][0] -= vecTest[i[0]][0]) < 19 && pos[1][0] >= 0 &&
-	      (pos[1][1] -= vecTest[i[0]][1]) < 19 && pos[1][1] >= 0)
+	      pos[1][0] < 19 && pos[1][0] >= 0 &&
+	      pos[1][1] < 19 && pos[1][1] >= 0 &&
+	     map->getCase(pos[1][0], pos[1][1]) != nope)
 	{
 	  i[2] += (map->getCase(pos[1][0], pos[1][1]) == v);
 	  i[1]++;
+	  pos[1][0] -= vecTest[i[0]][0];
+	  pos[1][1] -= vecTest[i[0]][1];
 	}
       if (i[2] == 2)
 	  count++;

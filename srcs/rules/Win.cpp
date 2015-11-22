@@ -1,3 +1,6 @@
+#include "Game.hpp"
+#include "GameMap.hpp"
+#include "IRule.hpp"
 #include "Win.hpp"
 
 Win::Win()
@@ -7,26 +10,78 @@ Win::Win()
 Win::~Win()
 {}
 
+bool	Win::canEatThis(IGameMap *,
+			unsigned int , unsigned int ,
+			unsigned int , unsigned int ,
+			IGameMap::caseContent , IGameMap::caseContent) const
+{
+  /*
+  if (map.isIn(x - vecTX, y - vecTY) &&
+      map.getCase(x - vecTX, y - vecTY) != ) );
+*/
+  return false;
+}
+
 bool	Win::isOk(IGame* game)
 {
-  int		posX = game->getActivePlayer()->getX();
-  int		posY = game->getActivePlayer()->getY();
-  IGameMap*	map = game->getMap();
-  bool		returnValue = false;
+  IGameMap::caseContent	v =
+    (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? GameMap::BLUE : GameMap::RED;
+  GameMap::caseContent	nope = (v == GameMap::BLUE) ? GameMap::RED : GameMap::BLUE;
+  IGameMap *	map = game->getMap();
+  char		vecTest[4][2] = {{1, 0}, {0, 1}, {1, 1}, {-1, 1}};
+  int		x = game->getActivePlayer()->getX();
+  int		y = game->getActivePlayer()->getY();
+  int		pos[2][2];
+  int		i[3];
 
-  // conditions de win à gérer :
-  // - check 5 alignés horizontalement
-  // et pas de cas 1, 2, 3 ou 4 :
-  // X   E
-  // O E O X
-  // O O O O O (<--- ligne horizontale)
-  // E O X O
-  //   X   E
-  // 1 2 3 4   (<--- cas)
-  // ||
-  // - check 5 alignés verticalement
-  // et pas de : pareil qu'horizontal mais à la verticale
-  return (returnValue);
+  if (game->getActivePlayer()->getPoints() > 9)
+    {
+      game->setWinner();
+      return true;
+    }
+  i[0] = 0;
+  for (;i[0] < 4; i[0]++)
+    {
+      pos[0][0] = x + vecTest[i[0]][0];
+      pos[0][1] = y + vecTest[i[0]][1];
+      pos[1][0] = x - vecTest[i[0]][0];
+      pos[1][1] = y - vecTest[i[0]][1];
+
+      i[1] = 0;
+      while (i[1] < 5 &&
+	     pos[0][0] < 19 && pos[0][0] >= 0 &&
+	     pos[0][1] < 19 && pos[0][1] >= 0 &&
+	     map->getCase(pos[0][0], pos[0][1]) == v &&
+	     canEatThis(map, pos[0][0], pos[0][1], vecTest[i[0]][0], vecTest[i[0]][1], v, nope))
+	{
+	  i[1]++;
+	  pos[0][0] += vecTest[i[0]][0];
+	  pos[0][1] += vecTest[i[0]][1];
+	}
+      if (i[1] == 5)
+	{
+	  game->setWinner();
+	  return true;
+	}
+      i[2] = i[1];
+      i[1] = 0;
+      while (i[1] < 5 && i[2] < 5 &&
+	     pos[1][0] < 19 && pos[1][0] >= 0 &&
+	     pos[1][1] < 19 && pos[1][1] >= 0 &&
+	     map->getCase(pos[1][0], pos[1][1]) == v &&
+	     canEatThis(map, pos[0][0], pos[0][1], vecTest[i[0]][0], vecTest[i[0]][1], v, nope))
+	{
+	  i[1]++;
+	  pos[1][0] += vecTest[i[0]][0];
+	  pos[1][1] += vecTest[i[0]][1];
+	}
+      if (i[2] == 5)
+	{
+	  game->setWinner();
+	  return true;
+	}
+    }
+  return false;
 }
 
 IRule::RuleType	Win::getRuleType() const

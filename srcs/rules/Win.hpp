@@ -12,6 +12,11 @@ public:
   virtual ~Win();
 
 public:
+  bool			canEatThis(IGameMap *,
+				   unsigned int , unsigned int ,
+				   unsigned int , unsigned int ,
+				   IGameMap::caseContent , IGameMap::caseContent) const;
+
   virtual IRule::RuleType	getRuleType() const;
   virtual std::string const	&getError() const;
   virtual bool			isOk(IGame*);

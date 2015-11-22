@@ -83,6 +83,17 @@ void		Game::endTurn()
 }
 
 
+void		Game::setWinner()
+{
+  _winner = getActivePlayer();
+  setFinish();
+}
+
+void		Game::setFinish()
+{
+  _finish = true;
+}
+
 bool		Game::isFinished() const
 {
   return _finish;

@@ -27,6 +27,9 @@ public:
   virtual void		playTurn(unsigned int x, unsigned int y) = 0;
   virtual void		endTurn() = 0;
 
+  virtual void		setWinner() = 0;
+  virtual void		setFinish() = 0;
+
   virtual bool		isFinished() const = 0;
   virtual IPlayer *	getWinner() const = 0;
 };
