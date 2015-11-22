@@ -68,8 +68,6 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   if (_judge->checkRules(_game)) {
     _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
     _game->endTurn();
-    std::cout << "player 1 score : " << getGame()->getPlayer(0)->getPoints() << std::endl;
-    std::cout << "player 2 score : " << getGame()->getPlayer(1)->getPoints() << std::endl;
   }
   else
     std::cout << _judge->getLastError() << std::endl;

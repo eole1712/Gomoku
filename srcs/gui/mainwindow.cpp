@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
 
       connect(tmp, &GomokuButton::clicked, [this, tmp](){
 
-	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
 	_gm->didClickCase(tmp->getX(), tmp->getY());
 	setPlayer1Text(_gm->getGame()->getPlayer(0)->getPoints());
 	setPlayer2Text(_gm->getGame()->getPlayer(1)->getPoints());
@@ -33,7 +32,6 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
 
     this->_gm->createGame(IGame::PVP);
 
-    std::cout << "Clicked on launch button" << std::endl;
   });
 
   connect(ui->pushButton, &QPushButton::clicked, [this](){
@@ -42,9 +40,6 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
   });
 
 
-  int x = 0;
-  int y = 0;
-  std::cout << x << ", " << y << std::endl;
   for (auto button : _buttons)
     {
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
@@ -125,7 +120,6 @@ void MainWindow::setWin(int Player)
       ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
     if (Player == 1)
       ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
-    std::cout << "Player : " << Player << std::endl;
     ui->playerTurn->setText("Winner !");
 }
 

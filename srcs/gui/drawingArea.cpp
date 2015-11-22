@@ -26,6 +26,5 @@ void drawingArea::drawSomething()
     for(auto rect : _items)
       _scene.addItem(rect);
 
-    std::cout << this->width() * -1 << ", " << this->height() * -1 << std::endl;
     setScene(&_scene);
 }
