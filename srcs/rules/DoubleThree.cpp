@@ -81,5 +81,5 @@ bool		DoubleThree::isOk(IGame * game)
       if (i[2] == 2)
 	  count++;
     }
-  return (count > 1);
+  return (count < 2);
 }
