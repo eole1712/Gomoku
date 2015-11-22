@@ -8,32 +8,45 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     ui(new Ui::MainWindow),
     _gm(gm)
 {
-    _colors[0] = "grey";
-    _colors[1] = "blue";
-    _colors[2] = "red";
-    ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(1);
-    for(int i = 0; i != 19 * 19; ++i)
-      {
-        GomokuButton* tmp = new GomokuButton(i - 19 * (i / 19), i / 19);
-        connect(tmp, &GomokuButton::clicked, [this, tmp](){
-	  IGameMap::caseContent cc = _gm->didClickCase(tmp->getX(), tmp->getY());
-	  setButtonColor(tmp->getX(), tmp->getY(), cc);
-	});
-        _buttons.push_back(tmp);
-    }
-    int x = 0;
-    int y = 0;
-    std::cout << x << ", " << y << std::endl;
-    for (auto button : _buttons)
+  _colors[0] = "grey";
+  _colors[1] = "blue";
+  _colors[2] = "red";
+  ui->setupUi(this);
+  ui->stackedWidget->setCurrentIndex(1);
+  for(int i = 0; i != 19 * 19; ++i)
     {
-        ui->gridLayout->addWidget(button, button->getX(), button->getY());
+      GomokuButton* tmp = new GomokuButton(i - 19 * (i / 19), i / 19);
+
+      connect(tmp, &GomokuButton::clicked, [this, tmp](){
+
+	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
+
+	IGameMap::caseContent cc = _gm->didClickCase(tmp->getX(), tmp->getY());
+	setButtonColor(tmp->getX(), tmp->getY(), cc);
+
+	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
+
+      });
+      _buttons.push_back(tmp);
+    }
+
+  connect(ui->PvP, &QPushButton::clicked, [this](){
+    this->_gm->createGame(IGame::PVP);
+    std::cout << "Clicked on launch button" << std::endl;
+  });
+
+
+  int x = 0;
+  int y = 0;
+  std::cout << x << ", " << y << std::endl;
+  for (auto button : _buttons)
+    {
+      ui->gridLayout->addWidget(button, button->getX(), button->getY());
     }
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 /*!
@@ -41,8 +54,6 @@ MainWindow::~MainWindow()
  * Autre méthode plus rapide pour pouvoir set un event : on ne passe pas parun slot de widget mais on appelle des méthodes des widgets de la fenêtre
  * \warning Non réutilisable, et surement moins "propre"
  */
-
-
 
 void MainWindow::on_PvE_clicked()
 {

@@ -5,6 +5,7 @@
 #include "Win.hpp"
 #include "Judge.hpp"
 #include "EatThem.hpp"
+#include "DoubleThree.hpp"
 
 GameManager::GameManager()
   : _game(NULL)
@@ -13,7 +14,7 @@ GameManager::GameManager()
   _judge->addRule(new BasicCheck());
   _judge->addRule(new DoubleThree());
   _judge->addRule(new EatThem());
-  _judge->addRule(new Win());  initJudge();
+  _judge->addRule(new Win());
 }
 
 GameManager::~GameManager()
