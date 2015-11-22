@@ -2,9 +2,9 @@
 # define IJUDGE_H_
 
 # include <string>
+# include "IRule.hpp"
 
 class IGame;
-class IRule;
 
 class IJudge
 {

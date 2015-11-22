@@ -2,7 +2,6 @@
 # define IGAMEMANAGER_HPP_
 
 # include <string>
-# include "IGameMap.hpp"
 # include "IGame.hpp"
 
 class IJudge;

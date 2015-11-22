@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Game.hpp"
 #include "GameMap.hpp"
 #include "IRule.hpp"
@@ -58,6 +59,7 @@ void EatThem::checkBetween(IGame* game, unsigned int posX, unsigned int posY, un
 //TODO SET CASE COLOR TO GRAY
 void	EatThem::eat(IGame* game, unsigned int posX, unsigned int posY)
 {
+  std::cout << "EAT IT !! EAT !!" << std::endl;
   game->setCase(posX, posY, IGameMap::caseContent::EMPTY);
-  game->getActivePlayer()->addPoints(2);
+  game->getActivePlayer()->addPoints(1);
 }
