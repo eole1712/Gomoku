@@ -22,7 +22,7 @@ public:
   virtual void			start() const;
   virtual IGame *		createGame(IGame::mode gameMode = IGame::PVP);
   virtual IGame *		getGame() const;
-  virtual IGameMap::caseContent didClickCase(unsigned int x, unsigned y);
+  virtual void didClickCase(unsigned int x, unsigned y);
 };
 
 #endif  /* !GAMEMANAGER_HPP_ */

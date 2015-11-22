@@ -21,9 +21,8 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
 
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
 
-	IGameMap::caseContent cc = _gm->didClickCase(tmp->getX(), tmp->getY());
-	std::cout << cc << std::endl;
-	setButtonColor(tmp->getX(), tmp->getY(), cc);
+	_gm->didClickCase(tmp->getX(), tmp->getY());
+	
 
 	std::cout << "Clicked on : " << tmp->getX() << " " << tmp->getY() << std::endl;
 

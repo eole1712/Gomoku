@@ -10,8 +10,9 @@ class Gui : public IGui
 public:
   Gui(IGameManager*, int argc, char** argv);
   virtual ~Gui();
-  void setButtoncolor(int x, int y, IGameMap::caseContent);
-  void run();
+
+  virtual void start();
+  virtual void setButtonColor(int x, int y, IGameMap::caseContent);
 protected:
   QApplication* _app;
   MainWindow* _win;
