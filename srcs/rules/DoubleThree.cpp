@@ -4,9 +4,6 @@
 #include "IPlayer.hpp"
 #include "DoubleThree.hpp"
 
-
-#include <iostream>
-
 DoubleThree::DoubleThree()
   : _lastError(std::string("Double three rule forbidden your action!"))
 {}
@@ -44,28 +41,6 @@ bool		DoubleThree::isOk(IGame * game)
       pos[0][1] = y + vecTest[i[0]][1];
       pos[1][0] = x - vecTest[i[0]][0];
       pos[1][1] = y - vecTest[i[0]][1];
-      /*
-      if ((pos[0][0] < 19 && pos[0][1] < 19 && pos[1][0] < 19 && pos[1][1] < 19 &&
-	   pos[0][0] >= 0 && pos[0][1] >= 0 && pos[1][0] >= 0 && pos[1][1] >= 0) &&
-	  map->getCase(pos[0][0], pos[0][1]) == v &&
-	  map->getCase(pos[1][0], pos[1][1]) == v)
-	{
-	  int	tmp[2][2] =
-	    {
-	      {x + (2 * vecTest[i[0]][0]), y + (2 * vecTest[i[0]][1])},
-	      {x - (2 * vecTest[i[0]][0]), y - (2 * vecTest[i[0]][1])}
-	    };
-	  if ((tmp[0][0] < 19 && tmp[0][1] < 18 && tmp[1][0] < 19 && tmp[1][1] < 19 &&
-	       tmp[0][0] >= 0 && tmp[0][1] >= 0 && tmp[1][0] >= 0 && tmp[1][1] >= 0) &&
-	      map->getCase(tmp[0][0], tmp[0][1]) == GameMap::EMPTY &&
-	      map->getCase(tmp[1][0], tmp[1][1]) == GameMap::EMPTY)
-	    {
-	      count++;
-	      if (count == 2)
-		return false;
-	    }
-	}
-      */
       i[1] = 0;
       i[2] = 0;
       while (i[1] < 4 && i[2] < 2 &&
@@ -86,15 +61,10 @@ bool		DoubleThree::isOk(IGame * game)
 	  pos[1][1] < 19 && pos[1][1] >= 0 &&
 	  map->getCase(pos[1][0], pos[1][1]) == GameMap::EMPTY)
 	{
-	  std::cout << "bra C" << (i[2] == 2) << std::endl;
 	  count++;
 	  if (count == 2)
               return false;
 	}
-      std::cout << "bra c " << (i[2] == 2) << std::endl;
-      std::cout << "bra C test" << pos[0][0] << "x" << pos[0][1] << std::endl;
-      std::cout << "bra C test" << pos[1][0] << "x" << pos[1][1] << std::endl;
-
       i[1] = 0;
       i[2] = 0;
       while (i[1] < 4 && i[2] < 2 &&
@@ -109,7 +79,6 @@ bool		DoubleThree::isOk(IGame * game)
 	}
 	if (i[2] == 2)
 	  {
-	    std::cout << "bra A" << std::endl;
 	    int tmp[2] = {x + (2 * vecTest[i[0]][0]), y + (2 * vecTest[i[0]][1])};
 	    if (((pos[0][0] < 19 && pos[0][0] >= 0 &&
 		  pos[0][1] < 19 && pos[0][1] >= 0 &&
@@ -120,10 +89,7 @@ bool		DoubleThree::isOk(IGame * game)
 		pos[1][0] < 19 && pos[1][0] >= 0 &&
 		pos[1][1] < 19 && pos[1][1] >= 0 &&
 		map->getCase(pos[1][0], pos[1][1]) == GameMap::EMPTY)
-	      {
-		std::cout << "bra B" << std::endl;
 		count++;
-	      }
 	  }
     }
   return (count < 2);
