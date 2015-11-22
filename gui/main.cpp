@@ -9,10 +9,11 @@ int main(int argc, char *argv[])
   IGameManager* gm;
 
   gm = new GameManager();
-  gui = new Gui(gm, argc, argv);
+  gui = new Gui(gm, 0, nullptr);
   /*QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
     return a.exec();*/
+  //gui->run();
 }

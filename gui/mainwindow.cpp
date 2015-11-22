@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     _gm(gm)
 {
     _colors[0] = "grey";
-    _colors[1] = "red";
-    _colors[2] = "blue";
+    _colors[1] = "blue";
+    _colors[2] = "red";
     ui->setupUi(this);
     for(int i = 0; i != 19 * 19; ++i)
       {
@@ -43,9 +43,9 @@ MainWindow::~MainWindow()
 
 
 
-void MainWindow::on_PvP_clicked()
+void MainWindow::on_PvE_clicked()
 {
-    ui->PvP->setText("I'm not Implemented Yet");
+    ui->PvE->setText("I'm not Implemented Yet");
 }
 
 //deprecated
