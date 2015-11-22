@@ -24,7 +24,7 @@ GameManager::~GameManager()
   if (_game)
     delete _game;
   delete _judge;
-  delete _gui;
+ // delete _gui;
 }
 
 IJudge *		GameManager::getJudge() const
@@ -54,7 +54,6 @@ IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y)
   _game->playTurn(x, y);
 
   std::cout << "checkRules" << std::endl;
-
   if (_judge->checkRules(_game))
     _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
   else

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "IRule.hpp"
 #include "Judge.hpp"
 
@@ -7,7 +8,12 @@ Judge::Judge()
 }
 
 Judge::~Judge()
-{}
+{
+  std::for_each(_rules.begin(), _rules.end(), [](std::pair<IRule::RuleType, IRule*> rule)
+  {
+    delete rule.second;
+  });
+}
 
 std::string const	&Judge::getLastError() const
 {
