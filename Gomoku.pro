@@ -11,14 +11,13 @@ QMAKE_CXXFLAGS += -std=c++11
 QT += core gui widgets
 
 # Input
-HEADERS += ui_mainwindow.h \
-           gui/drawingArea.hpp \
+HEADERS += gui/drawingArea.hpp \
+           gui/Gui.hpp \
+           gui/IGui.hpp \
            gui/gomokuButton.hpp \
            gui/mainwindow.h \
            gui/modifiableQLabel.hpp \
-           gui/ui_mainwindow.h \
            gui/winchanger.hpp \
-           QtFiles/ui_mainwindow.h \
            srcs/core/AI.hpp \
            srcs/core/Game.hpp \
            srcs/core/GameManager.hpp \
@@ -37,6 +36,7 @@ HEADERS += ui_mainwindow.h \
            srcs/rules/Win.hpp
 FORMS += gui/mainwindow.ui
 SOURCES += gui/drawingArea.cpp \
+           gui/Gui.cpp \
            gui/gomokuButton.cpp \
            gui/main.cpp \
            gui/mainwindow.cpp \
