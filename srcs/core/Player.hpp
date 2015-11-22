@@ -6,7 +6,7 @@
 class Player : public IPlayer
 {
 public:
-  Player();
+  Player(color);
   virtual ~Player();
 
 private:
@@ -17,10 +17,13 @@ public:
 	virtual unsigned int	getPoints() const;
 	virtual void	addPoints(unsigned int points);
   virtual type		getType() const = 0;
-  virtual color		getColor() const = 0;
+  virtual color		getColor() const;
   virtual void		setPosition(unsigned int x, unsigned int y);
   virtual unsigned int	getX() const;
   virtual unsigned int	getY() const;
+
+private:
+  color		_color;
 };
 
 #endif /* PLAYER_HPP_ */

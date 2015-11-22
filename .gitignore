@@ -30,6 +30,8 @@
 ./emacsproject
 ./emacsproject/flags
 ./emacsproject/includes
-./build/*
+./build/*.cpp
+./build/*.h
+./build/Gomoku
 
 Gomoku

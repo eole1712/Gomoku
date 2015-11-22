@@ -5,7 +5,7 @@ class IGameMap
 {
 public:
   enum		caseContent
-    {EMPTY, BLUE, RED};
+    {EMPTY = 0, BLUE, RED};
 
 public:
   virtual ~IGameMap() {}

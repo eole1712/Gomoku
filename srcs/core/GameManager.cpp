@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Gui.hpp"
 #include "IGame.hpp"
 #include "GameManager.hpp"
 #include "BasicCheck.hpp"
@@ -10,6 +11,7 @@
 GameManager::GameManager()
   : _game(NULL)
 {
+  _gui = new Gui(this, 0, nullptr);
   _judge = new Judge();
   _judge->addRule(new BasicCheck());
   _judge->addRule(new DoubleThree());
@@ -21,6 +23,8 @@ GameManager::~GameManager()
 {
   if (_game)
     delete _game;
+  delete _judge;
+  delete _gui;
 }
 
 IJudge *		GameManager::getJudge() const
@@ -41,7 +45,7 @@ IGame *			GameManager::getGame() const
   return _game;
 }
 
-IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y) const
+IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y)
 {
   if (_game == NULL)
     return IGameMap::EMPTY;
@@ -50,7 +54,11 @@ IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y) cons
   _game->playTurn(x, y);
 
   std::cout << "checkRules" << std::endl;
-  _judge->checkRules(_game);
+
+  if (_judge->checkRules(_game))
+    _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
+  else
+    std::cout << _judge->getLastError() << std::endl;
 
   std::cout << "endTurn" << std::endl;
   _game->endTurn();

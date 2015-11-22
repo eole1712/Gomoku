@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
-Player::Player()
-  : _position{0}
+Player::Player(IPlayer::color color)
+  : _position{0}, _color(color)
 {
 }
 
@@ -36,4 +36,7 @@ unsigned int	Player::getPoints() const
 	return _points;
 }
 
-
+IPlayer::color		Player::getColor() const
+{
+  return _color;
+}
