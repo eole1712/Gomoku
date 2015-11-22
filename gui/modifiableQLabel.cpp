@@ -13,5 +13,5 @@ modifiableQLabel::modifiableQLabel(QWidget *parent) :
 
 void modifiableQLabel::setQLabel()
 {
-    this->setText("Un bouton a été Cliqué !");
+    this->setText("not Implemented : Player vs IA");
 }

@@ -42,7 +42,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <property name="sizePolicy">
@@ -226,17 +226,17 @@
       <widget class="modifiableQLabel" name="Message">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>130</y>
-         <width>141</width>
-         <height>81</height>
+         <x>40</x>
+         <y>200</y>
+         <width>421</width>
+         <height>211</height>
         </rect>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="buddy">
-        <cstring>PvP</cstring>
+        <cstring>PvE</cstring>
        </property>
       </widget>
      </widget>
@@ -312,30 +312,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>PvP</sender>
-   <signal>clicked()</signal>
-   <receiver>Message</receiver>
-   <slot>setQLabel()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>297</x>
-     <y>167</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>155</x>
-     <y>177</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>PvE</sender>
    <signal>clicked()</signal>
    <receiver>frame_2</receiver>
    <slot>setFocus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>273</x>
-     <y>228</y>
+     <x>580</x>
+     <y>367</y>
     </hint>
     <hint type="destinationlabel">
      <x>168</x>
@@ -350,8 +334,8 @@
    <slot>setFocus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>462</x>
-     <y>287</y>
+     <x>770</x>
+     <y>324</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -366,8 +350,8 @@
    <slot>nextWidget()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>395</x>
-     <y>169</y>
+     <x>580</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>507</x>
@@ -382,12 +366,28 @@
    <slot>prevWidget()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>480</x>
-     <y>287</y>
+     <x>770</x>
+     <y>324</y>
     </hint>
     <hint type="destinationlabel">
      <x>506</x>
      <y>195</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PvE</sender>
+   <signal>clicked()</signal>
+   <receiver>Message</receiver>
+   <slot>setQLabel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>615</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>

@@ -13,7 +13,6 @@ public:
   virtual ~IGameManager() {}
 
 public:
-  virtual bool			initJudge() = 0;
   virtual IJudge *		getJudge() const = 0;
   virtual IGame *		createGame(IGame::mode gameMode) = 0;
   virtual IGame *		getGame() const  = 0;

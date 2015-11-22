@@ -31,7 +31,7 @@ public:
  */
 
 private slots:
-    void on_PvP_clicked();
+    void on_PvE_clicked();
 
 /*!
  * \brief signals : emetteurs d'events

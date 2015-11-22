@@ -11,6 +11,7 @@ public:
   Gui(IGameManager*, int argc, char** argv);
   virtual ~Gui();
   void setButtoncolor(int x, int y, IGameMap::caseContent);
+  void run();
 protected:
   QApplication _app;
   MainWindow _win;

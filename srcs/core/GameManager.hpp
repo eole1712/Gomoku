@@ -16,7 +16,6 @@ private:
   IGame *	_game;
 
 public:
-  virtual bool			initJudge();
   virtual IJudge *		getJudge() const;
   virtual IGame *		createGame(IGame::mode gameMode = IGame::PVP);
   virtual IGame *		getGame() const;

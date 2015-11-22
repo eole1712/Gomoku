@@ -14,6 +14,7 @@ winChanger::winChanger(QWidget *parent) :
 
 void winChanger::nextWidget()
 {
+
     this->setCurrentIndex(0);
     std::cout << this->currentIndex() << std::endl;
 }
