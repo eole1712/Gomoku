@@ -105,30 +105,56 @@
        </property>
        <layout class="QGridLayout" name="gridLayout"/>
       </widget>
-      <widget class="QLabel" name="score1">
+      <widget class="QLabel" name="WinLabel">
        <property name="geometry">
         <rect>
-         <x>766</x>
-         <y>40</y>
-         <width>111</width>
-         <height>41</height>
+         <x>760</x>
+         <y>260</y>
+         <width>131</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="text">
-        <string>Player1 : 0</string>
+        <string/>
        </property>
       </widget>
-      <widget class="QLabel" name="score2">
+      <widget class="QPushButton" name="score1">
        <property name="geometry">
         <rect>
          <x>770</x>
-         <y>110</y>
-         <width>131</width>
+         <y>30</y>
+         <width>121</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="score2">
+       <property name="geometry">
+        <rect>
+         <x>769</x>
+         <y>132</y>
+         <width>121</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="playerTurn">
+       <property name="geometry">
+        <rect>
+         <x>770</x>
+         <y>360</y>
+         <width>121</width>
          <height>51</height>
         </rect>
        </property>
        <property name="text">
-        <string>Player2 : 0</string>
+        <string>PlayerTurn</string>
        </property>
       </widget>
      </widget>

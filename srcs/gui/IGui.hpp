@@ -7,7 +7,9 @@ class IGui
 {
 public:
   virtual void setButtonColor(int x, int y, IGameMap::caseContent) = 0;
+    virtual void setWin(int Player) = 0;
   virtual void start() = 0;
+    virtual void changeTurn() = 0;
 protected:
 
 };

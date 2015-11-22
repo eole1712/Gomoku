@@ -24,3 +24,13 @@ void Gui::setButtonColor(int x, int y, IGameMap::caseContent col)
 {
   _win->setButtonColor(x, y, col);
 }
+
+void Gui::setWin(int Player)
+{
+    _win->setWin(Player);
+}
+
+void Gui::changeTurn()
+{
+    _win->changeTurn();
+}
