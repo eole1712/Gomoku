@@ -86,3 +86,13 @@ void MainWindow::setButtonColor(int x, int y, IGameMap::caseContent col)
 	  }
     }
 }
+
+void MainWindow::setPlayer1Text(std::string const& str)
+{
+    ui->score1->setText(str.c_str());
+}
+
+void MainWindow::setPlayer2Text(std::string const& str)
+{
+    ui->score2->setText(str.c_str());
+}
