@@ -28,12 +28,12 @@ unsigned int	Player::getY() const
 
 void			Player::addPoints(unsigned int points)
 {
-	_points += points;
+  _points += points;
 }
 
 unsigned int	Player::getPoints() const
 {
-	return _points;
+  return _points;
 }
 
 IPlayer::color		Player::getColor() const

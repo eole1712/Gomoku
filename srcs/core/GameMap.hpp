@@ -1,7 +1,7 @@
 #ifndef GAMEMAP_HPP_
 # define GAMEMAP_HPP_
 
-#include "IGameMap.hpp"
+# include "IGameMap.hpp"
 
 class GameMap
   : public IGameMap

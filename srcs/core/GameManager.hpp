@@ -3,10 +3,10 @@
 
 # include <string>
 # include "IGameManager.hpp"
+# include "IGame.hpp"
 
 class IGui;
 class IJudge;
-class IGame;
 
 class GameManager : public IGameManager
 {

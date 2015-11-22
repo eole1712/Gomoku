@@ -3,6 +3,8 @@
 
 # include "Player.hpp"
 
+class IPlayer;
+
 class AI : public Player
 {
 public:
