@@ -2,7 +2,8 @@
 # define IRULE_H_
 
 # include <string>
-# include "IGame.hpp"
+
+class IGame;
 
 class IRule
 {

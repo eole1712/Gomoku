@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Gui.hpp"
 #include "IGame.hpp"
+#include "Game.hpp"
 #include "GameManager.hpp"
 #include "BasicCheck.hpp"
 #include "Win.hpp"

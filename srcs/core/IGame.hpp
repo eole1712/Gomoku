@@ -1,10 +1,10 @@
 #ifndef IGAME_HPP_
 # define IGAME_HPP_
 
-#include "IGameMap.hpp"
-#include "IPlayer.hpp"
+# include "IGameMap.hpp"
 
 class IGui;
+class IPlayer;
 
 class IGame
 {

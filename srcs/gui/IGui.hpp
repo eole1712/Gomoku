@@ -2,7 +2,6 @@
 # define IGUI_H_
 
 #include "IGameMap.hpp"
-#include "IGameManager.hpp"
 
 class IGui
 {
