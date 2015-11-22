@@ -24,7 +24,6 @@ GameManager::~GameManager()
   if (_game)
     delete _game;
   delete _judge;
- // delete _gui;
 }
 
 void        GameManager::start() const
@@ -41,7 +40,7 @@ IGame *			GameManager::createGame(IGame::mode gameMode)
 {
   if (gameMode == IGame::PVE)
     return NULL;
-  _game = new Game(gameMode);
+  _game = new Game(gameMode, _gui);
   return _game;
 }
 
@@ -66,13 +65,10 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   _game->playTurn(x, y);
 
   std::cout << "checkRules" << std::endl;
-  if (_judge->checkRules(_game)) {
-    _gui->setButtonColor(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
-    _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
 
-    std::cout << "endTurn" << std::endl;
-    _game->endTurn();
-  }
-  else
+  if (!_judge->checkRules(_game))
     std::cout << _judge->getLastError() << std::endl;
+
+  std::cout << "endTurn" << std::endl;
+  _game->endTurn();
 }

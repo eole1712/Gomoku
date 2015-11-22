@@ -4,6 +4,8 @@
 #include "IGameMap.hpp"
 #include "IPlayer.hpp"
 
+class IGui;
+
 class IGame
 {
 public:
@@ -18,6 +20,7 @@ public:
   virtual IPlayer *	getPlayer(unsigned int id) const = 0;
   virtual IPlayer *	getActivePlayer() const = 0;
 
+  virtual IGui *	getGui() const = 0;
   virtual IGameMap *	getMap() const = 0;
   virtual mode		getMode() const = 0;
   virtual void		changeMode(mode newMode) = 0;
