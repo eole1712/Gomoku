@@ -112,7 +112,7 @@ bool	Win::isOk(IGame* game)
 	  return true;
 	}
     }
-  return false;
+  return true;
 }
 
 IRule::RuleType	Win::getRuleType() const
