@@ -4,7 +4,7 @@
 
 TEMPLATE = app
 TARGET = Gomoku
-INCLUDEPATH += . gui srcs/core srcs/rules
+INCLUDEPATH += . srcs/gui srcs/core srcs/rules
 QMAKE_POST_LINK += cp Gomoku ..
 
 QMAKE_CXXFLAGS += -std=c++11
@@ -40,7 +40,6 @@ FORMS += srcs/gui/mainwindow.ui
 SOURCES += srcs/gui/drawingArea.cpp \
            srcs/gui/Gui.cpp \
            srcs/gui/gomokuButton.cpp \
-           srcs/gui/main.cpp \
            srcs/gui/mainwindow.cpp \
            srcs/gui/modifiableQLabel.cpp \
            srcs/gui/winchanger.cpp \

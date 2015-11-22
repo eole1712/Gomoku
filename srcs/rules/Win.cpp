@@ -3,6 +3,8 @@
 #include "IRule.hpp"
 #include "Win.hpp"
 
+#include <iostream>
+
 Win::Win()
   : _lastError("Win error")
 {}
@@ -63,8 +65,10 @@ bool	Win::isOk(IGame* game)
   int		pos[2][2];
   int		i[3];
 
+  game->getMap()->setCase(game->getActivePlayer()->getX(), game->getActivePlayer()->getX(), v);
   if (game->getActivePlayer()->getPoints() > 9)
     {
+      std::cout << "BRA" << std::endl;
       game->setWinner();
       return true;
     }
@@ -77,37 +81,40 @@ bool	Win::isOk(IGame* game)
       pos[1][1] = y - vecTest[i[0]][1];
 
       i[1] = 0;
-      while (i[1] < 5 &&
+      while (i[1] < 4 &&
 	     pos[0][0] < 19 && pos[0][0] >= 0 &&
 	     pos[0][1] < 19 && pos[0][1] >= 0 &&
 	     map->getCase(pos[0][0], pos[0][1]) == v &&
-	     canEatThis(map, pos[0][0], pos[0][1], vecTest[(i[0] + 1) % 4][0],
+	     !canEatThis(map, pos[0][0], pos[0][1], vecTest[(i[0] + 1) % 4][0],
 			vecTest[(i[0] + 1) % 4][1], v))
 	{
 	  i[1]++;
 	  pos[0][0] += vecTest[i[0]][0];
 	  pos[0][1] += vecTest[i[0]][1];
 	}
-      if (i[1] == 5)
+      if (i[1] == 4)
 	{
 	  game->setWinner();
+	  std::cout << "BRA2" << std::endl;
 	  return true;
 	}
       i[2] = i[1];
       i[1] = 0;
-      while (i[1] < 5 && i[2] < 5 &&
+      while (i[1] < 4 && i[2] < 4 &&
 	     pos[1][0] < 19 && pos[1][0] >= 0 &&
 	     pos[1][1] < 19 && pos[1][1] >= 0 &&
 	     map->getCase(pos[1][0], pos[1][1]) == v &&
-	     canEatThis(map, pos[0][0], pos[0][1], vecTest[(i[0] + 1) % 4][0],
+	     !canEatThis(map, pos[1][0], pos[1][1], vecTest[(i[0] + 1) % 4][0],
 			vecTest[(i[0] + 1) % 4][1], v))
 	{
 	  i[1]++;
-	  pos[1][0] += vecTest[i[0]][0];
-	  pos[1][1] += vecTest[i[0]][1];
+	  i[2]++;
+	  pos[1][0] -= vecTest[i[0]][0];
+	  pos[1][1] -= vecTest[i[0]][1];
 	}
-      if (i[2] == 5)
+      if (i[2] == 4)
 	{
+	  std::cout << "BRA3" << std::endl;
 	  game->setWinner();
 	  return true;
 	}
