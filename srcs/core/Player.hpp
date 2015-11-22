@@ -9,10 +9,13 @@ public:
   Player();
   virtual ~Player();
 
-public:
+private:
+	unsigned int _points;
   unsigned int _position[2];
 
 public:
+	virtual unsigned int	getPoints() const;
+	virtual void	addPoints(unsigned int points);
   virtual type		getType() const = 0;
   virtual color		getColor() const = 0;
   virtual void		setPosition(unsigned int x, unsigned int y);

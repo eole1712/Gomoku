@@ -5,6 +5,7 @@
 TEMPLATE = app
 TARGET = Gomoku
 INCLUDEPATH += . gui srcs/core srcs/rules
+QMAKE_POST_LINK += cp Gomoku ..
 
 QMAKE_CXXFLAGS += -std=c++11
 

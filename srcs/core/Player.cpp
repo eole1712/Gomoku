@@ -25,3 +25,15 @@ unsigned int	Player::getY() const
 {
   return _position[1];
 }
+
+void			Player::addPoints(unsigned int points)
+{
+	_points += points;
+}
+
+unsigned int	Player::getPoints() const
+{
+	return _points;
+}
+
+

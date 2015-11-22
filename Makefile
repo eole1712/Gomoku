@@ -1,42 +1,16 @@
-CC		= g++
+NAME = Gomoku
 
-NAME		= Gomoku
+all:
+	make -C build all
 
-SRCSDIR		= srcs
-COREDIR		= $(SRCSDIR)/core/
-RULEDIR		= $(SRCSDIR)/rule/
-
-CORESRCS	= GameMap.cpp \
-		  GameManager.cpp \
-		  Player.cpp \
-		  Human.cpp \
-		  AI.cpp \
-		  Game.cpp \
-		  Judge.cpp
-
-RULESRCS	= BasicCheck.cpp \
-		  Win.cpp \
-		  EatThem.cpp
-
-
-SRCS		+= $(addprefix $(COREDIR), $(CORESRCS))
-SRCS		+= $(addprefix $(RULEDIR), $(RULESRCS))
-OBJS		= $(SRCS:.cpp=.o)
-
-CXXFLAGS	+= -W -Wall -Werror -Wextra -std=c++11 -O3 -march=native
-CXXFLAGS	+= -I./$(COREDIR)/ -I./$(RULEDIR)/
-
-LDFLAGS		+=
-
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	 $(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+$(NAME):
+	make -C build $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	make -C build clean
 
-fclean: clean
+fclean:
+	make -C build clean
 	rm -f $(NAME)
 
 re: fclean all
