@@ -120,11 +120,10 @@ void MainWindow::setWin(int Player)
     std::string str;
 
     if (Player == 0)
-        str += "Player1 ";
+      ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
     if (Player == 1)
-        str += "Player2 ";
-    str += "Won !";
-    ui->WinLabel->setText(str.c_str());
+      ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
+    ui->playerTurn->setText("Winner !");
 }
 
 void MainWindow::changeTurn()
@@ -134,6 +133,6 @@ void MainWindow::changeTurn()
     if (turn)
         ui->playerTurn->setStyleSheet(std::string("background-color:red").c_str());
     else
-        ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
+      ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
     turn = !turn;
 }
