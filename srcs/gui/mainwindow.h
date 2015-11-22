@@ -26,8 +26,8 @@ public:
     ~MainWindow();
     void setButtonColor(int x, int y, IGameMap::caseContent);
     void reset();
-    void setPlayer1Text(std::string const& str);
-    void setPlayer2Text(std::string const& str);
+    void setPlayer1Text(int score);
+    void setPlayer2Text(int score);
 
 /*!
  * \brief slots : récepteurs d'events
