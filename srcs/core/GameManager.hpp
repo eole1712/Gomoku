@@ -19,7 +19,7 @@ public:
   virtual IJudge *		getJudge() const;
   virtual IGame *		createGame(IGame::mode gameMode = IGame::PVP);
   virtual IGame *		getGame() const;
-  virtual IGameMap::caseContent didClickCase(unsigned int x, unsigned y) const;
+  virtual IGameMap::caseContent didClickCase(unsigned int x, unsigned y);
 };
 
 #endif  /* !GAMEMANAGER_HPP_ */

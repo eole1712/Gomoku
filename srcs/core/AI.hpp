@@ -6,7 +6,7 @@
 class AI : public Player
 {
 public:
-  AI();
+  AI(color);
   AI(IPlayer *);
 
 public:
@@ -17,7 +17,6 @@ private:
 
 public:
   virtual type		getType() const;
-  virtual color		getColor() const;
 };
 
 #endif /* !AI_HPP_ */

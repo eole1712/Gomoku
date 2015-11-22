@@ -41,7 +41,7 @@ IGame *			GameManager::getGame() const
   return _game;
 }
 
-IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y) const
+IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y)
 {
   if (_game == NULL)
     return IGameMap::EMPTY;
@@ -50,7 +50,11 @@ IGameMap::caseContent	GameManager::didClickCase(unsigned int x, unsigned y) cons
   _game->playTurn(x, y);
 
   std::cout << "checkRules" << std::endl;
-  _judge->checkRules(_game);
+
+  if (_judge->checkRules(_game))
+    _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
+  else
+    std::cout << _judge->getLastError() << std::endl;
 
   std::cout << "endTurn" << std::endl;
   _game->endTurn();

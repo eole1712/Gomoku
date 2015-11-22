@@ -1,22 +1,18 @@
 #include "IPlayer.hpp"
+#include "Player.hpp"
 #include "AI.hpp"
 
-AI::AI()
-  : _color(BLUE)
+AI::AI(IPlayer::color color)
+  : Player(color)
 {
 }
 
 AI::AI(IPlayer *player)
-  : _color(player->getColor())
+  : Player(player->getColor())
 {
 }
 
 IPlayer::type		AI::getType() const
 {
   return IPlayer::AI;
-}
-
-IPlayer::color		AI::getColor() const
-{
-  return _color;
 }
