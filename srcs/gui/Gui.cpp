@@ -12,7 +12,6 @@ Gui::~Gui()
 void	Gui::start()
 {
   if (_win && _app) {
-    std::cout << std::endl;
     _win->show();
     _app->exec();
     delete _win;

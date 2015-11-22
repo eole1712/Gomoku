@@ -66,7 +66,6 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   _game->playTurn(x, y);
 
   if (_judge->checkRules(_game)) {
-    _gui->setButtonColor(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
     _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
     _game->endTurn();
     std::cout << "player 1 score : " << getGame()->getPlayer(0)->getPoints() << std::endl;
@@ -74,6 +73,9 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
   }
   else
     std::cout << _judge->getLastError() << std::endl;
+
+  if (_game->isFinished())
+    std::cout << "WINNNNNNNNNNNN" << std::endl;
 
   for (int x = 0; x < 19; x++)
     {
