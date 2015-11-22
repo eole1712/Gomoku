@@ -59,6 +59,7 @@ bool	Win::isOk(IGame* game)
     (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? GameMap::BLUE : GameMap::RED;
   IGameMap *	map = game->getMap();
   const char	vecTest[4][2] = {{1, 0}, {0, 1}, {1, 1}, {-1, 1}};
+  const char	normalTest[4][2] = {{0, 1}, {1, 0}, {-1, 1}, {1, 1}};
   int		x = game->getActivePlayer()->getX();
   int		y = game->getActivePlayer()->getY();
   int		pos[2][2];
@@ -82,8 +83,8 @@ bool	Win::isOk(IGame* game)
 	     pos[0][0] < 19 && pos[0][0] >= 0 &&
 	     pos[0][1] < 19 && pos[0][1] >= 0 &&
 	     map->getCase(pos[0][0], pos[0][1]) == v &&
-	     !canEatThis(map, pos[0][0], pos[0][1], vecTest[(i[0] + 1) % 4][0],
-			vecTest[(i[0] + 1) % 4][1], v))
+	     !canEatThis(map, pos[0][0], pos[0][1],
+			 normalTest[i[0]][0], normalTest[i[0]][1], v))
 	{
 	  i[1]++;
 	  pos[0][0] += vecTest[i[0]][0];
@@ -100,8 +101,8 @@ bool	Win::isOk(IGame* game)
 	     pos[1][0] < 19 && pos[1][0] >= 0 &&
 	     pos[1][1] < 19 && pos[1][1] >= 0 &&
 	     map->getCase(pos[1][0], pos[1][1]) == v &&
-	     !canEatThis(map, pos[1][0], pos[1][1], vecTest[(i[0] + 1) % 4][0],
-			vecTest[(i[0] + 1) % 4][1], v))
+	     !canEatThis(map, pos[1][0], pos[1][1],
+			 normalTest[i[0]][0], normalTest[i[0]][1], v))
 	{
 	  i[1]++;
 	  i[2]++;
