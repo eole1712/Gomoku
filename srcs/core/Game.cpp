@@ -2,9 +2,10 @@
 #include "Human.hpp"
 #include "AI.hpp"
 #include "Game.hpp"
+#include "GameMap.hpp"
 
 Game::Game(mode gameMode)
-  : _map(), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
+  : _map(new GameMap), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
 {
   initPlayer();
 }
