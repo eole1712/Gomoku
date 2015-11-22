@@ -4,6 +4,7 @@
 # include <string>
 # include "IGame.hpp"
 # include "IGameManager.hpp"
+# include "IGui.hpp"
 
 class GameManager : public IGameManager
 {
@@ -12,6 +13,7 @@ public:
   virtual ~GameManager();
 
 private:
+  IGui *	_gui;
   IJudge *	_judge;
   IGame *	_game;
 

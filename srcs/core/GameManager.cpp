@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Gui.hpp"
 #include "IGame.hpp"
 #include "GameManager.hpp"
 #include "BasicCheck.hpp"
@@ -10,6 +11,7 @@
 GameManager::GameManager()
   : _game(NULL)
 {
+  _gui = new Gui(this, 0, nullptr);
   _judge = new Judge();
   _judge->addRule(new BasicCheck());
   _judge->addRule(new DoubleThree());
@@ -21,6 +23,8 @@ GameManager::~GameManager()
 {
   if (_game)
     delete _game;
+  delete _judge;
+  delete _gui;
 }
 
 IJudge *		GameManager::getJudge() const

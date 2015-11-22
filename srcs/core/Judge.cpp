@@ -6,6 +6,9 @@ Judge::Judge()
 {
 }
 
+Judge::~Judge()
+{}
+
 std::string const	&Judge::getLastError() const
 {
   return _lastError;

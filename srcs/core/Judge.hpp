@@ -10,7 +10,7 @@ class Judge : public IJudge
 {
 public:
   Judge();
-  ~Judge() {}
+  virtual ~Judge();
 
 private:
   typedef std::map<IRule::RuleType, IRule *> ruleMap;
