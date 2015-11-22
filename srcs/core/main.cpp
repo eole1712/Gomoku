@@ -5,11 +5,10 @@
 
 int main()
 {
-  IGameManager* gm;
+  IGameManager* gm = new GameManager();
 
-   gm = new GameManager();
-   (void)gm;
-   /*QApplication a(argc, argv);
+  gm.start();
+  /*QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
