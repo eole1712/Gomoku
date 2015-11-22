@@ -3,9 +3,9 @@
 
 # include <string>
 # include "IGameMap.hpp"
-# include "IPlayer.hpp"
 # include "IGame.hpp"
-# include "IJudge.hpp"
+
+class IJudge;
 
 class IGameManager
 {

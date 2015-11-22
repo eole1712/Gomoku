@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "IRule.hpp"
+#include "IGame.hpp"
 #include "Judge.hpp"
 
 Judge::Judge()

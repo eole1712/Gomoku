@@ -1,12 +1,14 @@
 #include <iostream>
 #include "Gui.hpp"
 #include "IGame.hpp"
+#include "Game.hpp"
 #include "GameManager.hpp"
 #include "BasicCheck.hpp"
 #include "Win.hpp"
 #include "Judge.hpp"
 #include "EatThem.hpp"
 #include "DoubleThree.hpp"
+#include "IPlayer.hpp"
 
 GameManager::GameManager()
   : _game(NULL)
