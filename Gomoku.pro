@@ -12,13 +12,13 @@ QMAKE_CXXFLAGS += -std=c++11
 QT += core gui widgets
 
 # Input
-HEADERS += gui/drawingArea.hpp \
-           gui/Gui.hpp \
-           gui/IGui.hpp \
-           gui/gomokuButton.hpp \
-           gui/mainwindow.h \
-           gui/modifiableQLabel.hpp \
-           gui/winchanger.hpp \
+HEADERS += srcs/gui/drawingArea.hpp \
+           srcs/gui/Gui.hpp \
+           srcs/gui/IGui.hpp \
+           srcs/gui/gomokuButton.hpp \
+           srcs/gui/mainwindow.h \
+           srcs/gui/modifiableQLabel.hpp \
+           srcs/gui/winchanger.hpp \
            srcs/core/AI.hpp \
            srcs/core/Game.hpp \
            srcs/core/GameManager.hpp \
@@ -36,14 +36,14 @@ HEADERS += gui/drawingArea.hpp \
            srcs/rules/EatThem.hpp \
            srcs/rules/Win.hpp \
            srcs/rules/DoubleThree.hpp
-FORMS += gui/mainwindow.ui
-SOURCES += gui/drawingArea.cpp \
-           gui/Gui.cpp \
-           gui/gomokuButton.cpp \
-           gui/main.cpp \
-           gui/mainwindow.cpp \
-           gui/modifiableQLabel.cpp \
-           gui/winchanger.cpp \
+FORMS += srcs/gui/mainwindow.ui
+SOURCES += srcs/gui/drawingArea.cpp \
+           srcs/gui/Gui.cpp \
+           srcs/gui/gomokuButton.cpp \
+           srcs/gui/main.cpp \
+           srcs/gui/mainwindow.cpp \
+           srcs/gui/modifiableQLabel.cpp \
+           srcs/gui/winchanger.cpp \
            srcs/core/AI.cpp \
            srcs/core/Game.cpp \
            srcs/core/GameManager.cpp \
