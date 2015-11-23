@@ -30,6 +30,7 @@ public:
     void setPlayer2Text(int score);
     void setWin(int Player);
     void changeTurn();
+    void showError(std::string const&);
 /*!
  * \brief slots : récepteurs d'events
  */

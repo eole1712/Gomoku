@@ -33,3 +33,8 @@ void Gui::changeTurn()
 {
     _win->changeTurn();
 }
+
+void Gui::showError(const std::string & errorText)
+{
+    _win->showError(errorText);
+}

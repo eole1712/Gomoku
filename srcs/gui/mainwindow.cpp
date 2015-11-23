@@ -133,3 +133,12 @@ void MainWindow::changeTurn()
       ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
     turn = !turn;
 }
+
+void MainWindow::showError(std::string const& errorText)
+{
+    std::string str = "";
+    if (errorText != "")
+        str = "<font color='red'>Error occured : " + errorText + "</font color>";
+    ui->ErrorMessage->setText(str.c_str());
+}
+
