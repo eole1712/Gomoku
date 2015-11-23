@@ -38,8 +38,6 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     this->_gm->removeGame();
     this->reset();
   });
-
-
   for (auto button : _buttons)
     {
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
