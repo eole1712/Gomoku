@@ -2,6 +2,9 @@
 #include "mainwindow.h"
 #include "drawingArea.hpp"
 #include "ui_mainwindow.h"
+#include "IJudge.hpp"
+#include "DoubleThree.hpp"
+#include "EatThem.hpp"
 #include <sstream>
 #include <iostream>
 
@@ -38,6 +41,23 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     this->_gm->removeGame();
     this->reset();
   });
+
+  connect(ui->doubleThree, &QCheckBox::clicked, [this](bool state) {
+     if (state == false)
+         this->_gm->getJudge()->addRule(new DoubleThree());
+     else
+         this->_gm->getJudge()->removeRule(IRule::DOUBLETHREE);
+  });
+
+  connect(ui->eatThem, &QCheckBox::clicked, [this](bool state) {
+     if (state == false) {
+        this->_gm->getJudge()->removeRule(IRule::EATTHEM);
+     }
+     else {
+        this->_gm->getJudge()->addRule(new EatThem());
+     }
+  });
+
   for (auto button : _buttons)
     {
       ui->gridLayout->addWidget(button, button->getX(), button->getY());
@@ -141,4 +161,3 @@ void MainWindow::showError(std::string const& errorText)
         str = "<font color='red'>Error occured : " + errorText + "</font color>";
     ui->ErrorMessage->setText(str.c_str());
 }
-

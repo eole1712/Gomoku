@@ -24,8 +24,8 @@ public:
   virtual void			start() const;
   virtual IGame *		createGame(IGame::mode gameMode = IGame::PVP);
   virtual IGame *		getGame() const;
-  virtual void didClickCase(unsigned int x, unsigned y);
-  virtual void		removeGame();
+  virtual void          didClickCase(unsigned int x, unsigned y);
+  virtual void		    removeGame();
 };
 
 #endif  /* !GAMEMANAGER_HPP_ */

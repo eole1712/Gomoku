@@ -64,13 +64,13 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
     return;
 
   _game->playTurn(x, y);
-
   if (_judge->checkRules(_game)) {
     _game->setCase(x, y, static_cast<IGameMap::caseContent>(_game->getActivePlayer()->getColor()));
     _game->endTurn();
+    _gui->showError("");
   }
   else
-    std::cout << _judge->getLastError() << std::endl;
+    _gui->showError(_judge->getLastError());
 
   // if (_game->isFinished())
   //   std::cout << "WINNNNNNNNNNNN" << std::endl;
