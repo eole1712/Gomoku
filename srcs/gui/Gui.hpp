@@ -15,6 +15,7 @@ public:
   virtual void setWin(int Player);
   virtual void changeTurn();
   virtual void setButtonColor(int x, int y, IGameMap::caseContent);
+  virtual void setFull(int x, int y, bool);
   virtual void showError(std::string const& errorText);
 protected:
   QApplication* _app;

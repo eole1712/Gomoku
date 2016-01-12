@@ -24,6 +24,11 @@ void Gui::setButtonColor(int x, int y, IGameMap::caseContent col)
   _win->setButtonColor(x, y, col);
 }
 
+void Gui::setFull(int x, int y, bool isFull)
+{
+    _win->setFull(x, y, isFull);
+}
+
 void Gui::setWin(int Player)
 {
     _win->setWin(Player);
