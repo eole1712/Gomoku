@@ -183,3 +183,8 @@ void MainWindow::showError(std::string const& errorText)
         str = "<font color='red'>Error occured : " + errorText + "</font color>";
     ui->ErrorMessage->setText(str.c_str());
 }
+
+double MainWindow::getAITimeout() const
+{
+   return ui->AITimeoutBox->value();
+}

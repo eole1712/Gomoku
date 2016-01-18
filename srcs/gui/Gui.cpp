@@ -44,3 +44,7 @@ void Gui::showError(const std::string & errorText)
     _win->showError(errorText);
 }
 
+double Gui::getAITimeout() const
+{
+    return _win->getAITimeout();
+}

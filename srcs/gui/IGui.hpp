@@ -13,6 +13,7 @@ public:
   virtual void start() = 0;
   virtual void changeTurn() = 0;
   virtual void showError(std::string const&) = 0;
+  virtual double getAITimeout() const = 0;
 protected:
 
 };

@@ -32,6 +32,7 @@ public:
     void setWin(int Player);
     void changeTurn();
     void showError(std::string const&);
+    double getAITimeout() const;
 /*!
  * \brief slots : récepteurs d'events
  */

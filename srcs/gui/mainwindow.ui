@@ -157,6 +157,38 @@
         <string>PlayerTurn</string>
        </property>
       </widget>
+      <widget class="QDoubleSpinBox" name="AITimeoutBox">
+       <property name="geometry">
+        <rect>
+         <x>780</x>
+         <y>530</y>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+       <property name="value">
+        <double>5.000000000000000</double>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>770</x>
+         <y>500</y>
+         <width>111</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>AI Timeout</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="page_2">

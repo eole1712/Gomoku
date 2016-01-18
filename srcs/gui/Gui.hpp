@@ -17,6 +17,7 @@ public:
   virtual void setButtonColor(int x, int y, IGameMap::caseContent);
   virtual void setFull(int x, int y, bool);
   virtual void showError(std::string const& errorText);
+  virtual double getAITimeout() const;
 protected:
   QApplication* _app;
   MainWindow* _win;
