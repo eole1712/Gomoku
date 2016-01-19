@@ -55,6 +55,7 @@ private:
     std::vector<GomokuButton*> _buttons;
     std::string _colors[3];
     IGameManager* _gm;
+    IGame::mode _mode;
 };
 
 #endif // MAINWINDOW_H

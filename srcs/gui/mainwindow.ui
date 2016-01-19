@@ -173,7 +173,7 @@
         <double>5.000000000000000</double>
        </property>
       </widget>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="AILabel">
        <property name="geometry">
         <rect>
          <x>770</x>
@@ -319,9 +319,6 @@
        <property name="text">
         <string/>
        </property>
-       <property name="buddy">
-        <cstring>PvE</cstring>
-       </property>
       </widget>
       <widget class="QCheckBox" name="doubleThree">
        <property name="geometry">
@@ -413,7 +410,7 @@
      <x>0</x>
      <y>0</y>
      <width>925</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -551,6 +548,22 @@
     <hint type="destinationlabel">
      <x>421</x>
      <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PvE</sender>
+   <signal>clicked()</signal>
+   <receiver>stackedWidget</receiver>
+   <slot>nextWidget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>720</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>888</x>
+     <y>47</y>
     </hint>
    </hints>
   </connection>

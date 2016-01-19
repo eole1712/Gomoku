@@ -41,7 +41,17 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     connect(ui->PvP, &QPushButton::clicked, [this](){
 
         this->_gm->createGame(IGame::PVP);
+        _mode = IGame::PVP;
+        this->ui->AITimeoutBox->setVisible(false);
+        this->ui->AILabel->setVisible(false);
+    });
 
+    connect(ui->PvE, &QPushButton::clicked, [this](){
+
+        this->_gm->createGame(IGame::PVE);
+        _mode = IGame::PVE;
+        this->ui->AITimeoutBox->setVisible(true);
+        this->ui->AILabel->setVisible(true);
     });
 
     connect(ui->pushButton, &QPushButton::clicked, [this](){
@@ -79,6 +89,7 @@ void	MainWindow::reset()
     for (auto button : _buttons)
     {
         button->setStyleSheet(std::string("background-color:grey").c_str());
+        button->setEmpty(false);
     }
     ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
     ui->playerTurn->setText("Player Turn");
@@ -97,7 +108,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_PvE_clicked()
 {
-    ui->PvE->setText("I'm not Implemented Yet");
+    this->_gm->createGame(IGame::PVE);
 }
 
 void MainWindow::setButtonColor(int x, int y, IGameMap::caseContent col)

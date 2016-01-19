@@ -40,8 +40,6 @@ IJudge *		GameManager::getJudge() const
 
 IGame *			GameManager::createGame(IGame::mode gameMode)
 {
-  if (gameMode == IGame::PVE)
-    return NULL;
   _game = new Game(gameMode, _gui);
   return _game;
 }
