@@ -3,13 +3,14 @@
 
 #include <string>
 #include "IRule.hpp"
+#include "Case.hpp"
 #include "vec2.hpp"
 
 class IGame;
 
 class DoubleThree : public IRule
 {
-  typedef std::pair<GameMap::caseContent, vec2> align;
+  typedef std::pair<Case::caseContent, vec2> align;
 
 public:
   DoubleThree();
@@ -24,9 +25,9 @@ private:
   const std::string	_lastError;
   const vec2		_axis[4];
   const vec2		_boundLimit;
-  const GameMap::caseContent		_validCase[5][5];
-  GameMap::caseContent	_enemyCell;
-  GameMap::caseContent	_myCell;
+  const Case::caseContent		_validCase[5][5];
+  Case::caseContent	_enemyCell;
+  Case::caseContent	_myCell;
   vec2			_playingPosition;
   IGameMap *		_map;
   bool			checkFreeAlign(vec2 const & origin, vec2 axis, align * alignOut);
