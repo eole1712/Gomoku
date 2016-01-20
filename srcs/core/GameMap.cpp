@@ -18,7 +18,10 @@ void		GameMap::clear()
   for (unsigned int x = 0; x < size_x; x++)
     for (unsigned int y = 0; y < size_y; y++)
       if (_map[x][y] != nullptr)
-	delete _map[x][y];
+	{
+	  delete _map[x][y];
+	  _map[x][y] = nullptr;
+	}
 }
 
 Case*	GameMap::getCase(unsigned int x, unsigned int y) const
