@@ -14,7 +14,7 @@ public:
   virtual void start();
   virtual void setWin(int Player);
   virtual void changeTurn();
-  virtual void setButtonColor(int x, int y, IGameMap::caseContent);
+  virtual void setButtonColor(int x, int y, Case::caseContent);
   virtual void setFull(int x, int y, bool);
   virtual void showError(std::string const& errorText);
   virtual double getAITimeout() const;

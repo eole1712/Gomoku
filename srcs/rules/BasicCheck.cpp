@@ -3,6 +3,7 @@
 #include "IRule.hpp"
 #include "IPlayer.hpp"
 #include "BasicCheck.hpp"
+#include "Case.hpp"
 
 BasicCheck::BasicCheck()
   : _lastError("Case non disponible !")
@@ -28,5 +29,5 @@ bool			BasicCheck::isOk(IGame * game)
 
   if (!game->getMap()->isIn(posX, posY))
     return (false);
-  return (game->getMap()->getCase(posX, posY) == GameMap::EMPTY);
+  return (game->getMap()->getCase(posX, posY)->getCaseContent() == Case::caseContent::EMPTY);
 }

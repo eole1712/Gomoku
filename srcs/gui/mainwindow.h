@@ -25,7 +25,7 @@ public:
     explicit MainWindow(QWidget *parent, IGameManager*);
     ~MainWindow();
     void setFull(int x, int y, bool);
-    void setButtonColor(int x, int y, IGameMap::caseContent);
+    void setButtonColor(int x, int y, Case::caseContent);
     void reset();
     void setPlayer1Text(int score);
     void setPlayer2Text(int score);

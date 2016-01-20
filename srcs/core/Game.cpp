@@ -4,6 +4,7 @@
 #include "Game.hpp"
 #include "GameMap.hpp"
 #include "IGui.hpp"
+#include "Case.hpp"
 
 Game::Game(mode gameMode, IGui* gui)
   : _gui(gui), _map(new GameMap()), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
@@ -56,10 +57,10 @@ IGame::mode		Game::getMode() const
   return _mode;
 }
 
-void		Game::setCase(unsigned int x, unsigned int y, IGameMap::caseContent color)
+void		Game::setCase(unsigned int x, unsigned int y, Case::caseContent color)
 {
-  getMap()->setCase(x, y, color);
-  getGui()->setFull(x, y, color != IGameMap::EMPTY ? true : false);
+  getMap()->getCase(x, y)->setCaseContent(color);
+  getGui()->setFull(x, y, color != Case::caseContent::EMPTY ? true : false);
   getGui()->setButtonColor(x, y, color);
 }
 

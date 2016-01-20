@@ -23,6 +23,7 @@ HEADERS += srcs/gui/drawingArea.hpp \
            srcs/core/Game.hpp \
            srcs/core/GameManager.hpp \
            srcs/core/GameMap.hpp \
+           srcs/core/Case.hpp \
            srcs/core/Human.hpp \
            srcs/core/IGame.hpp \
            srcs/core/IGameManager.hpp \
@@ -47,6 +48,7 @@ SOURCES += srcs/gui/drawingArea.cpp \
            srcs/core/Game.cpp \
            srcs/core/GameManager.cpp \
            srcs/core/GameMap.cpp \
+           srcs/core/Case.cpp \
            srcs/core/Human.cpp \
            srcs/core/Judge.cpp \
            srcs/core/Player.cpp \

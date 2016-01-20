@@ -19,7 +19,7 @@ void	Gui::start()
   }
 }
 
-void Gui::setButtonColor(int x, int y, IGameMap::caseContent col)
+void Gui::setButtonColor(int x, int y, Case::caseContent col)
 {
   _win->setButtonColor(x, y, col);
 }

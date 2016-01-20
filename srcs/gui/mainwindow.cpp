@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
         });
         tmp->OnMouseMove( [this, tmp] (QMouseEvent*e) {
             if (_gm->getGame() && _gm->getGame()->getActivePlayer() && tmp->isEmpty())
-                setButtonColor(tmp->getX(), tmp->getY(), static_cast<IGameMap::caseContent>(_gm->getGame()->getActivePlayer()->getColor()));
+                setButtonColor(tmp->getX(), tmp->getY(), static_cast<Case::caseContent>(_gm->getGame()->getActivePlayer()->getColor()));
             if (!tmp->isEmpty())
                 for(auto button : _buttons)
                     if (button->isEmpty())
@@ -111,7 +111,7 @@ void MainWindow::on_PvE_clicked()
     this->_gm->createGame(IGame::PVE);
 }
 
-void MainWindow::setButtonColor(int x, int y, IGameMap::caseContent col)
+void MainWindow::setButtonColor(int x, int y, Case::caseContent col)
 {
     for(auto button : _buttons)
     {

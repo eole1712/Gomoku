@@ -12,30 +12,30 @@ Win::~Win()
 {}
 
 bool	Win::canEatThis(IGameMap *map, vec2 origin, vec2 axis,
-			IGameMap::caseContent v) const
+			Case::caseContent v) const
 {
-  const IGameMap::caseContent	ok[4][5] =
+  const Case::caseContent	ok[4][5] =
     {
-      { IGameMap::EMPTY, IGameMap::EMPTY, IGameMap::RED, IGameMap::RED, IGameMap::BLUE },
-      { IGameMap::EMPTY, IGameMap::BLUE, IGameMap::RED, IGameMap::RED, IGameMap::EMPTY },
-      { IGameMap::BLUE, IGameMap::RED, IGameMap::RED, IGameMap::EMPTY, IGameMap::EMPTY },
-      { IGameMap::EMPTY, IGameMap::RED, IGameMap::RED, IGameMap::BLUE, IGameMap::EMPTY }
+      { Case::EMPTY, Case::EMPTY, Case::RED, Case::RED, Case::BLUE },
+      { Case::EMPTY, Case::BLUE, Case::RED, Case::RED, Case::EMPTY },
+      { Case::BLUE, Case::RED, Case::RED, Case::EMPTY, Case::EMPTY },
+      { Case::EMPTY, Case::RED, Case::RED, Case::BLUE, Case::EMPTY }
     };
-  IGameMap::caseContent		cmp[5];
-  bool				swap = v != IGameMap::RED;
+  Case::caseContent		cmp[5];
+  bool				swap = v != Case::RED;
 
   vec2 tmp = { origin.x - (2 * axis.x), origin.y - (2 * axis.y) };
   for (int i = 0; i < 5; i++)
     {
       if (!tmp.inBound({-1, 19}))
-	cmp[i] = IGameMap::BLUE;
+	cmp[i] = Case::BLUE;
       else if (tmp == origin)
-	cmp[i] = IGameMap::RED;
+	cmp[i] = Case::RED;
       else
 	{
-	  cmp[i] = map->getCase(tmp[0], tmp[1]);
-	  if (swap && cmp[i] != IGameMap::EMPTY)
-	    cmp[i] = (cmp[i] == IGameMap::RED) ? IGameMap::BLUE : IGameMap::RED;
+	  cmp[i] = map->getCase(tmp[0], tmp[1])->getCaseContent();
+	  if (swap && cmp[i] != Case::EMPTY)
+	    cmp[i] = (cmp[i] == Case::RED) ? Case::BLUE : Case::RED;
 	}
       tmp += axis;
     }
@@ -51,8 +51,8 @@ bool	Win::canEatThis(IGameMap *map, vec2 origin, vec2 axis,
 
 bool	Win::isOk(IGame* game)
 {
-  IGameMap::caseContent	v =
-    (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? GameMap::BLUE : GameMap::RED;
+  Case::caseContent	v =
+    (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? Case::BLUE : Case::RED;
   IGameMap *	map = game->getMap();
   const vec2	axis[4] = {{1, 0}, {0, 1}, {1, 1}, {-1, 1}};
   const vec2	normal[4] = {{0, 1}, {1, 0}, {-1, 1}, {1, 1}};
@@ -77,7 +77,7 @@ bool	Win::isOk(IGame* game)
       i[1] = 0;
       while (i[1] < 4 &&
 	     pos[0].inBound({-1, 19}) &&
-	     map->getCase(pos[0].x, pos[0].y) == v &&
+	     map->getCase(pos[0].x, pos[0].y)->getCaseContent() == v &&
 	     !canEatThis(map, pos[0], normal[i[0]], v))
 	{
 	  i[1]++;
@@ -92,7 +92,7 @@ bool	Win::isOk(IGame* game)
       i[1] = 0;
       while (i[1] < 4 && i[2] < 4 &&
 	     pos[1].inBound({-1, 19}) &&
-	     map->getCase(pos[1][0], pos[1][1]) == v &&
+	     map->getCase(pos[1][0], pos[1][1])->getCaseContent() == v &&
 	     !canEatThis(map, pos[1], normal[i[0]], v))
 	{
 	  i[1]++;

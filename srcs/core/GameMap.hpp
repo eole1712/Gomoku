@@ -2,6 +2,7 @@
 # define GAMEMAP_HPP_
 
 # include "IGameMap.hpp"
+# include "Case.hpp"
 
 class GameMap
   : public IGameMap
@@ -15,12 +16,12 @@ public:
   virtual ~GameMap();
 
 private:
-  caseContent	_map[size_x][size_y];
+  Case*	_map[size_x][size_y];
 
 public:
   virtual void		clear();
-  virtual caseContent	getCase(unsigned int x, unsigned int y) const;
-  virtual void		setCase(unsigned int x, unsigned int y, caseContent);
+  virtual Case*		getCase(unsigned int x, unsigned int y) const;
+  virtual void		setCase(unsigned int x, unsigned int y, Case::caseContent);
   virtual bool		isIn(unsigned int x, unsigned int y) const;
 };
 

@@ -20,7 +20,7 @@ public:
 
 private:
   bool				canEatThis(IGameMap *map, vec2 origin, vec2 axis,
-					   IGameMap::caseContent v) const;
+					   Case::caseContent v) const;
 
 private:
   std::string		_lastError;
