@@ -16,7 +16,7 @@ Case::~Case()
 
 bool    Case::isEmpty() const
 {
-    return prop & 0b1000;
+    return (prop & 0b1000) >> 3;
 }
 
 void    Case::setEmpty(bool value)
@@ -26,7 +26,21 @@ void    Case::setEmpty(bool value)
 
 bool    Case::getColor() const
 {
-    return prop & 0b0100;
+    return (prop & 0b0100) >> 2;
+}
+
+void                Case::setContent(caseContent c)
+{
+    setEmpty(c == EMPTY);
+    setColor(c == RED);
+}
+
+Case::caseContent    Case::getContent() const
+{
+    if (isEmpty())
+        return EMPTY;
+    else
+        return getColor() ? RED : BLUE;
 }
 
 void    Case::setColor(bool value)
@@ -37,9 +51,9 @@ void    Case::setColor(bool value)
 bool    Case::getPosable(bool color)
 {
     if (color == false)
-        return prop & 0b0010;
+        return (prop & 0b0010) >> 1;
     else
-        return prop & 0b0001;
+        return (prop & 0b0001);
 }
 
 void    Case::setPosable(bool color, bool value)

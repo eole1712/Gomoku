@@ -13,6 +13,9 @@
 #include <stdint.h>
 
 class Case {
+
+public:
+    enum caseContent {EMPTY, BLUE, RED};
     
 public:
     enum dir {N = 0, NW, W, SW, S, SE, E, NE};
@@ -39,7 +42,10 @@ public:
     
 public:
     void    setColor(bool);
-    bool    getColor() const;
+    void    setContent(caseContent);
+    
+    bool            getColor() const;
+    caseContent     getContent() const;
 
 public:
     void    setEmpty(bool);
