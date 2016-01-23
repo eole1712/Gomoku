@@ -15,6 +15,11 @@ GameMap::~GameMap()
     clear();
 }
 
+GameMap::GameMap(GameMap &unit)
+{
+    std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+}
+
 void		GameMap::clear()
 {
     for (unsigned int x = 0; x < size_x; x++)
