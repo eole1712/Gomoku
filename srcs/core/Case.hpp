@@ -15,9 +15,9 @@
 class Case {
     
 public:
-    enum dir {NW = 0, N, NE, W, E, SW, S, SE};
+    enum dir {N = 0, NW, W, SW, S, SE, E, NE};
     enum pat2 {YX = 0, YOX, YOOX, YOOOX};
-    enum pat3 {YXX = 0, YOXX, YOOXX, YXOX, YXOOX, YOXOX, XYX, XYOX, XYOOX, XOYOX};
+    enum pat3 {YXX = 0, YOXX, YOOXX, YXOX, YXOOX, YOXOX, XYOX, XYOOX, XOYOX, XYX};
     enum pat4 {YXXX = 0, YOXXX, YXOXX, YXXOX, XYXX, XYOXX, XYXOX};
     enum pat5 {YXXXX = 0, XYXXX, XXYXX};
 
@@ -50,7 +50,7 @@ public:
     bool    getPosable(bool color);
 
 private:
-    uint64_t    tab[3];
+    uint64_t    tab[6];
     uint8_t     prop;
 };
 

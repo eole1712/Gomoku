@@ -58,7 +58,7 @@ void    Case::setPosable(bool color, bool value)
 bool    Case::getValue2(Case::dir d, Case::pat2 p, bool color) const
 {
     uint64_t    pos = (63 - (32 * color) - (p * 8 + d));
-
+    
     return (tab[0] & (uint64_t)(pow(2, pos))) >> pos;
 }
 
@@ -70,34 +70,98 @@ void    Case::setValue2(Case::dir d, Case::pat2 p, bool color, bool value)
     tab[0] = (tab[0] & (UINT64_MAX - pow_of_pos)) + (value * pow_of_pos);
 }
 
-
-bool    Case::getValue3(Case::dir d, Case::pat3 p) const
+bool    Case::getValue3(Case::dir d, Case::pat3 p, bool color) const
 {
-    //return tab[0] & (uint64_t)(std::pow(2, (63 - (p * 8 + d))));
+    int         i = 1;
+    
+    int pos = (63 - (80 * color) - (p * 8 + d));
+    
+    while (pos < 0) {
+        pos += 64;
+        i += 1;
+    }
+    
+    return (tab[i] & (uint64_t)(pow(2, pos))) >> pos;
 }
 
-void    Case::setValue3(Case::dir d, Case::pat3 p, bool value)
+void        Case::setValue3(Case::dir d, Case::pat3 p, bool color, bool value)
 {
-    if (p < XYX)
-    {
-        int nb = 32 + (p * 8 + d);
-        if (nb <= 63)
-        {
-            uint64_t    pos = std::pow(2, (63 - nb));
-            
-            tab[0] = std::pow(2, 63) + (tab[0] & (pos - 1)) + (value * pos);
-        }
-        else
-        {
-            uint64_t    pos = std::pow(2, (126 - nb));
-            
-            tab[1] = (tab[1] & (pos - 1)) + (value * pos);
-        }
-    }
-    else
-    {
-        uint64_t pos = std::pow(2, (17 - (p - 5)));
+    int         i = 1;
 
-        tab[1] = (tab[1] & (pos - 1)) + (value * pos);
+    int pos = (63 - (80 * color) - (p * 8 + d));
+    
+    while (pos < 0) {
+        pos += 64;
+        i += 1;
+    }
+    
+    uint64_t    pow_of_pos = std::pow(2, pos);
+    tab[i] = (tab[i] & (UINT64_MAX - pow_of_pos)) + (value * pow_of_pos);
+    
+    if (p == XOYOX || p == XYX) {
+        d = (dir)(((int)(d) + 4) % 8);
+        i = 1;
+        pos = (63 - (80 * color) - (p * 8 + d));
+        
+        while (pos < 0) {
+            pos += 64;
+            i += 1;
+        }
+        
+        pow_of_pos = std::pow(2, pos);
+        tab[i] = (tab[i] & (UINT64_MAX - pow_of_pos)) + (value * pow_of_pos);
+    }
+}
+
+bool    Case::getValue4(Case::dir d, Case::pat4 p, bool color) const
+{
+    int         i = 3;
+    
+    int pos = (31 - (56 * color) - (p * 8 + d));
+    
+    while (pos < 0) {
+        pos += 64;
+        i += 1;
+    }
+    
+    return (tab[i] & (uint64_t)(pow(2, pos))) >> pos;
+}
+
+void        Case::setValue4(Case::dir d, Case::pat4 p, bool color, bool value)
+{
+    int         i = 3;
+    
+    int pos = (31 - (56 * color) - (p * 8 + d));
+    
+    while (pos < 0) {
+        pos += 64;
+        i += 1;
+    }
+    
+    uint64_t    pow_of_pos = std::pow(2, pos);
+    tab[i] = (tab[i] & (UINT64_MAX - pow_of_pos)) + (value * pow_of_pos);
+}
+
+bool    Case::getValue5(Case::dir d, Case::pat5 p, bool color) const
+{
+    int pos = (47 - (24 * color) - (p * 8 + d));
+    
+    return (tab[5] & (uint64_t)(pow(2, pos))) >> pos;
+}
+
+void        Case::setValue5(Case::dir d, Case::pat5 p, bool color, bool value)
+{
+    int pos = (47 - (24 * color) - (p * 8 + d));
+    
+    uint64_t    pow_of_pos = std::pow(2, pos);
+    tab[5] = (tab[5] & (UINT64_MAX - pow_of_pos)) + (value * pow_of_pos);
+    
+    if (p == XXYXX) {
+        d = (dir)(((int)(d) + 4) % 8);
+        pos = (47 - (24 * color) - (p * 8 + d));
+        
+        uint64_t    pow_of_pos = std::pow(2, pos);
+        tab[5] = (tab[5] & (UINT64_MAX - pow_of_pos)) + (value * pow_of_pos);
+
     }
 }
