@@ -10,6 +10,14 @@ class GameMap
 public:
   static const unsigned int	size_x = 19;
   static const unsigned int	size_y = 19;
+  static const vec2		DIR[8] = {{0, -1},
+					  {-1, -1},
+					  {-1, 0},
+					  {-1, 1},
+					  {0, 1},
+					  {1, 1},
+					  {1, 0},
+					  {1, -1}};
 
 public:
   GameMap();
@@ -22,7 +30,7 @@ public:
   virtual void		clear();
   virtual Case*		getCase(unsigned int x, unsigned int y) const;
   virtual void		setCase(unsigned int x, unsigned int y, Case::caseContent);
-  virtual bool		isIn(unsigned int x, unsigned int y) const;
+  virtual static bool	isIn(unsigned int x, unsigned int y) const;
 };
 
 #endif /* !GAMEMAP_HPP_ */
