@@ -2,9 +2,9 @@
 
 Case::Case()
 {
-    tab[0] = 0;
-    tab[1] = 0;
-    tab[2] = 0;
+    for (int i = 0; i < 6; i++) {
+        tab[i] = 0;
+    }
     prop = 0;
     
     setEmpty(true);
@@ -12,6 +12,24 @@ Case::Case()
 
 Case::~Case()
 {
+}
+
+Case::Case(Case const &unit)
+{
+    if (&unit != this) {
+        for (int i = 0; i < 6; i++) {
+            tab[i] = unit.tab[i];
+        }
+        prop = unit.prop;
+    }
+}
+
+void    Case::clear()
+{
+    for (int i = 0; i < 6; i++) {
+        tab[i] = 0;
+    }
+    prop = 0;
 }
 
 bool    Case::isEmpty() const
@@ -179,3 +197,20 @@ void        Case::setValue5(Case::dir d, Case::pat5 p, bool color, bool value)
 
     }
 }
+
+void        Case::resetValue(Case::dir d, bool color)
+{
+    for (unsigned int i = 0; i < 4; i++) {
+        setValue2(d, (pat2)(i), color, false);
+    }
+    for (unsigned int i = 0; i < 10; i++) {
+        setValue3(d, (pat3)(i), color, false);
+    }
+    for (unsigned int i = 0; i < 7; i++) {
+        setValue4(d, (pat4)(i), color, false);
+    }
+    for (unsigned int i = 0; i < 3; i++) {
+        setValue5(d, (pat5)(i), color, false);
+    }
+}
+

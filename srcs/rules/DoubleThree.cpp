@@ -69,7 +69,7 @@ bool		DoubleThree::checkFreeAlign(vec2 const & origin, vec2 axis, align * alignO
     {
       pos = origin + axis;
       for (unsigned char i = 0; i < 4 && pos.inBound(_boundLimit) &&
-	     (cell = _map->getCase(pos.x, pos.y)->getContent()) != _enemyCell &&
+	     (cell = _map->getCase(pos.x, pos.y).getContent()) != _enemyCell &&
 	     !(cell == Case::EMPTY && (lastCellEmpty || emptyCellFind == 2)); ++i)
 	{
 	  alignPtr[0].first = cell;

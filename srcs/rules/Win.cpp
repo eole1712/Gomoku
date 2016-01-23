@@ -33,7 +33,7 @@ bool	Win::canEatThis(IGameMap *map, vec2 origin, vec2 axis,
 	cmp[i] = Case::RED;
       else
 	{
-	  cmp[i] = map->getCase(tmp[0], tmp[1])->getContent();
+	  cmp[i] = map->getCase(tmp[0], tmp[1]).getContent();
 	  if (swap && cmp[i] != Case::EMPTY)
 	    cmp[i] = (cmp[i] == Case::RED) ? Case::BLUE : Case::RED;
 	}
@@ -77,7 +77,7 @@ bool	Win::isOk(IGame* game)
       i[1] = 0;
       while (i[1] < 4 &&
 	     pos[0].inBound({-1, 19}) &&
-	     map->getCase(pos[0].x, pos[0].y)->getContent() == v &&
+	     map->getCase(pos[0].x, pos[0].y).getContent() == v &&
 	     !canEatThis(map, pos[0], normal[i[0]], v))
 	{
 	  i[1]++;
@@ -92,7 +92,7 @@ bool	Win::isOk(IGame* game)
       i[1] = 0;
       while (i[1] < 4 && i[2] < 4 &&
 	     pos[1].inBound({-1, 19}) &&
-	     map->getCase(pos[1][0], pos[1][1])->getContent() == v &&
+	     map->getCase(pos[1][0], pos[1][1]).getContent() == v &&
 	     !canEatThis(map, pos[1], normal[i[0]], v))
 	{
 	  i[1]++;
