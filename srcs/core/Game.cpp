@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include "Human.hpp"
 #include "AI.hpp"
@@ -13,7 +14,11 @@ Game::Game(mode gameMode, IGui* gui)
 }
 
 Game::~Game()
-{}
+{
+  delete this->_map;
+  delete this->_players[0];
+  delete this->_players[1];
+}
 
 void		Game::initPlayer()
 {

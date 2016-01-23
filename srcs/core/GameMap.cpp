@@ -1,17 +1,19 @@
+#include <iostream>
 #include "IGameMap.hpp"
 #include "GameMap.hpp"
 #include "Case.hpp"
 
 GameMap::GameMap()
 {
-  clear();
   for (unsigned int x = 0; x < size_x; x++)
     for (unsigned int y = 0; y < size_y; y++)
       _map[x][y] = new Case();
 }
 
 GameMap::~GameMap()
-{}
+{
+  clear();
+}
 
 void		GameMap::clear()
 {
