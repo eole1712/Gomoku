@@ -16,11 +16,11 @@ public:
   virtual ~GameMap();
 
 private:
-  Case*	_map[size_x][size_y];
+  Case	_map[size_x][size_y];
 
 public:
   virtual void		clear();
-  virtual Case*		getCase(unsigned int x, unsigned int y) const;
+  virtual Case&		getCase(unsigned int x, unsigned int y);
   virtual void		setCase(unsigned int x, unsigned int y, Case::caseContent);
   virtual bool		isIn(unsigned int x, unsigned int y) const;
 };

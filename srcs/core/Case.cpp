@@ -2,9 +2,9 @@
 
 Case::Case()
 {
-    tab[0] = 0;
-    tab[1] = 0;
-    tab[2] = 0;
+    for (int i = 0; i < 6; i++) {
+        tab[i] = 0;
+    }
     prop = 0;
     
     setEmpty(true);
@@ -12,6 +12,24 @@ Case::Case()
 
 Case::~Case()
 {
+}
+
+Case::Case(Case const &unit)
+{
+    if (&unit != this) {
+        for (int i = 0; i < 6; i++) {
+            tab[i] = unit.tab[i];
+        }
+        prop = unit.prop;
+    }
+}
+
+void    Case::clear()
+{
+    for (int i = 0; i < 6; i++) {
+        tab[i] = 0;
+    }
+    prop = 0;
 }
 
 bool    Case::isEmpty() const

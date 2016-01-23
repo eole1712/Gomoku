@@ -28,6 +28,11 @@ public:
     Case();
     ~Case();
     
+    Case(Case const &unit);
+    
+public:
+    void clear();
+    
 public:
     void    setValue2(dir, pat2, bool color, bool);
     void    setValue3(dir, pat3, bool color, bool);

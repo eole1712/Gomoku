@@ -64,7 +64,7 @@ IGame::mode		Game::getMode() const
 
 void		Game::setCase(unsigned int x, unsigned int y, Case::caseContent color)
 {
-  getMap()->getCase(x, y)->setContent(color);
+  getMap()->getCase(x, y).setContent(color);
   getGui()->setFull(x, y, color != Case::caseContent::EMPTY ? true : false);
   getGui()->setButtonColor(x, y, color);
 }
