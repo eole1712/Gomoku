@@ -9,12 +9,15 @@ public:
   Case();
   ~Case();
 
-  Case::caseContent	getCaseContent();
+  Case::caseContent	getContent() const;
+  char			getHeuristic() const;
 
-  void			setCaseContent(Case::caseContent);
+  void			setContent(Case::caseContent);
+  void			setHeuristic(char);
 
 private:
   Case::caseContent	_content;
+  char			_heuristic;
 };
 
 #endif /* !CASE_HPP_ */

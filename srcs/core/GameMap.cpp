@@ -31,7 +31,7 @@ Case*	GameMap::getCase(unsigned int x, unsigned int y) const
 
 void		GameMap::setCase(unsigned int x, unsigned int y, Case::caseContent content)
 {
-  _map[x][y]->setCaseContent(content);
+  _map[x][y]->setContent(content);
 }
 
 bool			GameMap::isIn(unsigned int x, unsigned int y) const

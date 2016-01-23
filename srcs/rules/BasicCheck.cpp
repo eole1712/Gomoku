@@ -29,5 +29,5 @@ bool			BasicCheck::isOk(IGame * game)
 
   if (!game->getMap()->isIn(posX, posY))
     return (false);
-  return (game->getMap()->getCase(posX, posY)->getCaseContent() == Case::caseContent::EMPTY);
+  return (game->getMap()->getCase(posX, posY)->getContent() == Case::caseContent::EMPTY);
 }
