@@ -31,8 +31,8 @@ GameMap::~GameMap()
 }
 
 GameMap::GameMap(GameMap &unit)
-:_minList(unit._minList),
-_maxList(unit._maxList)
+:   _minList(unit._minList),
+    _maxList(unit._maxList)
 {
     _game = unit._game;
     std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));

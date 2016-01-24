@@ -97,8 +97,8 @@ public:
     std::list<noteType> const& getMaxMoves();
     std::list<noteType> const& getMinMoves();
 protected:
-    IGame*              _game;
     DoubleThree         _three;
+    IGame*              _game;
 };
 
 #endif /* !GAMEMAP_HPP_ */
