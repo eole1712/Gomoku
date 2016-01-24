@@ -19,6 +19,7 @@ GameManager::GameManager(int &ac, char **av)
     _judge->addRule(new BasicCheck());
     _judge->addRule(new EatThem());
     _judge->addRule(new Win());
+    _judge->addRule(new DoubleThree());
     _gui = new Gui(this, ac, av);
 }
 
@@ -61,7 +62,7 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
 {
     if (_game == NULL)
         return;
-    
+
     _game->playTurn(x, y);
     if (_judge->checkRules(_game)) {
         _game->setCase(x, y, static_cast<Case::caseContent>(_game->getActivePlayer()->getColor()));
