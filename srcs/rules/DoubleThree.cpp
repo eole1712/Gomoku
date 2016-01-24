@@ -86,22 +86,23 @@ bool		DoubleThree::findThreeAlignFreeByAxis(vec2 const & playingPosition, Case c
 						      unsigned int axis, std::pair<vec2, vec2> & pos) const
 {
   if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::YXX, _color))
-    pos = { playingPosition -  _direction[axis], playingPosition + _direction[axis] * 3 };
+    pos = { playingPosition -  direction[axis], playingPosition + direction[axis] * 3 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYX, _color))
-    pos = { playingPosition -  _direction[axis] * 2, playingPosition + _direction[axis] * 2 };
+    pos = { playingPosition -  direction[axis] * 2, playingPosition + direction[axis] * 2 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::YOXX, _color) ||
 	   playingCase.getValue3(static_cast<Case::dir>(axis), Case::YXOX, _color))
-    pos = { playingPosition -  _direction[axis], playingPosition + _direction[axis] * 4 };
+    pos = { playingPosition -  direction[axis], playingPosition + direction[axis] * 4 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYOX, _color))
-    pos = { playingPosition -  _direction[axis] * 2, playingPosition + _direction[axis] * 3 };
+    pos = { playingPosition -  direction[axis] * 2, playingPosition + direction[axis] * 3 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYOX, _color))
-    pos = { playingPosition -  _direction[axis] * 2, playingPosition + _direction[axis] * 3 };
+    pos = { playingPosition -  direction[axis] * 2, playingPosition + direction[axis] * 3 };
   else
     return false;
   if ((pos.first.inBound({-1, 19}) && !_map->getCase(pos.first.x, pos.first.y).isEmpty()) ||
       (pos.second.inBound({-1, 19}) && !_map->getCase(pos.second.x, pos.second.y).isEmpty()))
     return false;
-  return true;
+    std::cout << "find" << std::endl;
+    return true;
 }
 
 bool		DoubleThree::findDoubleThreeByAxis(vec2 const & playingPosition, Case const & playingCase, unsigned int axis) const
@@ -112,11 +113,11 @@ bool		DoubleThree::findDoubleThreeByAxis(vec2 const & playingPosition, Case cons
 
   if (!findThreeAlignFreeByAxis(playingPosition, playingCase, axis, pos))
     return false;
-  for (pos.first += _direction[axis]; pos.first != pos.second; pos.first += _direction[axis])
+  for (pos.first += direction[axis]; pos.first != pos.second; pos.first += direction[axis])
     {
       for (unsigned int secondAxis = 0; secondAxis < 8; ++secondAxis)
 	{
-	  if (secondAxis != axis &&
+	  if (secondAxis != axis && ((secondAxis + 4)% 8)  != axis &&
 	      !(testCase = _map->getCase(pos.first.x, pos.first.y)).isEmpty() &&
 	      findThreeAlignFreeByAxis(pos.first, testCase, secondAxis, tmp))
 	    return true;

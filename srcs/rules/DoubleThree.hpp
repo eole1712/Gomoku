@@ -24,7 +24,8 @@ public:
     bool                isOk(IGame * game, unsigned int x, unsigned int y, bool color);
     
 private:
-    const vec2		_direction[8] =
+  const vec2		limit = { -1, 19 };
+  const vec2		direction[8] =
     {
         {0, 1},
         {-1, 1},

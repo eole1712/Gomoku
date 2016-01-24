@@ -15,7 +15,7 @@
 class Case {
 
 public:
-    enum caseContent {EMPTY, BLUE, RED, NOT};
+    enum caseContent {EMPTY = 0, BLUE, RED, NOT};
     
 public:
     enum dir {N = 0, NW, W, SW, S, SE, E, NE};
