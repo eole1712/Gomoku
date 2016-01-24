@@ -7,6 +7,7 @@
 #include "Case.hpp"
 #include "DoubleThree.hpp"
 #include "IGui.hpp"
+#include <algorithm>
 
 DoubleThree GameMap::_three;
 
@@ -484,10 +485,6 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
     static Case::pat4 pat4[] = {Case::YXXX, Case::YOXXX, Case::YXOXX, Case::YXXOX, Case::XYXX, Case::XYOXX, Case::XYXOX};
     static Case::pat5 pat5[] = {Case::YXXXX, Case::XYXXX, Case::XXYXX};
     
-    if (!cas.getPosable(aiColor))
-        return 0;
-    
-    
     for (Case::dir dir : dirs) {
         for (Case::pat2 pat : pat2) {
             if (cas.getValue2(dir, pat, aiColor)) {
@@ -496,44 +493,56 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
             }
             if (cas.getValue2(dir, pat, noaiColor)) {
                 //  std::cout << ">-2<" << std::endl;
-                ret -= 16;
+                ret -= 32;
             }
         }
         for (Case::pat3 pat : pat3) {
             if (cas.getValue3(dir, pat, aiColor))
                 ret += 64;
             if (cas.getValue3(dir, pat, noaiColor))
-                ret -= 64;
+                ret -= 128;
         }
         for (Case::pat4 pat : pat4) {
             if (cas.getValue4(dir, pat, aiColor))
                 ret += 256;
             if (cas.getValue4(dir, pat, noaiColor))
-                ret -= 256;
+                ret -= 512;
         }
         for (Case::pat5 pat : pat5) {
             if (cas.getValue5(dir, pat, aiColor))
                 ret += 1024;
             if (cas.getValue5(dir, pat, noaiColor))
-                ret -= 1024;
+                ret -= 2048;
         }
     }
     
     if (isAI) {
-        _maxList.push_back(noteType(ret, move.first, move.second));
+        if (cas.getPosable(aiColor))
+            _maxList.push_back(noteType(ret, move.first, move.second));
         
         _maxList.sort([](noteType a, noteType b){
             return (std::get<0>(a) > std::get<0>(b));
         });
+
+        _maxList.erase(std::remove_if(_maxList.begin(), _maxList.end(), [this](noteType& elem) {
+           if (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(aiColor))
+               return true;
+        }), _maxList.end());
+
         if (_maxList.size() > 10)
             _maxList.pop_back();
     } else {
-        _minList.push_back(noteType(ret, move.first, move.second));
+        if (cas.getPosable(noaiColor))
+            _minList.push_back(noteType(ret, move.first, move.second));
         
         _minList.sort([](noteType a, noteType b){
             return (std::get<0>(a) < std::get<0>(b));
         });
         
+        _minList.erase(std::remove_if(_minList.begin(), _minList.end(), [this](noteType& elem) {
+           if (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(noaiColor))
+               return true;
+        }), _minList.end());
         if (_minList.size() > 10)
             _minList.pop_back();
     }

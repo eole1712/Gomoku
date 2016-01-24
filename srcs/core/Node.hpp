@@ -67,6 +67,7 @@ public:
   static constexpr int loose = -25000;
   static constexpr int win = 25000;
   void print(std::ostream &file);
+  Node(Node &other);
 private:
   MapType _map;
   std::pair<int, int> _move;

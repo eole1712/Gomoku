@@ -15,6 +15,12 @@ Node::Node(MapType& map, std::pair<int, int> move, Node* parent, bool isMax)
   ;
 }
 
+Node::Node(Node& other)
+   : _map(other._map)
+{
+    std::cout << "copy" << std::endl;
+}
+
 Node::~Node()
 {
     ;
@@ -60,9 +66,8 @@ int Node::evaluate(int depth, int min, int max)
         tmpNote = _parent->_eval;
     _eval = tmpNote + _map.evaluate(_move, _isMax);
     _note = _eval;
-    if (_eval != 0)
-        std::cout << _eval;
     _map.setCase(_move.first, _move.second, static_cast<Case::caseContent>(_isMax));
+
     if (_note == win || _note == loose || depth == 0)
         return _note;
     if (_childrens.empty())
@@ -126,7 +131,6 @@ void Node::initialize(int depth)
 
   for (auto& move : moves)
     {
-      //std::cout << "note : " << std::get<0>(move) << ", " << std::get<1>(move) << ", " << std::get<2>(move) <<  std::endl;
       _childrens.push_back(new Node(_map, std::make_pair(std::get<1>(move), std::get<2>(move)), this, !_isMax));
   }
 }
