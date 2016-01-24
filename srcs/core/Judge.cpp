@@ -27,7 +27,7 @@ bool			Judge::checkRules(IGame * game)
 
   if (game->isFinished())
     {
-      _lastError = "Game is finish!";
+      _lastError = "Game is finished!";
       return false;
     }
   for (i = _rules.begin();
