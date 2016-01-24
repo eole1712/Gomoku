@@ -433,12 +433,20 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                 }
                 else
                 {
-                    _game->getGui()->setFull(x, y, color != Case::caseContent::EMPTY ? true : false);
-                    _game->getGui()->setButtonColor(x, y, color);
+                    std::cout << "I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << ")" << std::endl;
+                   // _game->getGui()->setFull(x, y, true);
+                    if (getCase(tx, ty).isEmpty() == true)
+                    _game->getGui()->setButtonColor(tx, ty, Case::caseContent::NOT);
 
                     std::cout << "not ok" << std::endl;
                 }
-                _three.isOk(_game, tx, ty, !color);
+                if (!_three.isOk(_game, tx, ty, !color)) {
+                    std::cout << "I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << ")" << std::endl;
+
+                    if (getCase(tx, ty).isEmpty() == true)
+                    _game->getGui()->setButtonColor(tx, ty, Case::caseContent::NOT);
+
+                }
             }
         }
     }
@@ -474,11 +482,11 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
     for (Case::dir dir : dirs) {
         for (Case::pat2 pat : pat2) {
             if (cas.getValue2(dir, pat, aiColor)) {
-                std::cout << ">2<" << std::endl;
+             //   std::cout << ">2<" << std::endl;
                 ret += 16;
             }
             if (cas.getValue2(dir, pat, noaiColor)) {
-                std::cout << ">-2<" << std::endl;
+              //  std::cout << ">-2<" << std::endl;
                 ret -= 16;
             }
         }
@@ -502,7 +510,7 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
         }
     }
     
-    if (isAI) {
+    if (isAI) { 
         _maxList.push_back(noteType(ret, move.first, move.second));
         
         _maxList.sort([](noteType a, noteType b){

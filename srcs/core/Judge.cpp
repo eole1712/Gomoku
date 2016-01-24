@@ -28,8 +28,8 @@ bool			Judge::checkRules(IGame * game)
     
     if (game->isFinished())
     {
-        _lastError = "Game is finish!";
-        return false;
+      _lastError = "Game is finished!";
+      return false;
     }
     Case &c = game->getMap()->getCase(game->getActivePlayer()->getX(), game->getActivePlayer()->getY());
     if (c.getPosable((bool)(game->getActivePlayer()->getColor() - 1)) == false) {

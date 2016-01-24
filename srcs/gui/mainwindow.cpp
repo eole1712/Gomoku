@@ -83,8 +83,8 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
     ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
     ui->score2->setStyleSheet(std::string("background-color:red").c_str());
-    setFull(5, 5, true);
-    setButtonColor(5, 5, Case::NOT);
+  //  setFull(5, 5, true);
+  //  setButtonColor(5, 5, Case::NOT);
 
 }
 

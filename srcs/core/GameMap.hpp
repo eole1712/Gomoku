@@ -94,7 +94,8 @@ public:
     virtual bool		isIn(unsigned int x, unsigned int y) const;
     void print();
     int evaluate(std::pair<int, int> move, bool isAI);
-
+    std::list<noteType> const& getMaxMoves();
+    std::list<noteType> const& getMinMoves();
 protected:
     IGame*              _game;
     DoubleThree         _three;
