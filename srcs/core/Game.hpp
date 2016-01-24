@@ -12,7 +12,7 @@ class IPlayer;
 class Game : public IGame
 {
 public:
-  Game(mode gameMode, IGui*, IJudge *);
+  Game(mode gameMode, IGui*);
   virtual ~Game();
 
 private:
