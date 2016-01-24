@@ -18,7 +18,7 @@ Node::Node(MapType& map, GameMap::noteType move, Node* parent, bool isMax)
 Node::Node(Node& other)
    : _map(other._map)
 {
-    std::cout << "copy" << std::endl;
+    //std::cout << "copy" << std::endl;
 }
 
 Node::~Node()
@@ -169,6 +169,6 @@ void Node::print(std::ostream& file)
     for (auto& child : _childrens) {
         GameMap::noteType move = child->getMove();
         file << std::setbase(10) << (long)this << " -> " << (long)child << " [label=" << std::get<1>(move) << std::get<2>(move) << "];" << std::endl;
-        child->print(file);
+        //child->print(file);
     }
 }

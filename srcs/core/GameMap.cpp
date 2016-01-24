@@ -37,7 +37,7 @@ GameMap::~GameMap()
 GameMap::GameMap(GameMap &unit)
 {
     _game = unit._game;
-    std::cout << sizeof(_map) << std::endl;
+    //std::cout << sizeof(_map) << std::endl;
     for (unsigned int x = 0; x < size_x; x++)
         for (unsigned int y = 0; y < size_y; y++)
             _map[x][y] = unit._map[x][y];
@@ -50,7 +50,7 @@ GameMap::GameMap(GameMap &unit)
 GameMap& GameMap::operator=(GameMap &unit)
 {
     _game = unit._game;
-    std::cout << sizeof(_map) << std::endl;
+    //std::cout << sizeof(_map) << std::endl;
     for (unsigned int x = 0; x < size_x; x++)
         for (unsigned int y = 0; y < size_y; y++)
             _map[x][y] = unit._map[x][y];
@@ -377,7 +377,7 @@ bool    GameMap::checkPat4XYXOX(unsigned int x, unsigned int y, Case::dir d, boo
 bool    GameMap::checkPat5(unsigned int x, unsigned int y, unsigned int d, bool color) {
     bool ret = false;
     bool tmp;
-    
+        
     tmp = checkPat5YXXXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue5((Case::dir)((d + 4) % 8), Case::YXXXX, color, tmp);
     ret = ret | tmp;
@@ -400,10 +400,14 @@ bool    GameMap::checkPat5(unsigned int x, unsigned int y, unsigned int d, bool 
 bool    GameMap::checkPat5YXXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    if ((getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
     (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
+    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color))
+    {
+        return true;
+    }
+    return false;
 }
 
 bool    GameMap::checkPat5XYXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -437,7 +441,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
             unsigned int tx = x + dir[d][0] * p;
             unsigned int ty = y + dir[d][1] * p;
             
-            if (tx < 18 && ty < 18) {
+            if (tx < 19 && ty < 19) {
                 checkPat2(tx, ty, d, color);
                 checkPat3(tx, ty, d, color);
                 checkPat4(tx, ty, d, color);
@@ -515,7 +519,7 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
                 ret -= 2048;
         }
     }
-    if (!cas.getPosable(aiColor))
+    if (!cas.getPosable(isAI))
         return ret;
     
     /// MAX
@@ -543,22 +547,6 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
         if (_minList.size() > 10)
             _minList.pop_back();
     }
-//    // SPECIAL MIN ON MAX
-//    
-//    if (ret < 0 && std::abs(ret) > std::get<0>(_maxList.front()))
-//    {
-//        _maxList.push_back(noteType(std::abs(ret), move.first, move.second));
-//        _maxList.sort([](noteType a, noteType b){
-//            return (std::get<0>(a) > std::get<0>(b));
-//        });
-//        _maxList.erase(std::remove_if(_maxList.begin(), _maxList.end(), [this](noteType& elem) {
-//            return (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(aiColor));
-//        }), _maxList.end());
-//        if (_maxList.size() > 10)
-//            _maxList.pop_back();
-//        return std::abs(ret);
-//    }
-    
     return ret;
 }
 
@@ -567,10 +555,14 @@ std::list<GameMap::noteType> GameMap::getMaxMoves()
     std::list<noteType>     list;
     
     for (auto& elem : _maxList) {
-        list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        if (getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(true)) {
+            list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        }
     }
     for (auto& elem : _minList) {
-        list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        if (getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(true)) {
+            list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        }
     }
     
     list.sort([](noteType a, noteType b){

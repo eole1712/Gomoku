@@ -20,7 +20,7 @@ public:
 
 private:
 
-  bool				canEatThis(IGameMap *map, vec2 playingPosition, Case testCase,
+  bool				canEatThis(IGameMap *map, vec2 playingPosition, Case &testCase,
 					   int axis, bool color) const;
   const vec2		direction[8] =
     {

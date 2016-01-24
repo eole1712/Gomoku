@@ -14,7 +14,7 @@ Win::Win()
 Win::~Win()
 {}
 
-bool	Win::canEatThis(IGameMap *map, vec2 playingPosition, Case testCase,
+bool	Win::canEatThis(IGameMap *map, vec2 playingPosition, Case &testCase,
 			int axis, bool color) const
 {
   if (testCase.getValue2(static_cast<Case::dir>(axis), Case::YX, color))
@@ -57,6 +57,12 @@ bool	Win::isOk(IGame* game)
 	continue;
       for (int i = 0; i < 5; ++i) 
 	{
+        std::cout << pos.x << " " << pos.y << std::endl;
+        
+        if (pos.x < 0 || pos.x > 18 || pos.y < 0 || pos.y > 18) {
+            continue;
+        }
+        
 	  Case &testCase = map->getCase(pos.x, pos.y);
 	  for (int secondAxis = 0; secondAxis < 8; ++secondAxis)
 	    {

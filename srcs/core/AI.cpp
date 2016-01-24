@@ -19,7 +19,7 @@ std::pair<int, int> AI::play(IGameMap* map)
     _minMax = nullptr;
     setMap(map);
     std::pair<int, int> move =  _minMax->evaluate(_depth);
-    std::cout << "final move : " << move.first << ", " << move.second << std::endl;
+    //std::cout << "final move : " << move.first << ", " << move.second << std::endl;
     return move;
 }
 
