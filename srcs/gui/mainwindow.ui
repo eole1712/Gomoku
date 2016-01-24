@@ -42,7 +42,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <property name="sizePolicy">
@@ -410,7 +410,7 @@
      <x>0</x>
      <y>0</y>
      <width>925</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -532,22 +532,6 @@
     <hint type="destinationlabel">
      <x>506</x>
      <y>195</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>PvE</sender>
-   <signal>clicked()</signal>
-   <receiver>Message</receiver>
-   <slot>setQLabel()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>615</x>
-     <y>395</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>421</x>
-     <y>363</y>
     </hint>
    </hints>
   </connection>
