@@ -20,7 +20,7 @@ private:
     color		_color;
     MinMax*   _minMax = nullptr;
     static const std::pair<int, int> _default ;
-    static constexpr int _depth = 5;
+    static constexpr int _depth = 3;
 
 public:
     virtual type		getType() const;
