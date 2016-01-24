@@ -7,7 +7,7 @@
 #include "IGui.hpp"
 #include "Case.hpp"
 
-Game::Game(mode gameMode, IGui* gui, IJudge *judge)
+Game::Game(mode gameMode, IGui* gui)
   : _gui(gui), _map(new GameMap(this)), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
 {
   initPlayer();
@@ -65,7 +65,7 @@ IGame::mode		Game::getMode() const
 void		Game::setCase(unsigned int x, unsigned int y, Case::caseContent color)
 {
   getMap()->setCase(x, y, color);
-   getMap()->print();
+  //getMap()->print();
   getGui()->setFull(x, y, color != Case::caseContent::EMPTY ? true : false);
   getGui()->setButtonColor(x, y, color);
 }
@@ -93,8 +93,8 @@ void		Game::playTurn(unsigned int x, unsigned int y)
 
 void		Game::endTurn()
 {
-  _turn = !_turn;
   _gui->changeTurn();
+  _turn = !_turn;
 }
 
 

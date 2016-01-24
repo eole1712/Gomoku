@@ -63,6 +63,7 @@ public:
     void    setPosable(bool color, bool value);
     bool    getPosable(bool color);
 
+    Case &operator =(const Case &unit);
 private:
     uint64_t    tab[6];
     uint8_t     prop;

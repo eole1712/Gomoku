@@ -96,9 +96,10 @@ public:
     int evaluate(std::pair<int, int> move, bool isAI);
     std::list<noteType> const& getMaxMoves();
     std::list<noteType> const& getMinMoves();
+    GameMap &operator =(GameMap &unit);
 protected:
+    static DoubleThree         _three;
     IGame*              _game;
-    DoubleThree         _three;
 };
 
 #endif /* !GAMEMAP_HPP_ */

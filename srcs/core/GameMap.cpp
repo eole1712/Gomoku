@@ -8,6 +8,8 @@
 #include "DoubleThree.hpp"
 #include "IGui.hpp"
 
+DoubleThree GameMap::_three;
+
 GameMap::GameMap(IGame* game)
 {
     std::random_device  rd;
@@ -23,7 +25,8 @@ GameMap::GameMap(IGame* game)
         _maxList.push_back(noteType(0, dis(gen), dis(gen)));
     }
     _game = game;
-}
+   // _three = new DoubleThree();
+    }
 
 GameMap::~GameMap()
 {
@@ -31,11 +34,30 @@ GameMap::~GameMap()
 }
 
 GameMap::GameMap(GameMap &unit)
-:_minList(unit._minList),
-_maxList(unit._maxList)
 {
     _game = unit._game;
-    std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+    std::cout << sizeof(_map) << std::endl;
+    for (unsigned int x = 0; x < size_x; x++)
+        for (unsigned int y = 0; y < size_y; y++)
+            _map[x][y] = unit._map[x][y];
+    //std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+ //   _three = new DoubleThree;
+    _minList = unit._minList;
+    _maxList = unit._maxList;
+}
+
+GameMap& GameMap::operator=(GameMap &unit)
+{
+    _game = unit._game;
+    std::cout << sizeof(_map) << std::endl;
+    for (unsigned int x = 0; x < size_x; x++)
+        for (unsigned int y = 0; y < size_y; y++)
+            _map[x][y] = unit._map[x][y];
+    //std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+    //_three = new DoubleThree;
+    _minList = unit._minList;
+    _maxList = unit._maxList;
+    return *this;
 }
 
 void		GameMap::clear()
@@ -561,9 +583,9 @@ void    GameMap::print()
         {"XYXX", Case::XYXX}, {"XYOXX", Case::XYOXX}, {"XYXOX", Case::XYXOX}};
     static std::pair<std::string, Case::pat5> pat5[] = {{"YXXXX", Case::YXXXX}, {"XYXXX", Case::XYXXX}, {"XXYXX", Case::XXYXX}};
     std::ofstream os;
-    
+
     os.open("map.json");
-    
+
     std::cout << "file created" << std::endl;
     os << "{\n\"Map\" :" << std::endl;
     os << "[" << std::endl;
@@ -575,7 +597,7 @@ void    GameMap::print()
             if (first)
                 first = false;
             os << "\"posable\" : " << (cas.getPosable(aiColor) ? "\"true\"" : "\"false\"")  << ", " << std::endl;
-            
+
             for (std::pair<std::string, Case::dir> dir : dirs) {
                 os << "\"" << dir.first << "\" : { " << std::endl;
                 for (std::pair<std::string, Case::pat2> pat : pat2) {

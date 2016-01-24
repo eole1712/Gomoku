@@ -2,6 +2,7 @@
 #include "GameMap.hpp"
 #include "IRule.hpp"
 #include "IPlayer.hpp"
+#include "DoubleThree.hpp"
 #include "Win.hpp"
 
 Win::Win()
@@ -11,39 +12,14 @@ Win::Win()
 Win::~Win()
 {}
 
-bool	Win::canEatThis(IGameMap *map, vec2 origin, vec2 axis,
-			Case::caseContent v) const
+bool	Win::canEatThis(IGameMap *map, vec2 playingPosition, Case testCase,
+			int axis, bool color) const
 {
-  const Case::caseContent	ok[4][5] =
+  if (testCase.getValue2(static_cast<Case::dir>(axis), Case::YX, color))
     {
-      { Case::EMPTY, Case::EMPTY, Case::RED, Case::RED, Case::BLUE },
-      { Case::EMPTY, Case::BLUE, Case::RED, Case::RED, Case::EMPTY },
-      { Case::BLUE, Case::RED, Case::RED, Case::EMPTY, Case::EMPTY },
-      { Case::EMPTY, Case::RED, Case::RED, Case::BLUE, Case::EMPTY }
-    };
-  Case::caseContent		cmp[5];
-  bool				swap = v != Case::RED;
-
-  vec2 tmp = { origin.x - (2 * axis.x), origin.y - (2 * axis.y) };
-  for (int i = 0; i < 5; i++)
-    {
-      if (!tmp.inBound({-1, 19}))
-	cmp[i] = Case::BLUE;
-      else if (tmp == origin)
-	cmp[i] = Case::RED;
-      else
-	{
-	  cmp[i] = map->getCase(tmp[0], tmp[1]).getContent();
-	  if (swap && cmp[i] != Case::EMPTY)
-	    cmp[i] = (cmp[i] == Case::RED) ? Case::BLUE : Case::RED;
-	}
-      tmp += axis;
-    }
-  for (int i = 0; i < 4; i++)
-    {
-      int j = 0;
-      for (; j < 5 && cmp[j] == ok[i][j]; j++);
-      if (j == 5)
+      vec2 pos[2] = { playingPosition - direction[axis], playingPosition + direction[axis] * 2 };
+      if ((pos[0].inBound({-1, 19}) && map->getCase(pos[0].x, pos[0].y).getColor() != color) !=
+	  (pos[1].inBound({-1, 19}) && map->getCase(pos[1].x, pos[1].y).getColor() != color))
 	return true;
     }
   return false;
@@ -51,59 +27,45 @@ bool	Win::canEatThis(IGameMap *map, vec2 origin, vec2 axis,
 
 bool	Win::isOk(IGame* game)
 {
-  Case::caseContent	v =
-    (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? Case::BLUE : Case::RED;
+  vec2			pos;
+  Case			testCase;
   IGameMap *	map = game->getMap();
-  const vec2	axis[4] = {{1, 0}, {0, 1}, {1, 1}, {-1, 1}};
-  const vec2	normal[4] = {{0, 1}, {1, 0}, {-1, 1}, {1, 1}};
-  vec2		pos[2];
-  int		i[3];
-  vec2		origin =
+  vec2		playingPosition =
     {
       static_cast<int>(game->getActivePlayer()->getX()),
       static_cast<int>(game->getActivePlayer()->getY())
     };
+  Case		playingCase = map->getCase(playingPosition.x, playingPosition.y);
+  bool		color = (playingCase.getColor() == Case::RED);
 
   if (game->getActivePlayer()->getPoints() > 9)
     {
       game->setWinner();
       return true;
     }
-  i[0] = 0;
-  for (;i[0] < 4; ++i[0])
+  
+  for (int axis = 0; axis < 8; ++axis)
     {
-      pos[0] = origin + axis[i[0]];
-      pos[1] = origin - axis[i[0]];
-      i[1] = 0;
-      while (i[1] < 4 &&
-	     pos[0].inBound({-1, 19}) &&
-	     map->getCase(pos[0].x, pos[0].y).getContent() == v &&
-	     !canEatThis(map, pos[0], normal[i[0]], v))
+      if (playingCase.getValue5(static_cast<Case::dir>(axis), Case::YXXXX, color))
+	pos = playingPosition;
+      else if (playingCase.getValue5(static_cast<Case::dir>(axis), Case::XYXXX, color))
+	pos = playingPosition - direction[axis];
+      else if (axis < 4 && playingCase.getValue5(static_cast<Case::dir>(axis), Case::XXYXX, color))
+	pos = playingPosition - direction[axis] * 2;
+      else
+	continue;
+      for (int i = 0; i < 5; ++i) 
 	{
-	  i[1]++;
-	  pos[0] += axis[i[0]];
+	  testCase = map->getCase(pos.x, pos.y);
+	  for (int secondAxis = 0; secondAxis < 8; ++secondAxis)
+	    {
+	      if (secondAxis != axis && secondAxis != ((axis + 4) % 8) &&
+		  canEatThis(map, pos, testCase, secondAxis, color))
+		return true;
+	    }
+	  pos += direction[axis];
 	}
-      if (i[1] == 4)
-	{
-	  game->setWinner();
-	  return true;
-	}
-      i[2] = i[1];
-      i[1] = 0;
-      while (i[1] < 4 && i[2] < 4 &&
-	     pos[1].inBound({-1, 19}) &&
-	     map->getCase(pos[1][0], pos[1][1]).getContent() == v &&
-	     !canEatThis(map, pos[1], normal[i[0]], v))
-	{
-	  i[1]++;
-	  i[2]++;
-	  pos[1] -= axis[i[0]];
-	}
-      if (i[2] == 4)
-	{
-	  game->setWinner();
-	  return true;
-	}
+      game->setWinner();
     }
   return true;
 }

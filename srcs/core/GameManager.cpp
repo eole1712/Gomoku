@@ -9,6 +9,7 @@
 #include "EatThem.hpp"
 #include "DoubleThree.hpp"
 #include "IPlayer.hpp"
+#include "AI.hpp"
 #include "Case.hpp"
 
 GameManager::GameManager(int &ac, char **av)
@@ -18,6 +19,7 @@ GameManager::GameManager(int &ac, char **av)
     _judge->addRule(new BasicCheck());
     _judge->addRule(new EatThem());
     _judge->addRule(new Win());
+    _judge->addRule(new DoubleThree());
     _gui = new Gui(this, ac, av);
 }
 
@@ -40,11 +42,7 @@ IJudge *		GameManager::getJudge() const
 
 IGame *			GameManager::createGame(IGame::mode gameMode)
 {
-    IJudge *judge = new Judge();
-    
-    judge->addRule(new DoubleThree);
-    
-    _game = new Game(gameMode, _gui, judge);
+    _game = new Game(gameMode, _gui);
     return _game;
 }
 
@@ -64,14 +62,21 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
 {
     if (_game == NULL)
         return;
-    
+
     _game->playTurn(x, y);
     if (_judge->checkRules(_game)) {
         _game->setCase(x, y, static_cast<Case::caseContent>(_game->getActivePlayer()->getColor()));
         _game->endTurn();
         _gui->showError("");
+
+        std::pair<int, int> move;
+
+        while (_game->getActivePlayer()->getType() == IPlayer::AI) {
+            move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
+            didClickCase(move.first, move.second);
+        }
     }
-    else
+    else if (_game->getActivePlayer()->getType() == IPlayer::HUMAN)
         _gui->showError(_judge->getLastError());
     for (unsigned int tx = 0; tx < 19; tx++)
         for (unsigned int ty = 0; ty < 19; ty++) {

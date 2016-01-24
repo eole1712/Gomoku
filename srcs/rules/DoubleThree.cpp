@@ -7,8 +7,7 @@
 #include <iostream>
 
 DoubleThree::DoubleThree()
-  : _lastError(std::string("Regle des trois non respectée !")),
-    _boundLimit{-1, 19}
+  : _lastError(std::string("Regle des trois non respectée !"))
 {}
 
 DoubleThree::~DoubleThree()
@@ -24,7 +23,7 @@ std::string const	&DoubleThree::getError() const
   return _lastError;
 }
 
-bool		DoubleThree::isOk(IGame * game, unsigned int x, unsigned int y, bool color)
+bool		DoubleThree::isCorrect(IGame * game, unsigned int x, unsigned int y, bool color)
 {
     //std::cout << "Try to check with " << x << " " << y << " with color " << color << std::endl;
     vec2 playingPosition =
@@ -78,7 +77,6 @@ bool		DoubleThree::isOk(IGame * game)
       _color = true;
       _myCell = Case::RED;
     }
-  _enemyCell = (_myCell == Case::RED) ? Case::BLUE : Case::RED;
   unsigned int axis = 0;
   for (; axis < 8 && !findDoubleThreeByAxis(playingPosition, playingCase, axis);
        ++axis);
@@ -92,16 +90,16 @@ bool		DoubleThree::findThreeAlignFreeByAxis(vec2 const & playingPosition, Case c
 						      unsigned int axis, std::pair<vec2, vec2> & pos) const
 {
   if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::YXX, _color))
-    pos = { playingPosition -  direction[axis], playingPosition + direction[axis] * 3 };
+    pos = { playingPosition - direction[axis], playingPosition + direction[axis] * 3 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYX, _color))
-    pos = { playingPosition -  direction[axis] * 2, playingPosition + direction[axis] * 2 };
+    pos = { playingPosition - direction[axis] * 2, playingPosition + direction[axis] * 2 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::YOXX, _color) ||
 	   playingCase.getValue3(static_cast<Case::dir>(axis), Case::YXOX, _color))
-    pos = { playingPosition -  direction[axis], playingPosition + direction[axis] * 4 };
+    pos = { playingPosition - direction[axis], playingPosition + direction[axis] * 4 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYOX, _color))
-    pos = { playingPosition -  direction[axis] * 2, playingPosition + direction[axis] * 3 };
+    pos = { playingPosition - direction[axis] * 2, playingPosition + direction[axis] * 3 };
   else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYOX, _color))
-    pos = { playingPosition -  direction[axis] * 2, playingPosition + direction[axis] * 3 };
+    pos = { playingPosition - direction[axis] * 2, playingPosition + direction[axis] * 3 };
   else
     return false;
   if ((pos.first.inBound({-1, 19}) && !_map->getCase(pos.first.x, pos.first.y).isEmpty()) ||

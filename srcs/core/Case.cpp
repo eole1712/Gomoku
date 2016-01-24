@@ -26,6 +26,17 @@ Case::Case(Case const &unit)
     }
 }
 
+Case& Case::operator=(Case const &unit)
+{
+    if (&unit != this) {
+        for (int i = 0; i < 6; i++) {
+            tab[i] = unit.tab[i];
+        }
+        prop = unit.prop;
+    }
+    return *this;
+}
+
 void    Case::clear()
 {
     for (int i = 0; i < 6; i++) {
