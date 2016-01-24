@@ -91,17 +91,18 @@ void    Case::setPosable(bool color, bool value)
 
 bool    Case::getValue2(Case::dir d, Case::pat2 p, bool color) const
 {
-    std::cout << (int)d << " " << (int)p << " " << (int)color;
+    //std::cout << "GET " << (int)d << " " << (int)p << " " << (int)color;
 
     uint64_t    pos = (63 - (32 * color) - (p * 8 + d));
     
-    std::cout << " " << ((tab[0] & (uint64_t)(pow(2, pos))) >> pos) << std::endl;
+    //std::cout << " " << ((tab[0] & (uint64_t)(pow(2, pos))) >> pos) << std::endl;
     
     return (tab[0] & (uint64_t)(pow(2, pos))) >> pos;
 }
 
 void    Case::setValue2(Case::dir d, Case::pat2 p, bool color, bool value)
 {
+    //std::cout << "SET " << (int)d << " " << (int)p << " " << (int)color << " " << (int)value << std::endl;
     uint64_t    pos = (63 - (32 * color) - (p * 8 + d));
     uint64_t    pow_of_pos = std::pow(2, pos);
     

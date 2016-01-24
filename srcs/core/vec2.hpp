@@ -3,27 +3,25 @@
 
 #include <cmath>
 
-typedef int cordinate;
-
 struct vec2
 {
-  cordinate	x;
-  cordinate	y;
+  int	x;
+  int	y;
   
   vec2()
     : x(0), y(0)
   {}
   
 
-  vec2(cordinate const & a, cordinate const & b)
+  vec2(int const & a, int const & b)
     : x(a), y(b)
   {}
   
-  vec2(cordinate * c)
+  vec2(int * c)
     : x(c[0]), y(c[1])
   {}
   
-  vec2(cordinate const & c)
+  vec2(int const & c)
     : x(c), y(c)
   {}
   
@@ -87,48 +85,48 @@ struct vec2
   }
   
   
-  vec2 		operator-(const cordinate b) const
+  vec2 		operator-(const int b) const
   {
     return{ x - b, y - b };
   }
   
-  vec2 		operator+(const cordinate b) const
+  vec2 		operator+(const int b) const
   {
     return{ x + b, y + b };
   }
   
-  vec2 		operator*(const cordinate b) const
+  vec2 		operator*(const int b) const
   {
     return{ x * b, y * b };
   }
   
-  vec2 		operator/(const cordinate b) const
+  vec2 		operator/(const int b) const
   {
     return{ x / b, y / b };
   }
     
-  vec2 & 		operator-=(const cordinate b)
+  vec2 & 		operator-=(const int b)
   {
     x -= b;
     y -= b;
     return *this;
   }
   
-  vec2 & 		operator+=(const cordinate b)
+  vec2 & 		operator+=(const int b)
   {
     x += b;
     y += b;
     return *this;
   }
   
-  vec2 & 		operator*=(const cordinate b)
+  vec2 & 		operator*=(const int b)
   {
     x *= b;
     y *= b;
     return *this;
   }
   
-  vec2 & 		operator/=(const cordinate b)
+  vec2 & 		operator/=(const int b)
   {
     x /= b;
     y /= b;
@@ -140,14 +138,19 @@ struct vec2
     return{ -x, -y };
   }
   
-  inline cordinate & operator[](unsigned int i)
+  inline int & operator[](unsigned int i)
   {
-    return reinterpret_cast<cordinate *>(this)[i];
+    return reinterpret_cast<int *>(this)[i];
   }
   
   bool		operator==(const vec2 & b) const
   {
     return x == b.x && y == b.y;
+  }
+
+  bool		operator!=(const vec2 & b) const
+  {
+    return x != b.x || y != b.y;
   }
   
   void		clear()
@@ -156,19 +159,19 @@ struct vec2
     y = 0;
   }
   
-  cordinate	dot(const vec2 & b) const
+  int	dot(const vec2 & b) const
   {
     return{ x * b.x + y * b.y };
   }
   
-  cordinate	length() const
+  int	length() const
   {
-    return cordinate(sqrt(x * x + y * y));
+    return int(sqrt(x * x + y * y));
   }
   
   vec2 &	normalie()
   {
-    cordinate len = length();
+    int len = length();
     if (len != 0)
       *this /= len;
     return *this;
