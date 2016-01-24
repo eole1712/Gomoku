@@ -16,17 +16,17 @@ MinMax::~MinMax()
 std::pair<int, int> MinMax::evaluate(int depth)
 {
     Node *best = nullptr;
-    std::ofstream os;
+//    std::ofstream os;
 
-    os.open("graph.dot");
+//    os.open("graph.dot");
 
     m_current->evaluate(depth, Node::loose, Node::win);
-    os << "digraph MinMax {" << std::endl;
-    m_current->print(os);
-    os << "}" << std::endl;
+//    os << "digraph MinMax {" << std::endl;
+//    m_current->print(os);
+//    os << "}" << std::endl;
     for (auto& elem : m_current->getChildren())
     {
-        std::cout << "children note " << elem->getNote() << "vs " << m_current->getNote() << std::endl;
+        //std::cout << "children note " << elem->getNote() << "vs " << m_current->getNote() << std::endl;
         if (elem->getNote() == m_current->getNote())
         {
             best = elem;
@@ -34,14 +34,14 @@ std::pair<int, int> MinMax::evaluate(int depth)
         }
     }
 
-    std::cout << "ok" << std::endl;
+    //std::cout << "ok" << std::endl;
     if (best == nullptr) {
         std::cerr << "wtf?" << std::endl;
         return std::make_pair(0, 0);
     }
     m_current->deleteExcept(best->getMove(), true);
     m_current = best;
-    std::cout << "final note : " << m_current->getNote() << std::endl;
+    //std::cout << "final note : " << m_current->getNote() << std::endl;
 
     return std::make_pair(std::get<1>(m_current->getMove()), std::get<2>(m_current->getMove()));
 }

@@ -37,7 +37,7 @@ GameMap::~GameMap()
 GameMap::GameMap(GameMap &unit)
 {
     _game = unit._game;
-    std::cout << sizeof(_map) << std::endl;
+    //std::cout << sizeof(_map) << std::endl;
     for (unsigned int x = 0; x < size_x; x++)
         for (unsigned int y = 0; y < size_y; y++)
             _map[x][y] = unit._map[x][y];
@@ -50,7 +50,7 @@ GameMap::GameMap(GameMap &unit)
 GameMap& GameMap::operator=(GameMap &unit)
 {
     _game = unit._game;
-    std::cout << sizeof(_map) << std::endl;
+    //std::cout << sizeof(_map) << std::endl;
     for (unsigned int x = 0; x < size_x; x++)
         for (unsigned int y = 0; y < size_y; y++)
             _map[x][y] = unit._map[x][y];
@@ -543,22 +543,6 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
         if (_minList.size() > 10)
             _minList.pop_back();
     }
-//    // SPECIAL MIN ON MAX
-//    
-//    if (ret < 0 && std::abs(ret) > std::get<0>(_maxList.front()))
-//    {
-//        _maxList.push_back(noteType(std::abs(ret), move.first, move.second));
-//        _maxList.sort([](noteType a, noteType b){
-//            return (std::get<0>(a) > std::get<0>(b));
-//        });
-//        _maxList.erase(std::remove_if(_maxList.begin(), _maxList.end(), [this](noteType& elem) {
-//            return (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(aiColor));
-//        }), _maxList.end());
-//        if (_maxList.size() > 10)
-//            _maxList.pop_back();
-//        return std::abs(ret);
-//    }
-    
     return ret;
 }
 
@@ -567,10 +551,14 @@ std::list<GameMap::noteType> GameMap::getMaxMoves()
     std::list<noteType>     list;
     
     for (auto& elem : _maxList) {
-        list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        if (getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(true)) {
+            list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        }
     }
     for (auto& elem : _minList) {
-        list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        if (getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(true)) {
+            list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+        }
     }
     
     list.sort([](noteType a, noteType b){
