@@ -53,7 +53,7 @@ private:
 private:
     Ui::MainWindow *ui;
     std::vector<GomokuButton*> _buttons;
-    std::string _colors[3];
+    std::string _colors[4];
     IGameManager* _gm;
     IGame::mode _mode;
 };

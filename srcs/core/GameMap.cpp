@@ -28,6 +28,8 @@ GameMap::~GameMap()
 }
 
 GameMap::GameMap(GameMap &unit)
+    :_minList(unit._minList),
+      _maxList(unit._maxList)
 {
     std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
 }
@@ -515,6 +517,16 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
 //            _minList.pop_back();
     }
     return ret;
+}
+
+const std::list<GameMap::noteType> &GameMap::getMaxMoves()
+{
+    return _maxList;
+}
+
+const std::list<GameMap::noteType> &GameMap::getMinMoves()
+{
+    return _minList;
 }
 
 void    GameMap::print()

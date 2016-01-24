@@ -5,7 +5,7 @@
 
 int Node::_maxDepth = -1;
 
-Node::Node(MapType const& map, std::pair<int, int> move, Node* parent, bool isMax)
+Node::Node(MapType& map, std::pair<int, int> move, Node* parent, bool isMax)
   : _map(map),
     _move(move),
     _parent(parent),
@@ -56,10 +56,13 @@ int Node::evaluate(int depth, int min, int max)
 
     if (_maxDepth == -1)
         _maxDepth = depth;
-    _note = _map.evaluate();
+    _note = _map.evaluate(_move, _isMax);
     if (_note == win || _note == loose || depth == 0)
         return _note;
-    initialize(depth);
+    if (_childrens.empty())
+    {
+        initialize(depth);
+    }
     if (_isMax)
     {
         _note = min;
@@ -106,12 +109,18 @@ int Node::evaluate(int depth, int min, int max)
 
 void Node::initialize(int depth)
 {
-  std::list<std::pair<int, int> > moves;
+  std::list<GameMap::noteType> moves;
 
-  moves = _map.getMoves();
+  if (_isMax) {
+    moves = _map.getMaxMoves();
+  }
+  else {
+      moves = _map.getMinMoves();
+  }
+
   for (auto& move : moves)
     {
-      _childrens.push_back(new Node(_map, move, this, !_isMax));
+      _childrens.push_back(new Node(_map, std::make_pair(std::get<1>(move), std::get<2>(move)), this, !_isMax));
   }
 }
 
