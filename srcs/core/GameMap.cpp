@@ -515,26 +515,26 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
             }
             if (cas.getValue2(dir, pat, noaiColor)) {
                 //  std::cout << ">-2<" << std::endl;
-                ret -= 16;
+                ret -= 32;
             }
         }
         for (Case::pat3 pat : pat3) {
             if (cas.getValue3(dir, pat, aiColor))
                 ret += 64;
             if (cas.getValue3(dir, pat, noaiColor))
-                ret -= 64;
+                ret -= 128;
         }
         for (Case::pat4 pat : pat4) {
             if (cas.getValue4(dir, pat, aiColor))
                 ret += 256;
             if (cas.getValue4(dir, pat, noaiColor))
-                ret -= 256;
+                ret -= 512;
         }
         for (Case::pat5 pat : pat5) {
             if (cas.getValue5(dir, pat, aiColor))
                 ret += 1024;
             if (cas.getValue5(dir, pat, noaiColor))
-                ret -= 1024;
+                ret -= 2048;
         }
     }
     
