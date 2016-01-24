@@ -10,7 +10,17 @@ class GameMap
 public:
     static const unsigned int	size_x = 19;
     static const unsigned int	size_y = 19;
-    
+    static const vec2		DIR[8] = {{0, -1},
+                                      {-1, -1},
+                                      {-1, 0},
+                                      {-1, 1},
+                                      {0, 1},
+                                      {1, 1},
+                                      {1, 0},
+                                      {1, -1}};
+    static const Case::caseContent aiColor = Case::BLUE;
+    static const Case::caseContent noaiColor = Case::RED;
+
 public:
     const int    dir[8][2] = {
         {0, 1},
@@ -27,7 +37,7 @@ public:
     GameMap();
     virtual ~GameMap();
     GameMap(GameMap &);
-    
+
 private:
     Case	_map[size_x][size_y];
 
