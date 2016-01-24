@@ -31,6 +31,7 @@ bool		DoubleThree::isOk(IGame * game)
       static_cast<int>(game->getActivePlayer()->getX()),
       static_cast<int>(game->getActivePlayer()->getY())
     };
+  _map = game->getMap();
   Case playingCase = _map->getCase(playingPosition.x, playingPosition.y);  
   if (game->getActivePlayer()->getColor() == IPlayer::BLUE)
     {
@@ -43,7 +44,6 @@ bool		DoubleThree::isOk(IGame * game)
       _myCell = Case::RED;
     }
   _enemyCell = (_myCell == Case::RED) ? Case::BLUE : Case::RED;
-  _map = game->getMap();
   unsigned int axis = 0;
   for (; axis < 8 && !findDoubleThreeByAxis(playingPosition, playingCase, axis);
        ++axis);
