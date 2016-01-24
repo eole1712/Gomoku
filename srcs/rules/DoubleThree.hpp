@@ -40,6 +40,7 @@ private:
   Case::caseContent	_enemyCell;
   Case::caseContent	_myCell;
   bool			_color;
+
   IGameMap *		_map;
   bool			findDoubleThreeByAxis(vec2 const &, Case const &, unsigned int) const;
   bool			findThreeAlignFreeByAxis(vec2 const &, Case const &, unsigned int,

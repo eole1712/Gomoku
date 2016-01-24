@@ -41,7 +41,7 @@ std::pair<int, int> MinMax::evaluate(int depth)
     }
     m_current->deleteExcept(best->getMove(), true);
     m_current = best;
-    std::cout << m_current->getNote() << std::endl;
+    std::cout << "final note : " << m_current->getNote() << std::endl;
 
     return m_current->getMove();
 }

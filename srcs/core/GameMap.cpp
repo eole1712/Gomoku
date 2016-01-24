@@ -453,7 +453,7 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
     static Case::pat4 pat4[] = {Case::YXXX, Case::YOXXX, Case::YXOXX, Case::YXXOX, Case::XYXX, Case::XYOXX, Case::XYXOX};
     static Case::pat5 pat5[] = {Case::YXXXX, Case::XYXXX, Case::XXYXX};
     
-    if (!cas.getPosable(aiColor))
+    if (!cas.getPosable(isAI))
         return 0;
     
     
@@ -487,7 +487,8 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
     }
     
     if (isAI) {
-        _maxList.push_back(noteType(ret, move.first, move.second));
+        if (cas.getPosable(aiColor))
+            _maxList.push_back(noteType(ret, move.first, move.second));
         
         _maxList.sort([](noteType a, noteType b){
             return (std::get<0>(a) > std::get<0>(b));
@@ -495,7 +496,8 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
                 if (_maxList.size() > 10)
                     _maxList.pop_back();
     } else {
-        _minList.push_back(noteType(ret, move.first, move.second));
+        if (cas.getPosable(noaiColor))
+            _minList.push_back(noteType(ret, move.first, move.second));
         
         _minList.sort([](noteType a, noteType b){
             return (std::get<0>(a) < std::get<0>(b));

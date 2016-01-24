@@ -52,11 +52,17 @@ bool Node::operator==(Node const& node)
 
 int Node::evaluate(int depth, int min, int max)
 {
-    int tmpNote;
+    int tmpNote = 0;
 
     if (_maxDepth == -1)
         _maxDepth = depth;
-    _note = _map.evaluate(_move, _isMax);
+    if (_parent)
+        tmpNote = _parent->_eval;
+    _eval = tmpNote + _map.evaluate(_move, _isMax);
+    _note = _eval;
+    if (_eval != 0)
+        std::cout << _eval;
+    _map.setCase(_move.first, _move.second, static_cast<Case::caseContent>(_isMax));
     if (_note == win || _note == loose || depth == 0)
         return _note;
     if (_childrens.empty())
@@ -120,6 +126,7 @@ void Node::initialize(int depth)
 
   for (auto& move : moves)
     {
+      //std::cout << "note : " << std::get<0>(move) << ", " << std::get<1>(move) << ", " << std::get<2>(move) <<  std::endl;
       _childrens.push_back(new Node(_map, std::make_pair(std::get<1>(move), std::get<2>(move)), this, !_isMax));
   }
 }
