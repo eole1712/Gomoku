@@ -7,6 +7,8 @@
 class IGui
 {
 public:
+  virtual ~IGui() {};
+
   virtual void setButtonColor(int x, int y, Case::caseContent) = 0;
   virtual void setFull(int x, int y, bool) = 0;
   virtual void setWin(int Player) = 0;

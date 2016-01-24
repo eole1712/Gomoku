@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include "Human.hpp"
 #include "AI.hpp"
@@ -13,7 +14,11 @@ Game::Game(mode gameMode, IGui* gui)
 }
 
 Game::~Game()
-{}
+{
+  delete this->_map;
+  delete this->_players[0];
+  delete this->_players[1];
+}
 
 void		Game::initPlayer()
 {
@@ -59,7 +64,7 @@ IGame::mode		Game::getMode() const
 
 void		Game::setCase(unsigned int x, unsigned int y, Case::caseContent color)
 {
-  getMap()->getCase(x, y)->setCaseContent(color);
+  getMap()->getCase(x, y).setContent(color);
   getGui()->setFull(x, y, color != Case::caseContent::EMPTY ? true : false);
   getGui()->setButtonColor(x, y, color);
 }
