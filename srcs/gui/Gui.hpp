@@ -15,6 +15,7 @@ public:
   virtual void setWin(int Player);
   virtual void changeTurn();
   virtual void setButtonColor(int x, int y, Case::caseContent);
+    virtual void setPosable(int x, int y, bool, bool);
   virtual void setFull(int x, int y, bool);
   virtual void showError(std::string const& errorText);
   virtual double getAITimeout() const;

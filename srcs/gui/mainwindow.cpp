@@ -78,12 +78,11 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
 
     for (auto button : _buttons)
     {
-        ui->gridLayout->addWidget(button, button->getX(), button->getY());
+        ui->gridLayout->addWidget(button, button->getY(), button->getX());
     }
     ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
     ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
     ui->score2->setStyleSheet(std::string("background-color:red").c_str());
-
 }
 
 void	MainWindow::reset()
@@ -124,6 +123,36 @@ void MainWindow::setButtonColor(int x, int y, Case::caseContent col)
         else if (button->isEmpty())
         {
             button->setStyleSheet(std::string("background-color:grey").c_str());
+        }
+    }
+}
+
+void MainWindow::setPosable(int x, int y, bool posable, bool color) {
+    for(auto button : _buttons)
+    {
+        if (button->getX() == x && button->getY() == y)
+        {
+            QString s = button->text();
+            
+            int value = s.toInt();
+            
+            if (!posable && color == 0)
+                if (value != 1 && value != 3)
+                    value++;
+            if (!posable && color == 1)
+                if (value != 2 && value != 3)
+                    value+=2;
+            if (posable && color == 0)
+                if (value == 1 || value == 3)
+                    value--;
+            if (posable && color == 1)
+                if (value == 2 || value == 3)
+                    value-=2;
+            if (value > 0)
+                button->setText(std::to_string(value).c_str());
+            else
+                button->setText("");
+
         }
     }
 }

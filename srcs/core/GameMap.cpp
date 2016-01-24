@@ -16,10 +16,10 @@ GameMap::GameMap(IGame* game)
     std::mt19937        gen(rd());
     std::uniform_int_distribution<> dis(0, 19);
     
-   /* for (unsigned int x = 0; x < size_x; x++)
-        for (unsigned int y = 0; y < size_y; y++)
-            _map[x][y] = Case();*/
-    
+//    for (unsigned int x = 0; x < size_x; x++)
+//        for (unsigned int y = 0; y < size_y; y++)
+//            _map[x][y] = Case();
+
     for (int i = 0; i < 10; i++) {
         _minList.push_back(noteType(0, dis(gen), dis(gen)));
         _maxList.push_back(noteType(0, dis(gen), dis(gen)));
@@ -132,18 +132,12 @@ bool    GameMap::checkPat3(unsigned int x, unsigned int y, unsigned int d, bool 
     tmp = checkPat3YXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YXX, color, tmp);
     ret = ret | tmp;
-    if (tmp == true)
-        std::cout << "B" << std::endl;
     tmp = checkPat3YOXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YOXX, color, tmp);
     ret = ret | tmp;
-    if (tmp == true)
-        std::cout << "C" << std::endl;
     tmp = checkPat3YOOXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YOOXX, color, tmp);
     ret = ret | tmp;
-    if (tmp == true)
-        std::cout << "D" << std::endl;
     tmp = checkPat3YXOX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YXOX, color, tmp);
     ret = ret | tmp;
@@ -442,40 +436,26 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
             unsigned int tx = x + dir[d][0] * p;
             unsigned int ty = y + dir[d][1] * p;
             
-            if (tx < 18 && ty < 18 && checkPat2(tx, ty, d, color) == true) {
-                
-                if (checkPat3(tx, ty, d, color) == true)
-                {
-                    if (checkPat4(tx, ty, d, color) == true) {
-                        checkPat5(tx, ty, d, color);
-                    }
-                }
+            if (tx < 18 && ty < 18) {
+                checkPat2(tx, ty, d, color);
+                checkPat3(tx, ty, d, color);
+                checkPat4(tx, ty, d, color);
+                checkPat5(tx, ty, d, color);
                 if (_three.isCorrect(_game, tx, ty, color)) {
                     evaluate(std::make_pair(tx, ty), color);
                 }
                 else
                 {
-                    std::cout << "I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << " : " << getCase(tx, ty).getContent() << ")" << std::endl;
-                    // _game->getGui()->setFull(x, y, true);
-                    if (getCase(tx, ty).isEmpty() == true) {
-                        _game->getGui()->setFull(tx, ty, true);
-                        _game->getGui()->setButtonColor(tx, ty, Case::caseContent::NOT);
-                    }
-                    else
-                        std::cout << "but not empty" << std::endl;
+                    //std::cout << "I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << " : " << getCase(tx, ty).getContent() << ")" << std::endl;
+                    _game->getGui()->setPosable(tx, ty, getCase(tx, ty).getPosable(color), color);
                     
-                    std::cout << "not ok" << std::endl;
                 }
-                if ((!_three.isCorrect(_game, tx, ty, !color))) {
-                    std::cout << "2I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << ")" << std::endl;
-                    
-                    if (getCase(tx, ty).isEmpty() == true) {
-                        _game->getGui()->setFull(tx, ty, true);
-                        _game->getGui()->setButtonColor(tx, ty, Case::caseContent::NOT);
-                    }
-                    
+                if (!_three.isCorrect(_game, tx, ty, !color)) {
+                    //std::cout << "2I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << ")" << std::endl;
                 }
             }
+            
+            
         }
     }
 }
@@ -486,6 +466,7 @@ void		GameMap::setCase(unsigned int x, unsigned int y, Case::caseContent content
     
     _map[x][y].setContent(content);
     update(x, y, color);
+    update(x, y, !color);
 }
 
 bool			GameMap::isIn(unsigned int x, unsigned int y) const

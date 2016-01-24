@@ -27,14 +27,14 @@ private:
     const vec2		limit = { -1, 19 };
     const vec2		direction[8] =
     {
-        {0, 1},
-        {-1, 1},
-        {-1, 0},
-        {-1, -1},
         {0, -1},
-        {1, -1},
+        {-1, -1},
+        {-1, 0},
+        {-1, 1},
+        {0, 1},
+        {1, 1},
         {1, 0},
-        {1, 1}
+        {1, -1}
     };
     Case::caseContent	_enemyCell;
     const std::string	_lastError;

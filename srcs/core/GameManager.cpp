@@ -78,4 +78,21 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
     }
     else if (_game->getActivePlayer()->getType() == IPlayer::HUMAN)
         _gui->showError(_judge->getLastError());
+    for (unsigned int tx = 0; tx < 19; tx++)
+        for (unsigned int ty = 0; ty < 19; ty++) {
+            _game->getGui()->setPosable(tx, ty, _game->getMap()->getCase(tx, ty).getPosable(true), true);
+            _game->getGui()->setPosable(tx, ty, _game->getMap()->getCase(tx, ty).getPosable(false), false);
+        }
+    // if (_game->isFinished())
+    //   std::cout << "WINNNNNNNNNNNN" << std::endl;
+    
+    // affichage de la map (terminal)
+    // for (int x = 0; x < 19; x++)
+    //   {
+    //     for (int y = 0; y < 19; y++)
+    // 	{
+    // 	  std::cout << _game->getMap()->getCase(x, y);
+    // 	}
+    //     std::cout << std::endl;
+    //   }
 }

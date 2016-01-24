@@ -83,6 +83,9 @@ void    Case::setColor(bool value)
 
 bool    Case::getPosable(bool color)
 {
+  //  std::cout << "YO" << (int)prop << "OY" << std::endl;
+
+   // std::cout << "Blue : " << (int)((prop & 0b0010) >> 1) << "RED : " << (int)((prop & 0b0001)) << std::endl;
     if (color == false)
         return (prop & 0b0010) >> 1;
     else
@@ -95,6 +98,7 @@ void    Case::setPosable(bool color, bool value)
         prop = (prop & 0b1101) + (value * 0b0010);
     else
         prop = (prop & 0b1110) + (value * 0b0001);
+
 }
 
 // 1111111111 = 2^10 - 1
