@@ -60,21 +60,21 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
         this->reset();
     });
 
-    connect(ui->doubleThree, &QCheckBox::clicked, [this](bool state) {
-        if (state == false)
-            this->_gm->getJudge()->addRule(new DoubleThree());
-        else
-            this->_gm->getJudge()->removeRule(IRule::DOUBLETHREE);
-    });
+//    connect(ui->doubleThree, &QCheckBox::clicked, [this](bool state) {
+//        if (state == false)
+//            this->_gm->getJudge()->addRule(new DoubleThree());
+//        else
+//            this->_gm->getJudge()->removeRule(IRule::DOUBLETHREE);
+//    });
 
-    connect(ui->eatThem, &QCheckBox::clicked, [this](bool state) {
-        if (state == false) {
-            this->_gm->getJudge()->removeRule(IRule::EATTHEM);
-        }
-        else {
-            this->_gm->getJudge()->addRule(new EatThem());
-        }
-    });
+//    connect(ui->eatThem, &QCheckBox::clicked, [this](bool state) {
+//        if (state == false) {
+//            this->_gm->getJudge()->removeRule(IRule::EATTHEM);
+//        }
+//        else {
+//            this->_gm->getJudge()->addRule(new EatThem());
+//        }
+//    });
 
     for (auto button : _buttons)
     {
