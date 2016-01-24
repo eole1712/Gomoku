@@ -7,6 +7,8 @@
 #include <random>
 #include <iostream>
 
+#include "GameMap.hpp"
+
 class TmpMap {
 public:
     TmpMap()
@@ -49,8 +51,8 @@ private:
 class Node
 {
 public:
-  typedef TmpMap MapType;
-  Node(MapType const& map, std::pair<int, int> move, Node* parent = nullptr, bool isMax = true);
+  typedef GameMap MapType;
+  Node(MapType & map, std::pair<int, int> move, Node* parent = nullptr, bool isMax = true);
   virtual ~Node();
   void deleteExcept(std::pair<int, int> const& value, bool check);
   int getNote();

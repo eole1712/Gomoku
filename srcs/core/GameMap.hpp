@@ -41,7 +41,7 @@ public:
 public:
     GameMap(IGame *);
     virtual ~GameMap();
-    GameMap(GameMap &);
+    GameMap(GameMap&);
 
 private:
     Case	_map[size_x][size_y];
