@@ -515,7 +515,7 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
                 ret -= 2048;
         }
     }
-    if (!cas.getPosable(aiColor))
+    if (!cas.getPosable(isAI))
         return ret;
     
     /// MAX
