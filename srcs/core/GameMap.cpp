@@ -413,9 +413,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
         {
             unsigned int tx = x + dir[d][0] * p;
             unsigned int ty = y + dir[d][1] * p;
-            
-            //std::cout << "D " << d << "tx(" << tx << ") ty(" << ty << ")" << std::endl;
-            
+                        
             if (tx < 18 && ty < 18 && checkPat2(tx, ty, d, color) == true) {
                 
                 if (checkPat3(tx, ty, d, color) == true)
@@ -427,7 +425,6 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                 evaluate(std::make_pair(tx, ty), color);
             }
         }
-        //std::cout << "DDDDD << " << d << std::endl;
     }
 }
 
@@ -507,17 +504,17 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
                 if (_minList.size() > 10)
                     _minList.pop_back();
     }
-        std::cout << "MAX LIST" << std::endl;
-    
-        for (auto &i : _maxList) {
-            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
-        }
-    
-        std::cout << std::endl << "MIN LIST" << std::endl;
-    
-        for (auto &i : _minList) {
-            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
-        }
+//        std::cout << "MAX LIST" << std::endl;
+//    
+//        for (auto &i : _maxList) {
+//            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
+//        }
+//    
+//        std::cout << std::endl << "MIN LIST" << std::endl;
+//    
+//        for (auto &i : _minList) {
+//            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
+//        }
     
     
     return ret;
