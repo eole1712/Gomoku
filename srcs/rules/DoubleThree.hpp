@@ -22,16 +22,27 @@ public:
   virtual bool			isOk(IGame*);
 
 private:
+  const vec2		_direction[8] =
+    {
+      {0, 1},
+      {-1, 1},
+      {-1, 0},
+      {-1, -1},
+      {0, -1},
+      {1, -1},
+      {1, 0},
+      {1, 1}
+    };
+
   const std::string	_lastError;
-  const vec2		_axis[4];
   const vec2		_boundLimit;
-  const Case::caseContent		_validCase[5][5];
   Case::caseContent	_enemyCell;
   Case::caseContent	_myCell;
-  vec2			_playingPosition;
+  bool			_color;
   IGameMap *		_map;
-  bool			checkFreeAlign(vec2 const & origin, vec2 axis, align * alignOut);
-  bool			haveSecondAlign(int const & originAxis, align * align);
+  bool			findDoubleThreeByAxis(vec2 const &, Case const &, unsigned int) const;
+  bool			findThreeAlignFreeByAxis(vec2 const &, Case const &, unsigned int,
+						 std::pair<vec2, vec2> &) const;
 };
 
 #endif /* !DOUBLETHREE_HPP_ */
