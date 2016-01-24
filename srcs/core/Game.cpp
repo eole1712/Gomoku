@@ -95,14 +95,6 @@ void		Game::endTurn()
 {
   _gui->changeTurn();
   _turn = !_turn;
-  if (_players[_turn]->getType() == IPlayer::AI) {
-     std::pair<int, int> move;
-      //dynamic_cast<AI*>(_players[_turn])->setMap(getMap());
-     move = dynamic_cast<AI*>(_players[_turn])->play(getMap());
-      playTurn(move.first, move.second);
-      setCase(move.first, move.second, static_cast<Case::caseContent>(_players[_turn]->getColor()));
-      endTurn();
-  }
 }
 
 

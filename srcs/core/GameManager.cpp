@@ -9,6 +9,7 @@
 #include "EatThem.hpp"
 #include "DoubleThree.hpp"
 #include "IPlayer.hpp"
+#include "AI.hpp"
 #include "Case.hpp"
 
 GameManager::GameManager(int &ac, char **av)
@@ -69,6 +70,12 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
     }
     else
         _gui->showError(_judge->getLastError());
+
+    if (_game->getActivePlayer()->getType() == IPlayer::AI) {
+        std::pair<int, int> move;
+        move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
+        didClickCase(move.first, move.second);
+    }
 
     // if (_game->isFinished())
     //   std::cout << "WINNNNNNNNNNNN" << std::endl;
