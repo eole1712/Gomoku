@@ -229,15 +229,6 @@ bool    GameMap::checkPat3XYOX(unsigned int x, unsigned int y, Case::dir d, bool
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    if (x == 3 && y == 4) {
-        bool ret = (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
-        (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-        (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
-        
-        //std::cout << "3, 4 putted for color " << color << " ret = " << (ret == true? "true" : "false") << std::endl;
-    }
-    
-    
     return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
     (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
@@ -450,7 +441,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                 checkPat3(tx, ty, d, color);
                 checkPat4(tx, ty, d, color);
                 checkPat5(tx, ty, d, color);
-                if (_three.isOk(_game, tx, ty, color)) {
+                if (_three.isCorrect(_game, tx, ty, color)) {
                     evaluate(std::make_pair(tx, ty), color);
                 }
                 else
@@ -459,7 +450,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                     _game->getGui()->setPosable(tx, ty, getCase(tx, ty).getPosable(color), color);
                     
                 }
-                if (!_three.isOk(_game, tx, ty, !color)) {
+                if (!_three.isCorrect(_game, tx, ty, !color)) {
                     //std::cout << "2I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << ")" << std::endl;
                 }
             }
