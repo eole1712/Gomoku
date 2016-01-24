@@ -67,15 +67,15 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
         _game->setCase(x, y, static_cast<Case::caseContent>(_game->getActivePlayer()->getColor()));
         _game->endTurn();
         _gui->showError("");
+
+        if (_game->getActivePlayer()->getType() == IPlayer::AI) {
+            std::pair<int, int> move;
+            move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
+            didClickCase(move.first, move.second);
+        }
     }
     else
         _gui->showError(_judge->getLastError());
-
-    if (_game->getActivePlayer()->getType() == IPlayer::AI) {
-        std::pair<int, int> move;
-        move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
-        didClickCase(move.first, move.second);
-    }
 
     // if (_game->isFinished())
     //   std::cout << "WINNNNNNNNNNNN" << std::endl;
