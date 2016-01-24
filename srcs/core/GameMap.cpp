@@ -8,22 +8,25 @@
 #include "DoubleThree.hpp"
 #include "IGui.hpp"
 
+DoubleThree GameMap::_three;
+
 GameMap::GameMap(IGame* game)
 {
     std::random_device  rd;
     std::mt19937        gen(rd());
     std::uniform_int_distribution<> dis(0, 19);
     
-    for (unsigned int x = 0; x < size_x; x++)
+   /* for (unsigned int x = 0; x < size_x; x++)
         for (unsigned int y = 0; y < size_y; y++)
-            _map[x][y] = Case();
+            _map[x][y] = Case();*/
     
     for (int i = 0; i < 10; i++) {
         _minList.push_back(noteType(0, dis(gen), dis(gen)));
         _maxList.push_back(noteType(0, dis(gen), dis(gen)));
     }
     _game = game;
-}
+   // _three = new DoubleThree();
+    }
 
 GameMap::~GameMap()
 {
@@ -31,11 +34,30 @@ GameMap::~GameMap()
 }
 
 GameMap::GameMap(GameMap &unit)
-:   _minList(unit._minList),
-    _maxList(unit._maxList)
 {
     _game = unit._game;
-    std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+    std::cout << sizeof(_map) << std::endl;
+    for (unsigned int x = 0; x < size_x; x++)
+        for (unsigned int y = 0; y < size_y; y++)
+            _map[x][y] = unit._map[x][y];
+    //std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+ //   _three = new DoubleThree;
+    _minList = unit._minList;
+    _maxList = unit._maxList;
+}
+
+GameMap& GameMap::operator=(GameMap &unit)
+{
+    _game = unit._game;
+    std::cout << sizeof(_map) << std::endl;
+    for (unsigned int x = 0; x < size_x; x++)
+        for (unsigned int y = 0; y < size_y; y++)
+            _map[x][y] = unit._map[x][y];
+    //std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+    //_three = new DoubleThree;
+    _minList = unit._minList;
+    _maxList = unit._maxList;
+    return *this;
 }
 
 void		GameMap::clear()
@@ -428,7 +450,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                         checkPat5(tx, ty, d, color);
                     }
                 }
-                if (_three.isOk(_game, tx, ty, color)) {
+                if (_three.isCorrect(_game, tx, ty, color)) {
                     evaluate(std::make_pair(tx, ty), color);
                 }
                 else
@@ -444,7 +466,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                     
                     std::cout << "not ok" << std::endl;
                 }
-                if (!_three.isOk(_game, tx, ty, !color)) {
+                if ((!_three.isCorrect(_game, tx, ty, !color))) {
                     std::cout << "2I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << ")" << std::endl;
                     
                     if (getCase(tx, ty).isEmpty() == true) {

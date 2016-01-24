@@ -7,8 +7,7 @@
 #include <iostream>
 
 DoubleThree::DoubleThree()
-  : _lastError(std::string("Regle des trois non respectée !")),
-    _boundLimit{-1, 19}
+  : _lastError(std::string("Regle des trois non respectée !"))
 {}
 
 DoubleThree::~DoubleThree()
@@ -24,7 +23,7 @@ std::string const	&DoubleThree::getError() const
   return _lastError;
 }
 
-bool		DoubleThree::isOk(IGame * game, unsigned int x, unsigned int y, bool color)
+bool		DoubleThree::isCorrect(IGame * game, unsigned int x, unsigned int y, bool color)
 {
     vec2 playingPosition =
     {
