@@ -36,7 +36,7 @@ bool	Win::isOk(IGame* game)
       static_cast<int>(game->getActivePlayer()->getY())
     };
   Case		playingCase = map->getCase(playingPosition.x, playingPosition.y);
-  bool		color = (playingCase.getColor() == Case::RED);
+  bool		color = playingCase.getColor();
 
   if (game->getActivePlayer()->getPoints() > 9)
     {

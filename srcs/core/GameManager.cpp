@@ -69,15 +69,16 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
         _game->endTurn();
         _gui->showError("");
 
-        std::pair<int, int> move;
-
-        while (_game->getActivePlayer()->getType() == IPlayer::AI) {
-            move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
+        if (_game->getActivePlayer()->getType() == IPlayer::AI)
+	  {
+	    std::pair<int, int> move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
             didClickCase(move.first, move.second);
-        }
+	  }
     }
     else if (_game->getActivePlayer()->getType() == IPlayer::HUMAN)
         _gui->showError(_judge->getLastError());
+    else
+        _gui->showError("L'I.A. a jouer une case de merde");
     for (unsigned int tx = 0; tx < 19; tx++)
         for (unsigned int ty = 0; ty < 19; ty++) {
             _game->getGui()->setPosable(tx, ty, _game->getMap()->getCase(tx, ty).getPosable(true), true);
