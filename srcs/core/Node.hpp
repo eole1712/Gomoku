@@ -64,16 +64,17 @@ public:
   int evaluate(int depth, int min, int max);
   void initialize(int depth);
   void deleteUnused(int depth);
-  static constexpr int loose = -100;
-  static constexpr int win = 100;
+  static constexpr int loose = -25000;
+  static constexpr int win = 25000;
   void print(std::ostream &file);
 private:
-  int _note;
+  MapType _map;
+  std::pair<int, int> _move;
   Node *_parent;
   bool _isMax;
+  int _note;
+  int _eval = -1;
   std::list<Node*> _childrens;
-  std::pair<int, int> _move;
-  MapType _map;
   static int _maxDepth;
 };
 

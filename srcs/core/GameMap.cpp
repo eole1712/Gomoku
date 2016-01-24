@@ -5,22 +5,28 @@
 #include "IGameMap.hpp"
 #include "GameMap.hpp"
 #include "Case.hpp"
+#include "DoubleThree.hpp"
+#include "IGui.hpp"
 
-GameMap::GameMap()
+DoubleThree GameMap::_three;
+
+GameMap::GameMap(IGame* game)
 {
     std::random_device  rd;
     std::mt19937        gen(rd());
     std::uniform_int_distribution<> dis(0, 19);
     
-    for (unsigned int x = 0; x < size_x; x++)
+   /* for (unsigned int x = 0; x < size_x; x++)
         for (unsigned int y = 0; y < size_y; y++)
-            _map[x][y] = Case();
+            _map[x][y] = Case();*/
     
     for (int i = 0; i < 10; i++) {
         _minList.push_back(noteType(0, dis(gen), dis(gen)));
         _maxList.push_back(noteType(0, dis(gen), dis(gen)));
     }
-}
+    _game = game;
+   // _three = new DoubleThree();
+    }
 
 GameMap::~GameMap()
 {
@@ -28,10 +34,30 @@ GameMap::~GameMap()
 }
 
 GameMap::GameMap(GameMap &unit)
-    :_minList(unit._minList),
-      _maxList(unit._maxList)
 {
-    std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+    _game = unit._game;
+    std::cout << sizeof(_map) << std::endl;
+    for (unsigned int x = 0; x < size_x; x++)
+        for (unsigned int y = 0; y < size_y; y++)
+            _map[x][y] = unit._map[x][y];
+    //std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+ //   _three = new DoubleThree;
+    _minList = unit._minList;
+    _maxList = unit._maxList;
+}
+
+GameMap& GameMap::operator=(GameMap &unit)
+{
+    _game = unit._game;
+    std::cout << sizeof(_map) << std::endl;
+    for (unsigned int x = 0; x < size_x; x++)
+        for (unsigned int y = 0; y < size_y; y++)
+            _map[x][y] = unit._map[x][y];
+    //std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
+    //_three = new DoubleThree;
+    _minList = unit._minList;
+    _maxList = unit._maxList;
+    return *this;
 }
 
 void		GameMap::clear()
@@ -415,7 +441,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
         {
             unsigned int tx = x + dir[d][0] * p;
             unsigned int ty = y + dir[d][1] * p;
-                        
+            
             if (tx < 18 && ty < 18 && checkPat2(tx, ty, d, color) == true) {
                 
                 if (checkPat3(tx, ty, d, color) == true)
@@ -424,7 +450,31 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                         checkPat5(tx, ty, d, color);
                     }
                 }
-                evaluate(std::make_pair(tx, ty), color);
+                if (_three.isCorrect(_game, tx, ty, color)) {
+                    evaluate(std::make_pair(tx, ty), color);
+                }
+                else
+                {
+                    std::cout << "I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << " : " << getCase(tx, ty).getContent() << ")" << std::endl;
+                    // _game->getGui()->setFull(x, y, true);
+                    if (getCase(tx, ty).isEmpty() == true) {
+                        _game->getGui()->setFull(tx, ty, true);
+                        _game->getGui()->setButtonColor(tx, ty, Case::caseContent::NOT);
+                    }
+                    else
+                        std::cout << "but not empty" << std::endl;
+                    
+                    std::cout << "not ok" << std::endl;
+                }
+                if ((!_three.isCorrect(_game, tx, ty, !color))) {
+                    std::cout << "2I clicked "<< x << ", " << y << ") and this is not okay (" << tx << ", " << ty << ")" << std::endl;
+                    
+                    if (getCase(tx, ty).isEmpty() == true) {
+                        _game->getGui()->setFull(tx, ty, true);
+                        _game->getGui()->setButtonColor(tx, ty, Case::caseContent::NOT);
+                    }
+                    
+                }
             }
         }
     }
@@ -460,11 +510,11 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
     for (Case::dir dir : dirs) {
         for (Case::pat2 pat : pat2) {
             if (cas.getValue2(dir, pat, aiColor)) {
-                std::cout << ">2<" << std::endl;
+                //   std::cout << ">2<" << std::endl;
                 ret += 16;
             }
             if (cas.getValue2(dir, pat, noaiColor)) {
-                std::cout << ">-2<" << std::endl;
+                //  std::cout << ">-2<" << std::endl;
                 ret -= 16;
             }
         }
@@ -494,8 +544,8 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
         _maxList.sort([](noteType a, noteType b){
             return (std::get<0>(a) > std::get<0>(b));
         });
-                if (_maxList.size() > 10)
-                    _maxList.pop_back();
+        if (_maxList.size() > 10)
+            _maxList.pop_back();
     } else {
         _minList.push_back(noteType(ret, move.first, move.second));
         
@@ -503,20 +553,20 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
             return (std::get<0>(a) < std::get<0>(b));
         });
         
-                if (_minList.size() > 10)
-                    _minList.pop_back();
+        if (_minList.size() > 10)
+            _minList.pop_back();
     }
-//        std::cout << "MAX LIST" << std::endl;
-//    
-//        for (auto &i : _maxList) {
-//            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
-//        }
-//    
-//        std::cout << std::endl << "MIN LIST" << std::endl;
-//    
-//        for (auto &i : _minList) {
-//            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
-//        }
+    //        std::cout << "MAX LIST" << std::endl;
+    //
+    //        for (auto &i : _maxList) {
+    //            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
+    //        }
+    //
+    //        std::cout << std::endl << "MIN LIST" << std::endl;
+    //
+    //        for (auto &i : _minList) {
+    //            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
+    //        }
     
     
     return ret;

@@ -3,7 +3,7 @@
  #include <iostream>
 #include <fstream>
 
-MinMax::MinMax(Node::MapType map)
+MinMax::MinMax(Node::MapType &map)
 {
   m_current = new Node(map, std::pair<int, int>(0, 0));
 }
@@ -41,7 +41,7 @@ std::pair<int, int> MinMax::evaluate(int depth)
     }
     m_current->deleteExcept(best->getMove(), true);
     m_current = best;
-    std::cout << m_current->getNote() << std::endl;
+    std::cout << "final note : " << m_current->getNote() << std::endl;
 
     return m_current->getMove();
 }

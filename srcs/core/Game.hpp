@@ -1,6 +1,7 @@
 #ifndef GAME_HPP_
 # define GAME_HPP_
 
+# include "IJudge.hpp"
 # include "IGame.hpp"
 # include "Case.hpp"
 

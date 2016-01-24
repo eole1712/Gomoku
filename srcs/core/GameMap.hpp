@@ -1,9 +1,11 @@
 #ifndef GAMEMAP_HPP_
 # define GAMEMAP_HPP_
 
+# include "DoubleThree.hpp"
+# include "IJudge.hpp"
+# include "IGame.hpp"
 # include "IGameMap.hpp"
 # include "Case.hpp"
-
 # include <list>
 # include <tuple>
 
@@ -37,7 +39,7 @@ public:
     };
     
 public:
-    GameMap();
+    GameMap(IGame *);
     virtual ~GameMap();
     GameMap(GameMap&);
 
@@ -94,6 +96,10 @@ public:
     int evaluate(std::pair<int, int> move, bool isAI);
     std::list<noteType> const& getMaxMoves();
     std::list<noteType> const& getMinMoves();
+    GameMap &operator =(GameMap &unit);
+protected:
+    static DoubleThree         _three;
+    IGame*              _game;
 };
 
 #endif /* !GAMEMAP_HPP_ */

@@ -15,7 +15,7 @@
 class Case {
 
 public:
-    enum caseContent {EMPTY, BLUE, RED, NOT};
+    enum caseContent {EMPTY = 0, BLUE, RED, NOT};
     
 public:
     enum dir {N = 0, NW, W, SW, S, SE, E, NE};
@@ -63,6 +63,7 @@ public:
     void    setPosable(bool color, bool value);
     bool    getPosable(bool color);
 
+    Case &operator =(const Case &unit);
 private:
     uint64_t    tab[6];
     uint8_t     prop;

@@ -21,11 +21,11 @@ public:
     virtual IRule::RuleType	getRuleType() const;
     virtual std::string const&	getError() const;
     virtual bool			isOk(IGame*);
-    bool                isCorrect(IGame * game, unsigned int x, unsigned int y, bool color);
+    bool                isOk(IGame * game, unsigned int x, unsigned int y, bool color);
     
 private:
-    const vec2		limit = { -1, 19 };
-    const vec2		direction[8] =
+  const vec2		limit = { -1, 19 };
+  const vec2		direction[8] =
     {
         {0, 1},
         {-1, 1},
@@ -36,14 +36,30 @@ private:
         {1, 0},
         {1, 1}
     };
-    Case::caseContent	_enemyCell;
+<<<<<<< HEAD
+
+  const std::string	_lastError;
+  const vec2		_boundLimit;
+  Case::caseContent	_enemyCell;
+  Case::caseContent	_myCell;
+  bool			_color;
+
+  IGameMap *		_map;
+  bool			findDoubleThreeByAxis(vec2 const &, Case const &, unsigned int) const;
+  bool			findThreeAlignFreeByAxis(vec2 const &, Case const &, unsigned int,
+						 std::pair<vec2, vec2> &) const;
+=======
+    
     const std::string	_lastError;
+    const vec2		_boundLimit;
+    Case::caseContent	_enemyCell;
     Case::caseContent	_myCell;
-    bool			    _color;
-    IGameMap *		    _map;
+    bool			_color;
+    IGameMap *		_map;
     bool			findDoubleThreeByAxis(vec2 const &, Case const &, unsigned int) const;
     bool			findThreeAlignFreeByAxis(vec2 const &, Case const &, unsigned int,
                                              std::pair<vec2, vec2> &) const;
+>>>>>>> 066bf629a9482e9325fb4510184707324b6790d5
 };
 
 #endif /* !DOUBLETHREE_HPP_ */

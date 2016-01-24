@@ -9,78 +9,73 @@
 #include "EatThem.hpp"
 #include "DoubleThree.hpp"
 #include "IPlayer.hpp"
+#include "AI.hpp"
 #include "Case.hpp"
 
 GameManager::GameManager(int &ac, char **av)
-  : _game(NULL)
+: _game(NULL)
 {
-  _judge = new Judge();
-  _judge->addRule(new BasicCheck());
-  _judge->addRule(new DoubleThree());
-  _judge->addRule(new EatThem());
-  _judge->addRule(new Win());
-  _gui = new Gui(this, ac, av);
+    _judge = new Judge();
+    _judge->addRule(new BasicCheck());
+    _judge->addRule(new EatThem());
+    _judge->addRule(new Win());
+    _judge->addRule(new DoubleThree());
+    _gui = new Gui(this, ac, av);
 }
 
 GameManager::~GameManager()
 {
-  if (_game)
-    delete _game;
-  delete _judge;
+    if (_game)
+        delete _game;
+    delete _judge;
 }
 
 void        GameManager::start() const
 {
-  _gui->start();
+    _gui->start();
 }
 
 IJudge *		GameManager::getJudge() const
 {
-  return _judge;
+    return _judge;
 }
 
 IGame *			GameManager::createGame(IGame::mode gameMode)
 {
-  _game = new Game(gameMode, _gui);
-  return _game;
+    _game = new Game(gameMode, _gui);
+    return _game;
 }
 
 void			GameManager::removeGame()
 {
-  if (_game)
-    delete _game;
-  _game = NULL;
+    if (_game)
+        delete _game;
+    _game = NULL;
 }
 
 IGame *			GameManager::getGame() const
 {
-  return _game;
+    return _game;
 }
 
 void	GameManager::didClickCase(unsigned int x, unsigned y)
 {
-  if (_game == NULL)
-    return;
+    if (_game == NULL)
+        return;
 
-  _game->playTurn(x, y);
-  if (_judge->checkRules(_game)) {
-    _game->setCase(x, y, static_cast<Case::caseContent>(_game->getActivePlayer()->getColor()));
-    _game->endTurn();
-    _gui->showError("");
-  }
-  else
-    _gui->showError(_judge->getLastError());
+    _game->playTurn(x, y);
+    if (_judge->checkRules(_game)) {
+        _game->setCase(x, y, static_cast<Case::caseContent>(_game->getActivePlayer()->getColor()));
+        _game->endTurn();
+        _gui->showError("");
 
-  // if (_game->isFinished())
-  //   std::cout << "WINNNNNNNNNNNN" << std::endl;
+        std::pair<int, int> move;
 
-  // affichage de la map (terminal)
-  // for (int x = 0; x < 19; x++)
-  //   {
-  //     for (int y = 0; y < 19; y++)
-  // 	{
-  // 	  std::cout << _game->getMap()->getCase(x, y);
-  // 	}
-  //     std::cout << std::endl;
-  //   }
+        while (_game->getActivePlayer()->getType() == IPlayer::AI) {
+            move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
+            didClickCase(move.first, move.second);
+        }
+    }
+    else if (_game->getActivePlayer()->getType() == IPlayer::HUMAN)
+        _gui->showError(_judge->getLastError());
 }

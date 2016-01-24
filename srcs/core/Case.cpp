@@ -26,6 +26,17 @@ Case::Case(Case const &unit)
     }
 }
 
+Case& Case::operator=(Case const &unit)
+{
+    if (&unit != this) {
+        for (int i = 0; i < 6; i++) {
+            tab[i] = unit.tab[i];
+        }
+        prop = unit.prop;
+    }
+    return *this;
+}
+
 void    Case::clear()
 {
     for (int i = 0; i < 6; i++) {
@@ -53,6 +64,8 @@ void                Case::setContent(caseContent c)
 {
     setEmpty(c == EMPTY);
     setColor(c == RED);
+    setPosable(false, c == EMPTY);
+    setPosable(true, c == EMPTY);
 }
 
 Case::caseContent    Case::getContent() const

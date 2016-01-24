@@ -23,6 +23,35 @@ std::string const	&DoubleThree::getError() const
   return _lastError;
 }
 
+bool		DoubleThree::isCorrect(IGame * game, unsigned int x, unsigned int y, bool color)
+{
+    vec2 playingPosition =
+    {
+        static_cast<int>(x),
+        static_cast<int>(y)
+    };
+    _map = game->getMap();
+    Case playingCase = _map->getCase(playingPosition.x, playingPosition.y);
+    if (color == false)
+    {
+        _color = false;
+        _myCell = Case::BLUE;
+    }
+    else
+    {
+        _color = true;
+        _myCell = Case::RED;
+    }
+    _enemyCell = (_myCell == Case::RED) ? Case::BLUE : Case::RED;
+    unsigned int axis = 0;
+    for (; axis < 8 && !findDoubleThreeByAxis(playingPosition, playingCase, axis);
+         ++axis);
+    if (axis == 8)
+        return true;
+    playingCase.setPosable(_color, false);
+    return false;
+}
+
 bool		DoubleThree::isOk(IGame * game)
 {
   vec2 playingPosition =
@@ -70,7 +99,8 @@ bool		DoubleThree::findThreeAlignFreeByAxis(vec2 const & playingPosition, Case c
   if ((pos.first.inBound({-1, 19}) && !_map->getCase(pos.first.x, pos.first.y).isEmpty()) ||
       (pos.second.inBound({-1, 19}) && !_map->getCase(pos.second.x, pos.second.y).isEmpty()))
     return false;
-  return true;
+    std::cout << "find" << std::endl;
+    return true;
 }
 
 bool		DoubleThree::findDoubleThreeByAxis(vec2 const & playingPosition, Case const & playingCase, unsigned int axis) const
@@ -85,7 +115,7 @@ bool		DoubleThree::findDoubleThreeByAxis(vec2 const & playingPosition, Case cons
     {
       for (unsigned int secondAxis = 0; secondAxis < 8; ++secondAxis)
 	{
-	  if (secondAxis != axis &&
+	  if (secondAxis != axis && ((secondAxis + 4)% 8)  != axis &&
 	      !(testCase = _map->getCase(pos.first.x, pos.first.y)).isEmpty() &&
 	      findThreeAlignFreeByAxis(pos.first, testCase, secondAxis, tmp))
 	    return true;
