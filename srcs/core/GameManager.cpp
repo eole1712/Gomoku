@@ -19,7 +19,6 @@ GameManager::GameManager(int &ac, char **av)
     _judge->addRule(new BasicCheck());
     _judge->addRule(new EatThem());
     _judge->addRule(new Win());
-    _judge->addRule(new DoubleThree());
     _gui = new Gui(this, ac, av);
 }
 
