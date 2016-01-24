@@ -3,7 +3,7 @@
  #include <iostream>
 #include <fstream>
 
-MinMax::MinMax(Node::MapType map)
+MinMax::MinMax(Node::MapType &map)
 {
   m_current = new Node(map, std::pair<int, int>(0, 0));
 }

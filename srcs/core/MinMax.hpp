@@ -6,7 +6,7 @@
 class MinMax
 {
 public:
-  MinMax(Node::MapType map);
+  MinMax(Node::MapType& map);
   virtual ~MinMax();
   std::pair<int, int> evaluate(int depth);
   void initialize(int depth);

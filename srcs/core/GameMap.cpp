@@ -460,11 +460,9 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
     for (Case::dir dir : dirs) {
         for (Case::pat2 pat : pat2) {
             if (cas.getValue2(dir, pat, aiColor)) {
-                std::cout << ">2<" << std::endl;
                 ret += 16;
             }
             if (cas.getValue2(dir, pat, noaiColor)) {
-                std::cout << ">-2<" << std::endl;
                 ret -= 16;
             }
         }
