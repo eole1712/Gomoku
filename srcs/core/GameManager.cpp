@@ -74,7 +74,7 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
             didClickCase(move.first, move.second);
         }
     }
-    else
+    else if (_game->getActivePlayer()->getType() == IPlayer::HUMAN)
         _gui->showError(_judge->getLastError());
 
     // if (_game->isFinished())
