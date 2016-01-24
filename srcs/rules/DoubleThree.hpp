@@ -36,10 +36,8 @@ private:
         {1, 0},
         {1, 1}
     };
-
-   // const vec2		    _boundLimit = {-1, 19};
-    const std::string	_lastError;
     Case::caseContent	_enemyCell;
+    const std::string	_lastError;
     Case::caseContent	_myCell;
     bool			    _color;
     IGameMap *		    _map;

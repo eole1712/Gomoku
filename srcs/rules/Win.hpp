@@ -19,8 +19,20 @@ public:
   virtual bool			isOk(IGame*);
 
 private:
-  bool				canEatThis(IGameMap *map, vec2 origin, vec2 axis,
-					   Case::caseContent v) const;
+
+  bool				canEatThis(IGameMap *map, vec2 playingPosition, Case testCase,
+					   int axis, bool color) const;
+  const vec2		direction[8] =
+    {
+      {0, 1},
+      {-1, 1},
+      {-1, 0},
+      {-1, -1},
+      {0, -1},
+      {1, -1},
+      {1, 0},
+      {1, 1}
+    };
 
 private:
   std::string		_lastError;
