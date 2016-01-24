@@ -22,8 +22,6 @@ public:
   virtual void		setPosition(unsigned int x, unsigned int y);
   virtual unsigned int	getX() const;
   virtual unsigned int	getY() const;
-
-private:
 };
 
 #endif /* PLAYER_HPP_ */
