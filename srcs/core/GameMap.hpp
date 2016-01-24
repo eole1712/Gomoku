@@ -94,7 +94,7 @@ public:
     virtual bool		isIn(unsigned int x, unsigned int y) const;
     void print();
     int evaluate(std::pair<int, int> move, bool isAI);
-    std::list<noteType> const& getMaxMoves();
+    std::list<noteType> getMaxMoves();
     std::list<noteType> const& getMinMoves();
     GameMap &operator =(GameMap &unit);
 protected:

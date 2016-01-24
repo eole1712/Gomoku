@@ -17,17 +17,17 @@ GameMap::GameMap(IGame* game)
     std::mt19937        gen(rd());
     std::uniform_int_distribution<> dis(0, 19);
     
-//    for (unsigned int x = 0; x < size_x; x++)
-//        for (unsigned int y = 0; y < size_y; y++)
-//            _map[x][y] = Case();
-
+    //    for (unsigned int x = 0; x < size_x; x++)
+    //        for (unsigned int y = 0; y < size_y; y++)
+    //            _map[x][y] = Case();
+    
     for (int i = 0; i < 10; i++) {
         _minList.push_back(noteType(0, dis(gen), dis(gen)));
         _maxList.push_back(noteType(0, dis(gen), dis(gen)));
     }
     _game = game;
-   // _three = new DoubleThree();
-    }
+    // _three = new DoubleThree();
+}
 
 GameMap::~GameMap()
 {
@@ -42,7 +42,7 @@ GameMap::GameMap(GameMap &unit)
         for (unsigned int y = 0; y < size_y; y++)
             _map[x][y] = unit._map[x][y];
     //std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
- //   _three = new DoubleThree;
+    //   _three = new DoubleThree;
     _minList = unit._minList;
     _maxList = unit._maxList;
 }
@@ -515,54 +515,69 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
                 ret -= 2048;
         }
     }
+    if (!cas.getPosable(aiColor))
+        return ret;
     
-    if (isAI) {
-        if (cas.getPosable(aiColor))
-            _maxList.push_back(noteType(ret, move.first, move.second));
-        
+    /// MAX
+    if (ret > std::get<0>(_maxList.back())) {
+        _maxList.push_back(noteType(ret, move.first, move.second));
         _maxList.sort([](noteType a, noteType b){
             return (std::get<0>(a) > std::get<0>(b));
         });
-
         _maxList.erase(std::remove_if(_maxList.begin(), _maxList.end(), [this](noteType& elem) {
             return (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(aiColor));
         }), _maxList.end());
-
         if (_maxList.size() > 10)
             _maxList.pop_back();
-    } else {
-        if (cas.getPosable(noaiColor))
-            _minList.push_back(noteType(ret, move.first, move.second));
-        
+    }
+    
+    /// MIN
+    if (ret < std::get<0>(_minList.back())) {
+        _minList.push_back(noteType(ret, move.first, move.second));
         _minList.sort([](noteType a, noteType b){
             return (std::get<0>(a) < std::get<0>(b));
         });
-        
         _minList.erase(std::remove_if(_minList.begin(), _minList.end(), [this](noteType& elem) {
             return (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(noaiColor));
         }), _minList.end());
         if (_minList.size() > 10)
             _minList.pop_back();
     }
-    //        std::cout << "MAX LIST" << std::endl;
-    //
-    //        for (auto &i : _maxList) {
-    //            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
-    //        }
-    //
-    //        std::cout << std::endl << "MIN LIST" << std::endl;
-    //
-    //        for (auto &i : _minList) {
-    //            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
-    //        }
-    
+//    // SPECIAL MIN ON MAX
+//    
+//    if (ret < 0 && std::abs(ret) > std::get<0>(_maxList.front()))
+//    {
+//        _maxList.push_back(noteType(std::abs(ret), move.first, move.second));
+//        _maxList.sort([](noteType a, noteType b){
+//            return (std::get<0>(a) > std::get<0>(b));
+//        });
+//        _maxList.erase(std::remove_if(_maxList.begin(), _maxList.end(), [this](noteType& elem) {
+//            return (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(aiColor));
+//        }), _maxList.end());
+//        if (_maxList.size() > 10)
+//            _maxList.pop_back();
+//        return std::abs(ret);
+//    }
     
     return ret;
 }
 
-const std::list<GameMap::noteType> &GameMap::getMaxMoves()
+std::list<GameMap::noteType> GameMap::getMaxMoves()
 {
-    return _maxList;
+    std::list<noteType>     list;
+    
+    for (auto& elem : _maxList) {
+        list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+    }
+    for (auto& elem : _minList) {
+        list.push_back(std::make_tuple(std::abs(std::get<0>(elem)), std::get<1>(elem), std::get<2>(elem)));
+    }
+    
+    list.sort([](noteType a, noteType b){
+        return (std::get<0>(a) > std::get<0>(b));
+    });
+    
+    return list;
 }
 
 const std::list<GameMap::noteType> &GameMap::getMinMoves()
@@ -581,9 +596,9 @@ void    GameMap::print()
         {"XYXX", Case::XYXX}, {"XYOXX", Case::XYOXX}, {"XYXOX", Case::XYXOX}};
     static std::pair<std::string, Case::pat5> pat5[] = {{"YXXXX", Case::YXXXX}, {"XYXXX", Case::XYXXX}, {"XXYXX", Case::XXYXX}};
     std::ofstream os;
-
+    
     os.open("map.json");
-
+    
     std::cout << "file created" << std::endl;
     os << "{\n\"Map\" :" << std::endl;
     os << "[" << std::endl;
@@ -595,7 +610,7 @@ void    GameMap::print()
             if (first)
                 first = false;
             os << "\"posable\" : " << (cas.getPosable(aiColor) ? "\"true\"" : "\"false\"")  << ", " << std::endl;
-
+            
             for (std::pair<std::string, Case::dir> dir : dirs) {
                 os << "\"" << dir.first << "\" : { " << std::endl;
                 for (std::pair<std::string, Case::pat2> pat : pat2) {

@@ -28,7 +28,6 @@ bool	Win::canEatThis(IGameMap *map, vec2 playingPosition, Case testCase,
 bool	Win::isOk(IGame* game)
 {
   vec2			pos;
-  Case			testCase;
   IGameMap *	map = game->getMap();
   vec2		playingPosition =
     {
@@ -56,7 +55,7 @@ bool	Win::isOk(IGame* game)
 	continue;
       for (int i = 0; i < 5; ++i) 
 	{
-	  testCase = map->getCase(pos.x, pos.y);
+	  Case &testCase = map->getCase(pos.x, pos.y);
 	  for (int secondAxis = 0; secondAxis < 8; ++secondAxis)
 	    {
 	      if (secondAxis != axis && secondAxis != ((axis + 4) % 8) &&
