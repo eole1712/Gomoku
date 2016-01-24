@@ -377,7 +377,7 @@ bool    GameMap::checkPat4XYXOX(unsigned int x, unsigned int y, Case::dir d, boo
 bool    GameMap::checkPat5(unsigned int x, unsigned int y, unsigned int d, bool color) {
     bool ret = false;
     bool tmp;
-    
+        
     tmp = checkPat5YXXXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue5((Case::dir)((d + 4) % 8), Case::YXXXX, color, tmp);
     ret = ret | tmp;
@@ -400,10 +400,14 @@ bool    GameMap::checkPat5(unsigned int x, unsigned int y, unsigned int d, bool 
 bool    GameMap::checkPat5YXXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    if ((getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
     (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
+    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color))
+    {
+        return true;
+    }
+    return false;
 }
 
 bool    GameMap::checkPat5XYXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -437,7 +441,7 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
             unsigned int tx = x + dir[d][0] * p;
             unsigned int ty = y + dir[d][1] * p;
             
-            if (tx < 18 && ty < 18) {
+            if (tx < 19 && ty < 19) {
                 checkPat2(tx, ty, d, color);
                 checkPat3(tx, ty, d, color);
                 checkPat4(tx, ty, d, color);

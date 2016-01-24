@@ -60,7 +60,7 @@ bool	Win::isOk(IGame* game)
         std::cout << pos.x << " " << pos.y << std::endl;
         
         if (pos.x < 0 || pos.x > 18 || pos.y < 0 || pos.y > 18) {
-            std::cout << "should not happen" << std::endl;
+            continue;
         }
         
 	  Case &testCase = map->getCase(pos.x, pos.y);
