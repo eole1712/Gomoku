@@ -61,32 +61,20 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
 {
     if (_game == NULL)
         return;
-
+    
     _game->playTurn(x, y);
     if (_judge->checkRules(_game)) {
         _game->setCase(x, y, static_cast<Case::caseContent>(_game->getActivePlayer()->getColor()));
         _game->endTurn();
         _gui->showError("");
 
-        if (_game->getActivePlayer()->getType() == IPlayer::AI) {
-            std::pair<int, int> move;
+        std::pair<int, int> move;
+
+        while (_game->getActivePlayer()->getType() == IPlayer::AI) {
             move = dynamic_cast<AI*>(_game->getActivePlayer())->play(_game->getMap());
             didClickCase(move.first, move.second);
         }
     }
     else if (_game->getActivePlayer()->getType() == IPlayer::HUMAN)
         _gui->showError(_judge->getLastError());
-
-    // if (_game->isFinished())
-    //   std::cout << "WINNNNNNNNNNNN" << std::endl;
-
-    // affichage de la map (terminal)
-    // for (int x = 0; x < 19; x++)
-    //   {
-    //     for (int y = 0; y < 19; y++)
-    // 	{
-    // 	  std::cout << _game->getMap()->getCase(x, y);
-    // 	}
-    //     std::cout << std::endl;
-    //   }
 }
