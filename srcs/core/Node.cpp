@@ -79,7 +79,7 @@ int Node::evaluate(int depth, int min, int max)
         _note = min;
         for (auto& child : _childrens) {
             tmpNote = child->evaluate(depth - 1, _note, max);
-            if (tmpNote > _note)
+            if (tmpNote > _note )
                 _note = tmpNote;
             else if (depth != _maxDepth - 1) {
                 delete child;

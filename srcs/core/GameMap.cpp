@@ -577,6 +577,10 @@ std::list<GameMap::noteType> GameMap::getMaxMoves()
         return (std::get<0>(a) > std::get<0>(b));
     });
     
+    while (list.size() > 10) {
+        list.pop_back();
+    }
+    
     return list;
 }
 

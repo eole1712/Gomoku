@@ -28,7 +28,7 @@ bool	Win::canEatThis(IGameMap *map, vec2 playingPosition, Case testCase,
 }
 
 bool	Win::isOk(IGame* game)
-{
+{		
   vec2			pos;
   IGameMap *	map = game->getMap();
   vec2		playingPosition =
