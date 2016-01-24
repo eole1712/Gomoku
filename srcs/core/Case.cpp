@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Case.hpp"
 
 Case::Case()
@@ -6,7 +7,8 @@ Case::Case()
         tab[i] = 0;
     }
     prop = 0;
-    
+    setPosable(false, true);
+    setPosable(true, true);
     setEmpty(true);
 }
 
@@ -89,7 +91,11 @@ void    Case::setPosable(bool color, bool value)
 
 bool    Case::getValue2(Case::dir d, Case::pat2 p, bool color) const
 {
+    std::cout << (int)d << " " << (int)p << " " << (int)color;
+
     uint64_t    pos = (63 - (32 * color) - (p * 8 + d));
+    
+    std::cout << " " << ((tab[0] & (uint64_t)(pow(2, pos))) >> pos) << std::endl;
     
     return (tab[0] & (uint64_t)(pow(2, pos))) >> pos;
 }
@@ -147,6 +153,8 @@ void        Case::setValue3(Case::dir d, Case::pat3 p, bool color, bool value)
 
 bool    Case::getValue4(Case::dir d, Case::pat4 p, bool color) const
 {
+    //std::cout << (int)d << " " << (int)p << " " << (int)color;
+    
     int         i = 3;
     
     int pos = (31 - (56 * color) - (p * 8 + d));
@@ -155,6 +163,8 @@ bool    Case::getValue4(Case::dir d, Case::pat4 p, bool color) const
         pos += 64;
         i += 1;
     }
+    
+    //std::cout << " " << ((tab[i] & (uint64_t)(pow(2, pos))) >> pos) << std::endl;
     
     return (tab[i] & (uint64_t)(pow(2, pos))) >> pos;
 }

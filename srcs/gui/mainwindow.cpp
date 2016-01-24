@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
             setPlayer1Text(_gm->getGame()->getPlayer(0)->getPoints());
             setPlayer2Text(_gm->getGame()->getPlayer(1)->getPoints());
         });
-        tmp->OnMouseMove( [this, tmp] (QMouseEvent*e) {
+        tmp->OnMouseMove( [this, tmp] (QMouseEvent*) {
             if (_gm->getGame() && _gm->getGame()->getActivePlayer() && tmp->isEmpty())
                 setButtonColor(tmp->getX(), tmp->getY(), static_cast<Case::caseContent>(_gm->getGame()->getActivePlayer()->getColor()));
             if (!tmp->isEmpty())

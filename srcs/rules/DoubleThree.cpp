@@ -44,7 +44,6 @@ bool		DoubleThree::isOk(IGame * game)
     };
   _map = game->getMap();
   int i = 0;
-  std::cout << "--------------------------------" << std::endl;
   for (; i < 4 && !(checkFreeAlign(_playingPosition, _axis[i], &tmp[0])
 		    && haveSecondAlign(i, &tmp[0])); i++);
   return i == 4;
