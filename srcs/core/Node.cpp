@@ -5,7 +5,7 @@
 
 int Node::_maxDepth = -1;
 
-Node::Node(MapType& map, std::pair<int, int> move, Node* parent, bool isMax)
+Node::Node(MapType& map, GameMap::noteType move, Node* parent, bool isMax)
   : _map(map),
     _move(move),
     _parent(parent),
@@ -31,7 +31,7 @@ int Node::getNote()
   return _note;
 }
 
-std::pair<int, int> const& Node::getMove()
+GameMap::noteType const& Node::getMove()
 {
   return _move;
 }
@@ -64,9 +64,9 @@ int Node::evaluate(int depth, int min, int max)
         _maxDepth = depth;
     if (_parent)
         tmpNote = _parent->_eval;
-    _eval = tmpNote + _map.evaluate(_move, _isMax);
+    _eval = tmpNote + std::get<0>(_move);
     _note = _eval;
-    _map.setCase(_move.first, _move.second, static_cast<Case::caseContent>(_isMax));
+    _map.setCase(std::get<1>(_move), std::get<2>(_move), static_cast<Case::caseContent>(_isMax));
 
     if (_note == win || _note == loose || depth == 0)
         return _note;
@@ -131,7 +131,7 @@ void Node::initialize(int)
 
   for (auto& move : moves)
     {
-      _childrens.push_back(new Node(_map, std::make_pair(std::get<1>(move), std::get<2>(move)), this, !_isMax));
+      _childrens.push_back(new Node(_map, move, this, !_isMax));
   }
 }
 
@@ -150,7 +150,7 @@ void Node::deleteUnused(int depth)
     _childrens.erase(std::remove(_childrens.begin(), _childrens.end(), nullptr), _childrens.end());
 }
 
-void Node::deleteExcept(std::pair<int, int> const& value, bool check)
+void Node::deleteExcept(GameMap::noteType const& value, bool check)
 {
     for (auto& child : _childrens)
     {
@@ -167,8 +167,8 @@ void Node::print(std::ostream& file)
 {
     file << (long)this << " [label=" << _note << "];" << std::endl;
     for (auto& child : _childrens) {
-        std::pair<int, int > move = child->getMove();
-        file << std::setbase(10) << (long)this << " -> " << (long)child << " [label=" << move.first << move.second << "];" << std::endl;
+        GameMap::noteType move = child->getMove();
+        file << std::setbase(10) << (long)this << " -> " << (long)child << " [label=" << std::get<1>(move) << std::get<2>(move) << "];" << std::endl;
         child->print(file);
     }
 }
