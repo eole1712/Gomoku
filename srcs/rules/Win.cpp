@@ -5,6 +5,8 @@
 #include "DoubleThree.hpp"
 #include "Win.hpp"
 
+#include <iostream>
+
 Win::Win()
   : _lastError("Win error")
 {}
@@ -35,7 +37,7 @@ bool	Win::isOk(IGame* game)
       static_cast<int>(game->getActivePlayer()->getY())
     };
   Case		playingCase = map->getCase(playingPosition.x, playingPosition.y);
-  bool		color = playingCase.getColor();
+  bool		color = (game->getActivePlayer()->getColor() == IPlayer::RED);
 
   if (game->getActivePlayer()->getPoints() > 9)
     {
