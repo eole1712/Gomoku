@@ -7,42 +7,44 @@
 #include "vec2.hpp"
 
 class IGame;
+class IGameMap;
 
 class DoubleThree : public IRule
 {
-  typedef std::pair<Case::caseContent, vec2> align;
-
+    typedef std::pair<Case::caseContent, vec2> align;
+    
 public:
-  DoubleThree();
-  virtual ~DoubleThree();
-
+    DoubleThree();
+    virtual ~DoubleThree();
+    
 public:
-  virtual IRule::RuleType	getRuleType() const;
-  virtual std::string const&	getError() const;
-  virtual bool			isOk(IGame*);
-
+    virtual IRule::RuleType	getRuleType() const;
+    virtual std::string const&	getError() const;
+    virtual bool			isOk(IGame*);
+    bool                isOk(IGame * game, unsigned int x, unsigned int y, bool color);
+    
 private:
-  const vec2		_direction[8] =
+    const vec2		_direction[8] =
     {
-      {0, 1},
-      {-1, 1},
-      {-1, 0},
-      {-1, -1},
-      {0, -1},
-      {1, -1},
-      {1, 0},
-      {1, 1}
+        {0, 1},
+        {-1, 1},
+        {-1, 0},
+        {-1, -1},
+        {0, -1},
+        {1, -1},
+        {1, 0},
+        {1, 1}
     };
-
-  const std::string	_lastError;
-  const vec2		_boundLimit;
-  Case::caseContent	_enemyCell;
-  Case::caseContent	_myCell;
-  bool			_color;
-  IGameMap *		_map;
-  bool			findDoubleThreeByAxis(vec2 const &, Case const &, unsigned int) const;
-  bool			findThreeAlignFreeByAxis(vec2 const &, Case const &, unsigned int,
-						 std::pair<vec2, vec2> &) const;
+    
+    const std::string	_lastError;
+    const vec2		_boundLimit;
+    Case::caseContent	_enemyCell;
+    Case::caseContent	_myCell;
+    bool			_color;
+    IGameMap *		_map;
+    bool			findDoubleThreeByAxis(vec2 const &, Case const &, unsigned int) const;
+    bool			findThreeAlignFreeByAxis(vec2 const &, Case const &, unsigned int,
+                                             std::pair<vec2, vec2> &) const;
 };
 
 #endif /* !DOUBLETHREE_HPP_ */

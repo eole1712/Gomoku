@@ -5,8 +5,10 @@
 #include "IGameMap.hpp"
 #include "GameMap.hpp"
 #include "Case.hpp"
+#include "DoubleThree.hpp"
+#include "IGui.hpp"
 
-GameMap::GameMap()
+GameMap::GameMap(IGame* game)
 {
     std::random_device  rd;
     std::mt19937        gen(rd());
@@ -20,6 +22,7 @@ GameMap::GameMap()
         _minList.push_back(noteType(0, dis(gen), dis(gen)));
         _maxList.push_back(noteType(0, dis(gen), dis(gen)));
     }
+    _game = game;
 }
 
 GameMap::~GameMap()
@@ -29,6 +32,7 @@ GameMap::~GameMap()
 
 GameMap::GameMap(GameMap &unit)
 {
+    _game = unit._game;
     std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
 }
 
@@ -422,7 +426,17 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
                         checkPat5(tx, ty, d, color);
                     }
                 }
-                evaluate(std::make_pair(tx, ty), color);
+                if (_three.isOk(_game, tx, ty, color)) {
+                    evaluate(std::make_pair(tx, ty), color);
+                }
+                else
+                {
+                    _game->getGui()->setFull(x, y, color != Case::caseContent::EMPTY ? true : false);
+                    _game->getGui()->setButtonColor(x, y, color);
+
+                    std::cout << "not ok" << std::endl;
+                }
+                _three.isOk(_game, tx, ty, !color);
             }
         }
     }

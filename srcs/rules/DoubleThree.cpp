@@ -24,6 +24,35 @@ std::string const	&DoubleThree::getError() const
   return _lastError;
 }
 
+bool		DoubleThree::isOk(IGame * game, unsigned int x, unsigned int y, bool color)
+{
+    vec2 playingPosition =
+    {
+        static_cast<int>(x),
+        static_cast<int>(y)
+    };
+    _map = game->getMap();
+    Case playingCase = _map->getCase(playingPosition.x, playingPosition.y);
+    if (color == false)
+    {
+        _color = false;
+        _myCell = Case::BLUE;
+    }
+    else
+    {
+        _color = true;
+        _myCell = Case::RED;
+    }
+    _enemyCell = (_myCell == Case::RED) ? Case::BLUE : Case::RED;
+    unsigned int axis = 0;
+    for (; axis < 8 && !findDoubleThreeByAxis(playingPosition, playingCase, axis);
+         ++axis);
+    if (axis == 8)
+        return true;
+    playingCase.setPosable(_color, false);
+    return false;
+}
+
 bool		DoubleThree::isOk(IGame * game)
 {
   vec2 playingPosition =

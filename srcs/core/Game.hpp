@@ -1,6 +1,7 @@
 #ifndef GAME_HPP_
 # define GAME_HPP_
 
+# include "IJudge.hpp"
 # include "IGame.hpp"
 # include "Case.hpp"
 
@@ -11,7 +12,7 @@ class IPlayer;
 class Game : public IGame
 {
 public:
-  Game(mode gameMode, IGui*);
+  Game(mode gameMode, IGui*, IJudge *);
   virtual ~Game();
 
 private:
