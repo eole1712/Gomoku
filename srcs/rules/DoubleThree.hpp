@@ -22,7 +22,8 @@ public:
   virtual bool			isOk(IGame*);
 
 private:
-  const vec2		_direction[8] =
+  const vec2		limit = { -1, 19 };
+  const vec2		direction[8] =
     {
       {0, 1},
       {-1, 1},
