@@ -5,6 +5,7 @@
 # include "Case.hpp"
 
 # include <list>
+# include <tuple>
 
 class GameMap
 : public IGameMap

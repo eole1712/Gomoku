@@ -514,19 +514,6 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
 //        if (_minList.size() > 10)
 //            _minList.pop_back();
     }
-    for (Case::pat4 pat : pat4) {
-        if (cas.getValue4(dir, pat, aiColor))
-            ret += 256;
-        if (cas.getValue4(dir, pat, noaiColor))
-            ret -= 256;
-    }
-    for (Case::pat5 pat : pat5) {
-        if (cas.getValue5(dir, pat, aiColor))
-            ret += 1024;
-        if (cas.getValue5(dir, pat, noaiColor))
-            ret -= 1024;
-    }
-    }
     return ret;
 }
 
@@ -542,7 +529,7 @@ void    GameMap::print()
     static std::pair<std::string, Case::pat5> pat5[] = {{"YXXXX", Case::YXXXX}, {"XYXXX", Case::XYXXX}, {"XXYXX", Case::XXYXX}};
     std::ofstream os;
 
-    os.open("../Gomoku/map.json");
+    os.open("map.json");
 
     std::cout << "file created" << std::endl;
     os << "{\n\"Map\" :" << std::endl;
