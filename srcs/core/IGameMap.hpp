@@ -13,6 +13,7 @@ public:
   virtual Case&		getCase(unsigned int x, unsigned int y) = 0;
   virtual void		setCase(unsigned int x, unsigned int y, Case::caseContent) = 0;
   virtual bool		isIn(unsigned int x, unsigned int y) const = 0;
+    virtual void print() = 0;
 };
 
 #endif /* !IGAMEMAP_H_ */
