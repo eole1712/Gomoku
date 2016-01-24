@@ -33,6 +33,8 @@ HEADERS += srcs/gui/drawingArea.hpp \
            srcs/core/IRule.hpp \
            srcs/core/Judge.hpp \
            srcs/core/Player.hpp \
+           srcs/core/Node.hpp \
+           srcs/core/MinMax.hpp \
            srcs/rules/BasicCheck.hpp \
            srcs/rules/EatThem.hpp \
            srcs/rules/Win.hpp \
@@ -52,6 +54,8 @@ SOURCES += srcs/gui/drawingArea.cpp \
            srcs/core/Human.cpp \
            srcs/core/Judge.cpp \
            srcs/core/Player.cpp \
+           srcs/core/Node.cpp \
+           srcs/core/MinMax.cpp \
            srcs/rules/BasicCheck.cpp \
            srcs/rules/EatThem.cpp \
            srcs/rules/Win.cpp \

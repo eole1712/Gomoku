@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     _colors[0] = "grey";
     _colors[1] = "blue";
     _colors[2] = "red";
+    _colors[3] = "#333333";
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(1);
     for(int i = 0; i != 19 * 19; ++i)
@@ -82,6 +83,9 @@ MainWindow::MainWindow(QWidget *parent, IGameManager* gm) :
     ui->playerTurn->setStyleSheet(std::string("background-color:blue").c_str());
     ui->score1->setStyleSheet(std::string("background-color:blue").c_str());
     ui->score2->setStyleSheet(std::string("background-color:red").c_str());
+    setFull(5, 5, true);
+    setButtonColor(5, 5, Case::NOT);
+
 }
 
 void	MainWindow::reset()

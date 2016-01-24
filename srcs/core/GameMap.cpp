@@ -28,6 +28,8 @@ GameMap::~GameMap()
 }
 
 GameMap::GameMap(GameMap &unit)
+    :_minList(unit._minList),
+      _maxList(unit._maxList)
 {
     std::memcpy(&unit._map[0][0], &_map[0][0], sizeof(_map));
 }
@@ -53,13 +55,13 @@ bool    GameMap::checkPat2(unsigned int x, unsigned int y, unsigned int d, bool 
     getCase(x, y).setValue2((Case::dir)((d + 4) % 8), Case::YX, color, tmp);
     ret = ret | tmp;
     tmp = checkPat2YOX(x, y, (Case::dir)((d + 4) % 8), color);
-    getCase(x, y).setValue2((Case::dir)((d + 4) % 8), Case::YX, color, tmp);
+    getCase(x, y).setValue2((Case::dir)((d + 4) % 8), Case::YOX, color, tmp);
     ret = ret | tmp;
     tmp = checkPat2YOOX(x, y, (Case::dir)((d + 4) % 8), color);
-    getCase(x, y).setValue2((Case::dir)((d + 4) % 8), Case::YX, color, tmp);
+    getCase(x, y).setValue2((Case::dir)((d + 4) % 8), Case::YOOX, color, tmp);
     ret = ret | tmp;
     tmp = checkPat2YOOOX(x, y, (Case::dir)((d + 4) % 8), color);
-    getCase(x, y).setValue2((Case::dir)((d + 4) % 8), Case::YX, color, tmp);
+    getCase(x, y).setValue2((Case::dir)((d + 4) % 8), Case::YOOOX, color, tmp);
     return ret | tmp;
 }
 
@@ -413,26 +415,18 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
         {
             unsigned int tx = x + dir[d][0] * p;
             unsigned int ty = y + dir[d][1] * p;
-            
-            if (tx > 18 || ty > 18)
-                break;
-            
-            if (checkPat2(tx, ty, d, color) == false) {
-                break;
-            }
-            
-            if (checkPat3(tx, ty, d, color) == false) {
+                        
+            if (tx < 18 && ty < 18 && checkPat2(tx, ty, d, color) == true) {
+                
+                if (checkPat3(tx, ty, d, color) == true)
+                {
+                    if (checkPat4(tx, ty, d, color) == true) {
+                        checkPat5(tx, ty, d, color);
+                    }
+                }
                 evaluate(std::make_pair(tx, ty), color);
-                break;
             }
-            if (checkPat4(tx, ty, d, color) == false) {
-                evaluate(std::make_pair(tx, ty), color);
-                break;
-            }
-            checkPat5(tx, ty, d, color);
-            evaluate(std::make_pair(tx, ty), color);
         }
-        
     }
 }
 
@@ -462,7 +456,7 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
     if (!cas.getPosable(aiColor))
         return 0;
     
-
+    
     for (Case::dir dir : dirs) {
         for (Case::pat2 pat : pat2) {
             if (cas.getValue2(dir, pat, aiColor)) {
@@ -493,8 +487,6 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
                 ret -= 1024;
         }
     }
-
-    std::cout << ret << std::endl;
     
     if (isAI) {
         _maxList.push_back(noteType(ret, move.first, move.second));
@@ -502,8 +494,8 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
         _maxList.sort([](noteType a, noteType b){
             return (std::get<0>(a) > std::get<0>(b));
         });
-//        if (_maxList.size() > 10)
-//            _maxList.pop_back();
+                if (_maxList.size() > 10)
+                    _maxList.pop_back();
     } else {
         _minList.push_back(noteType(ret, move.first, move.second));
         
@@ -511,10 +503,33 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
             return (std::get<0>(a) < std::get<0>(b));
         });
         
-//        if (_minList.size() > 10)
-//            _minList.pop_back();
+                if (_minList.size() > 10)
+                    _minList.pop_back();
     }
+//        std::cout << "MAX LIST" << std::endl;
+//    
+//        for (auto &i : _maxList) {
+//            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
+//        }
+//    
+//        std::cout << std::endl << "MIN LIST" << std::endl;
+//    
+//        for (auto &i : _minList) {
+//            std::cout << "(" << std::get<0>(i) << "," << std::get<1>(i) << "," << std::get<2>(i) << ")" << std::endl;
+//        }
+    
+    
     return ret;
+}
+
+const std::list<GameMap::noteType> &GameMap::getMaxMoves()
+{
+    return _maxList;
+}
+
+const std::list<GameMap::noteType> &GameMap::getMinMoves()
+{
+    return _minList;
 }
 
 void    GameMap::print()

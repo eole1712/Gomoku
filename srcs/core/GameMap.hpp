@@ -39,7 +39,7 @@ public:
 public:
     GameMap();
     virtual ~GameMap();
-    GameMap(GameMap &);
+    GameMap(GameMap&);
 
 private:
     Case	_map[size_x][size_y];
@@ -92,6 +92,8 @@ public:
     virtual bool		isIn(unsigned int x, unsigned int y) const;
     void print();
     int evaluate(std::pair<int, int> move, bool isAI);
+    std::list<noteType> const& getMaxMoves();
+    std::list<noteType> const& getMinMoves();
 };
 
 #endif /* !GAMEMAP_HPP_ */

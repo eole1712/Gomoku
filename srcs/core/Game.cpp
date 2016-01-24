@@ -89,7 +89,6 @@ void		Game::changeMode(IGame::mode newMode)
 void		Game::playTurn(unsigned int x, unsigned int y)
 {
   _players[_turn]->setPosition(x, y);
-  // if ai ? player[_turn].play(_game.getMap());
 }
 
 void		Game::endTurn()
