@@ -23,6 +23,7 @@ public:
 
 private:
   const vec2		limit = { -1, 19 };
+
   const vec2		direction[8] =
     {
       {0, 1},
@@ -35,12 +36,13 @@ private:
       {1, 1}
     };
 
+private:
+
   const std::string	_lastError;
-  const vec2		_boundLimit;
-  Case::caseContent	_enemyCell;
   Case::caseContent	_myCell;
   bool			_color;
   IGameMap *		_map;
+
   bool			findDoubleThreeByAxis(vec2 const &, Case const &, unsigned int) const;
   bool			findThreeAlignFreeByAxis(vec2 const &, Case const &, unsigned int,
 						 std::pair<vec2, vec2> &) const;
