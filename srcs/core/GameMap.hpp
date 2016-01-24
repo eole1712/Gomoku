@@ -5,6 +5,7 @@
 # include "Case.hpp"
 
 # include <list>
+# include <tuple>
 
 class GameMap
 : public IGameMap
@@ -20,8 +21,8 @@ public:
                                       {1, 1},
                                       {1, 0},
                                       {1, -1}};*/
-    static const Case::caseContent aiColor = Case::BLUE;
-    static const Case::caseContent noaiColor = Case::RED;
+    static const bool aiColor = true;
+    static const bool noaiColor = false;
 
 public:
     const int    dir[8][2] = {
@@ -43,6 +44,13 @@ public:
 private:
     Case	_map[size_x][size_y];
 
+public:
+    typedef std::tuple<int, unsigned int, unsigned int> noteType;
+    
+private:
+    std::list<noteType> _minList;
+    std::list<noteType> _maxList;
+    
 private:
     bool    checkPat2(unsigned int x, unsigned int y, unsigned int d, bool color);
     bool    checkPat2YX(unsigned int x, unsigned int y, Case::dir d, bool color);
@@ -83,7 +91,7 @@ public:
     virtual void		setCase(unsigned int x, unsigned int y, Case::caseContent);
     virtual bool		isIn(unsigned int x, unsigned int y) const;
     void print();
-    int evaluate(std::pair<int, int> move);
+    int evaluate(std::pair<int, int> move, bool isAI);
 };
 
 #endif /* !GAMEMAP_HPP_ */
