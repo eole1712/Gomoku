@@ -52,11 +52,11 @@ class Node
 {
 public:
   typedef GameMap MapType;
-  Node(MapType & map, std::pair<int, int> move, Node* parent = nullptr, bool isMax = true);
+  Node(MapType & map, GameMap::noteType move, Node* parent = nullptr, bool isMax = true);
   virtual ~Node();
-  void deleteExcept(std::pair<int, int> const& value, bool check);
+  void deleteExcept(GameMap::noteType const& value, bool check);
   int getNote();
-  std::pair<int, int> const& getMove();
+  GameMap::noteType const& getMove();
   bool isMax();
   std::list<Node*> const& getChildren();
   void addChild(Node* child);
@@ -70,7 +70,7 @@ public:
   Node(Node &other);
 private:
   MapType _map;
-  std::pair<int, int> _move;
+  GameMap::noteType _move;
   Node *_parent;
   bool _isMax;
   int _note;

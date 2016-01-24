@@ -5,7 +5,7 @@
 
 MinMax::MinMax(Node::MapType &map)
 {
-  m_current = new Node(map, std::pair<int, int>(0, 0));
+  m_current = new Node(map, std::make_tuple(0, 0, 0));
 }
 
 MinMax::~MinMax()
@@ -43,5 +43,5 @@ std::pair<int, int> MinMax::evaluate(int depth)
     m_current = best;
     std::cout << "final note : " << m_current->getNote() << std::endl;
 
-    return m_current->getMove();
+    return std::make_pair(std::get<1>(m_current->getMove()), std::get<2>(m_current->getMove()));
 }
