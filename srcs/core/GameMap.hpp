@@ -79,7 +79,9 @@ public:
     virtual Case&		getCase(unsigned int x, unsigned int y);
     virtual void		setCase(unsigned int x, unsigned int y, Case::caseContent);
     virtual void        update(unsigned int x, unsigned int y, bool color);
-    virtual bool		isIn(unsigned int x, unsigned int y) const;
+    virtual static bool		isIn(unsigned int x, unsigned int y) const;
+    int evaluate();
+    void print();
 };
 
 #endif /* !GAMEMAP_HPP_ */
