@@ -17,7 +17,6 @@ public:
     std::pair<int, int> play(IGameMap*);
     void setMap(IGameMap* map);
 private:
-    color		_color;
     MinMax*   _minMax = nullptr;
     static const std::pair<int, int> _default ;
     static constexpr int _depth = 3;

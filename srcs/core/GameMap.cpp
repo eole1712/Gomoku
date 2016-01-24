@@ -525,8 +525,7 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
         });
 
         _maxList.erase(std::remove_if(_maxList.begin(), _maxList.end(), [this](noteType& elem) {
-           if (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(aiColor))
-               return true;
+            return (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(aiColor));
         }), _maxList.end());
 
         if (_maxList.size() > 10)
@@ -540,8 +539,7 @@ int GameMap::evaluate(std::pair<int, int> move, bool isAI)
         });
         
         _minList.erase(std::remove_if(_minList.begin(), _minList.end(), [this](noteType& elem) {
-           if (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(noaiColor))
-               return true;
+            return (!getCase(std::get<1>(elem), std::get<2>(elem)).getPosable(noaiColor));
         }), _minList.end());
         if (_minList.size() > 10)
             _minList.pop_back();

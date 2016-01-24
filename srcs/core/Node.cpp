@@ -118,7 +118,7 @@ int Node::evaluate(int depth, int min, int max)
     }
 }
 
-void Node::initialize(int depth)
+void Node::initialize(int)
 {
   std::list<GameMap::noteType> moves;
 
