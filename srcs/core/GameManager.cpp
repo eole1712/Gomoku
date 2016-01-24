@@ -73,7 +73,11 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
     }
     else
         _gui->showError(_judge->getLastError());
-    
+    for (unsigned int tx = 0; tx < 19; tx++)
+        for (unsigned int ty = 0; ty < 19; ty++) {
+            _game->getGui()->setPosable(tx, ty, _game->getMap()->getCase(tx, ty).getPosable(true), true);
+            _game->getGui()->setPosable(tx, ty, _game->getMap()->getCase(tx, ty).getPosable(false), false);
+        }
     // if (_game->isFinished())
     //   std::cout << "WINNNNNNNNNNNN" << std::endl;
     

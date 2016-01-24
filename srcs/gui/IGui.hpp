@@ -10,7 +10,8 @@ public:
   virtual ~IGui() {};
 
   virtual void setButtonColor(int x, int y, Case::caseContent) = 0;
-  virtual void setFull(int x, int y, bool) = 0;
+  virtual void setPosable(int x, int y, bool, bool) = 0;
+    virtual void setFull(int x, int y, bool) = 0;
   virtual void setWin(int Player) = 0;
   virtual void start() = 0;
   virtual void changeTurn() = 0;

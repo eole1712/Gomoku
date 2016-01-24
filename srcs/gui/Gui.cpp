@@ -24,6 +24,11 @@ void Gui::setButtonColor(int x, int y, Case::caseContent col)
   _win->setButtonColor(x, y, col);
 }
 
+void Gui::setPosable(int x, int y, bool pos, bool color)
+{
+    _win->setPosable(x, y, pos, color);
+}
+
 void Gui::setFull(int x, int y, bool isFull)
 {
     _win->setFull(x, y, isFull);

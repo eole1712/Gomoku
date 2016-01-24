@@ -32,9 +32,11 @@ bool			Judge::checkRules(IGame * game)
       return false;
     }
     Case &c = game->getMap()->getCase(game->getActivePlayer()->getX(), game->getActivePlayer()->getY());
+    
     if (c.getPosable((bool)(game->getActivePlayer()->getColor() - 1)) == false) {
         return false;
     }
+    
     for (i = _rules.begin();
          i != _rules.end() && (*i).second->isOk(game);
          i++);

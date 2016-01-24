@@ -26,6 +26,7 @@ public:
     ~MainWindow();
     void setFull(int x, int y, bool);
     void setButtonColor(int x, int y, Case::caseContent);
+    void setPosable(int x, int y, bool posable, bool color);
     void reset();
     void setPlayer1Text(int score);
     void setPlayer2Text(int score);
