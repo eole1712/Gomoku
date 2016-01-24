@@ -5,6 +5,8 @@
 #include "DoubleThree.hpp"
 #include "Win.hpp"
 
+#include <iostream>
+
 Win::Win()
   : _lastError("Win error")
 {}
@@ -54,6 +56,7 @@ bool	Win::isOk(IGame* game)
 	pos = playingPosition - direction[axis] * 2;
       else
 	continue;
+      std::cout << "color" << color << std::endl;
       for (int i = 0; i < 5; ++i) 
 	{
 	  testCase = map->getCase(pos.x, pos.y);
