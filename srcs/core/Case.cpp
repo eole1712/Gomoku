@@ -53,6 +53,8 @@ void                Case::setContent(caseContent c)
 {
     setEmpty(c == EMPTY);
     setColor(c == RED);
+    setPosable(false, c == EMPTY);
+    setPosable(true, c == EMPTY);
 }
 
 Case::caseContent    Case::getContent() const
