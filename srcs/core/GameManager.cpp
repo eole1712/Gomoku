@@ -40,11 +40,7 @@ IJudge *		GameManager::getJudge() const
 
 IGame *			GameManager::createGame(IGame::mode gameMode)
 {
-    IJudge *judge = new Judge();
-    
-    judge->addRule(new DoubleThree);
-    
-    _game = new Game(gameMode, _gui, judge);
+    _game = new Game(gameMode, _gui);
     return _game;
 }
 
@@ -64,7 +60,7 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
 {
     if (_game == NULL)
         return;
-    
+
     _game->playTurn(x, y);
     if (_judge->checkRules(_game)) {
         _game->setCase(x, y, static_cast<Case::caseContent>(_game->getActivePlayer()->getColor()));
@@ -73,10 +69,10 @@ void	GameManager::didClickCase(unsigned int x, unsigned y)
     }
     else
         _gui->showError(_judge->getLastError());
-    
+
     // if (_game->isFinished())
     //   std::cout << "WINNNNNNNNNNNN" << std::endl;
-    
+
     // affichage de la map (terminal)
     // for (int x = 0; x < 19; x++)
     //   {

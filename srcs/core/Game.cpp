@@ -7,7 +7,7 @@
 #include "IGui.hpp"
 #include "Case.hpp"
 
-Game::Game(mode gameMode, IGui* gui, IJudge *judge)
+Game::Game(mode gameMode, IGui* gui)
   : _gui(gui), _map(new GameMap(this)), _mode(gameMode), _winner(NULL), _finish(false), _turn(false)
 {
   initPlayer();
