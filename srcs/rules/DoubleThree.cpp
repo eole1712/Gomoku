@@ -49,7 +49,7 @@ bool		DoubleThree::isOk(IGame * game)
        ++axis);
   if (axis == 8)
       return true;
-  playingCase.setPosable(_color, false);
+  //playingCase.setPosable(_color, false);
   return false;
 }
 
@@ -69,10 +69,9 @@ bool		DoubleThree::findThreeAlignFreeByAxis(vec2 const & playingPosition, Case c
     pos = { playingPosition -  _direction[axis] * 2, playingPosition + _direction[axis] * 3 };
   else
     return false;
-  if (!_map->getCase(pos.first.x, pos.first.y).isEmpty() ||
-      !_map->getCase(pos.second.x, pos.second.y).isEmpty())
+  if ((pos.first.inBound({-1, 19}) && !_map->getCase(pos.first.x, pos.first.y).isEmpty()) ||
+      (pos.second.inBound({-1, 19}) && !_map->getCase(pos.second.x, pos.second.y).isEmpty()))
     return false;
-  std::cout << "find" << std::endl;
   return true;
 }
 
