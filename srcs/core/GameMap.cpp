@@ -57,7 +57,7 @@ bool GameMap::checkPat2YX(unsigned int x, unsigned int y, Case::dir d, bool colo
 {
     if (x + 1 * dir[d][0] > 18 ||  -1 * dir[d][0] > (int)x || y + 1 * dir[d][1] > 18 || -1 * dir[d][1] > (int)y)
         return false;
-    return getCase(x + dir[d][0], y + dir[d][1]).getColor() == color;
+    return getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color;
 }
 
 bool GameMap::checkPat2YOX(unsigned int x, unsigned int y, Case::dir d, bool color)
@@ -65,7 +65,7 @@ bool GameMap::checkPat2YOX(unsigned int x, unsigned int y, Case::dir d, bool col
     if (x + 2 * dir[d][0] > 18 ||  -2 * dir[d][0] > (int)x || y + 2 * dir[d][1] > 18 || -2 * dir[d][1] > (int)y)
         return false;
     return (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color;
+    getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color;
 }
 
 bool GameMap::checkPat2YOOX(unsigned int x, unsigned int y, Case::dir d, bool color)
@@ -74,7 +74,7 @@ bool GameMap::checkPat2YOOX(unsigned int x, unsigned int y, Case::dir d, bool co
         return false;
     return (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true  || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color;
+    getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color;
 }
 
 bool GameMap::checkPat2YOOOX(unsigned int x, unsigned int y, Case::dir d, bool color)
@@ -84,22 +84,28 @@ bool GameMap::checkPat2YOOOX(unsigned int x, unsigned int y, Case::dir d, bool c
     return (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true  || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
     (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == true  || getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
+    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
 }
 
 bool    GameMap::checkPat3(unsigned int x, unsigned int y, unsigned int d, bool color) {
     bool ret = false;
-    bool tmp;
+    bool tmp = false;
     
     tmp = checkPat3YXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YXX, color, tmp);
     ret = ret | tmp;
+    if (tmp == true)
+        std::cout << "B" << std::endl;
     tmp = checkPat3YOXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YOXX, color, tmp);
     ret = ret | tmp;
+    if (tmp == true)
+        std::cout << "C" << std::endl;
     tmp = checkPat3YOOXX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YOOXX, color, tmp);
     ret = ret | tmp;
+    if (tmp == true)
+        std::cout << "D" << std::endl;
     tmp = checkPat3YXOX(x, y, (Case::dir)((d + 4) % 8), color);
     getCase(x, y).setValue3((Case::dir)((d + 4) % 8), Case::YXOX, color, tmp);
     ret = ret | tmp;
@@ -138,8 +144,8 @@ bool    GameMap::checkPat3(unsigned int x, unsigned int y, unsigned int d, bool 
 bool    GameMap::checkPat3YXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 2 * dir[d][0] > 18 ||  -2 * dir[d][0] > (int)x || y + 2 * dir[d][1] > 18 || -2 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color;
+    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color;
 
 }
 
@@ -147,8 +153,8 @@ bool    GameMap::checkPat3YOXX(unsigned int x, unsigned int y, Case::dir d, bool
     if (x + 3 * dir[d][0] > 18 ||  -3 * dir[d][0] > (int)x || y + 3 * dir[d][1] > 18 || -3 * dir[d][1] > (int)y)
         return false;
     return (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color;
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color;
 }
 
 bool    GameMap::checkPat3YOOXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -156,34 +162,34 @@ bool    GameMap::checkPat3YOOXX(unsigned int x, unsigned int y, Case::dir d, boo
         return false;
     return (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true  || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
+    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
 }
 
 bool    GameMap::checkPat3YXOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 3 * dir[d][0] > 18 ||  -3 * dir[d][0] > (int)x || y + 3 * dir[d][1] > 18 || -3 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true  || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color;
+    getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color;
 }
 
 bool    GameMap::checkPat3YXOOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true  || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
     (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == true  || getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
+    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
 }
 
 bool    GameMap::checkPat3YOXOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
     return (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
     (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == true  || getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
+    getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color;
 }
 
 bool    GameMap::checkPat3XYOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -191,9 +197,9 @@ bool    GameMap::checkPat3XYOX(unsigned int x, unsigned int y, Case::dir d, bool
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+    return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
     (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat3XYOOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -201,22 +207,21 @@ bool    GameMap::checkPat3XYOOX(unsigned int x, unsigned int y, Case::dir d, boo
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+    return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
     (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true  || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat3XOYOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
-    std::cout << "D : " << (int)d << "(" << x - 2 * dir[d][0] << ", " << y - 2 * dir[d][1] << ")" << std::endl;
     if (x + 2 * dir[d][0] > 18 ||  x + 2 * dir[d][0] > 0 || y + 2 * dir[d][1] > 18 || y + 2 * dir[d][1] > 0)
         return false;
     if (x - 2 * dir[d][0] > 18 ||  2 * dir[d][0] > (int)x || y - 2 * dir[d][1] > 18 || 2 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - 2 * dir[d][0], y - 2 * dir[d][1]).getColor() == color) &&
+    return (getCase(x - 2 * dir[d][0], y - 2 * dir[d][1]).isEmpty() == false && getCase(x - 2 * dir[d][0], y - 2 * dir[d][1]).getColor() == color) &&
     (getCase(x - dir[d][0], y - dir[d][1]).isEmpty() == true  || getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
     (getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true  || getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
     
 }
 
@@ -225,8 +230,8 @@ bool    GameMap::checkPat3XYX(unsigned int x, unsigned int y, Case::dir d, bool 
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
-        (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color);
+    return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+        (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat4(unsigned int x, unsigned int y, unsigned int d, bool color) {
@@ -272,36 +277,36 @@ bool    GameMap::checkPat4(unsigned int x, unsigned int y, unsigned int d, bool 
 bool    GameMap::checkPat4YXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 3 * dir[d][0] > 18 ||  -3 * dir[d][0] > (int)x || y + 3 * dir[d][1] > 18 || -3 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
+    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat4YOXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
     return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color || getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat4YXOXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat4YXXOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
     (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color || getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == true) &&
-    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
+    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat4XYXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -309,9 +314,9 @@ bool    GameMap::checkPat4XYXX(unsigned int x, unsigned int y, Case::dir d, bool
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
-    (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color)  &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
+    return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+    (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color)  &&
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat4XYOXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -319,10 +324,10 @@ bool    GameMap::checkPat4XYOXX(unsigned int x, unsigned int y, Case::dir d, boo
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+    return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
     (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color || getCase(x + dir[d][0], y + dir[d][1]).isEmpty() == true) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat4XYXOX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -330,10 +335,10 @@ bool    GameMap::checkPat4XYXOX(unsigned int x, unsigned int y, Case::dir d, boo
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
-    (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+    (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
     (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color || getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == true) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat5(unsigned int x, unsigned int y, unsigned int d, bool color) {
@@ -362,10 +367,10 @@ bool    GameMap::checkPat5(unsigned int x, unsigned int y, unsigned int d, bool 
 bool    GameMap::checkPat5YXXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
     if (x + 4 * dir[d][0] > 18 ||  -4 * dir[d][0] > (int)x || y + 4 * dir[d][1] > 18 || -4 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
+    return (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).isEmpty() == false && getCase(x + 4 * dir[d][0], y + 4 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat5XYXXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -373,10 +378,10 @@ bool    GameMap::checkPat5XYXXX(unsigned int x, unsigned int y, Case::dir d, boo
         return false;
     if (x - 1 * dir[d][0] > 18 ||  1 * dir[d][0] > (int)x || y - 1 * dir[d][1] > 18 || 1 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
-    (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
+    return (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+    (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color) &&
+    (getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).isEmpty() == false && getCase(x + 3 * dir[d][0], y + 3 * dir[d][1]).getColor() == color);
 }
 
 bool    GameMap::checkPat5XXYXX(unsigned int x, unsigned int y, Case::dir d, bool color) {
@@ -384,10 +389,10 @@ bool    GameMap::checkPat5XXYXX(unsigned int x, unsigned int y, Case::dir d, boo
         return false;
     if (x - 2 * dir[d][0] > 18 ||  2 * dir[d][0] > (int)x || y - 2 * dir[d][1] > 18 || 2 * dir[d][1] > (int)y)
         return false;
-    return (getCase(x - 2 * dir[d][0], y - 2 * dir[d][1]).getColor() == color) &&
-    (getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
-    (getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
-    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
+    return (getCase(x - 2 * dir[d][0], y - 2 * dir[d][1]).isEmpty() == false && getCase(x - 2 * dir[d][0], y - 2 * dir[d][1]).getColor() == color) &&
+    (getCase(x - 1 * dir[d][0], y - 1 * dir[d][1]).isEmpty() == false && getCase(x - dir[d][0], y - dir[d][1]).getColor() == color) &&
+    (getCase(x + 1 * dir[d][0], y + 1 * dir[d][1]).isEmpty() == false && getCase(x + dir[d][0], y + dir[d][1]).getColor() == color) &&
+    (getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).isEmpty() == false && getCase(x + 2 * dir[d][0], y + 2 * dir[d][1]).getColor() == color);
 }
 
 void    GameMap::update(unsigned int x, unsigned int y, bool color)
@@ -402,13 +407,13 @@ void    GameMap::update(unsigned int x, unsigned int y, bool color)
             if (tx > 18 || ty > 18)
                 break;
             
-            if (!checkPat2(tx, ty, d, color)) {
+            if (checkPat2(tx, ty, d, color) == false) {
                 break;
             }
-            if (!checkPat3(tx, ty, d, color)) {
+            if (checkPat3(tx, ty, d, color) == false) {
                 break;
             }
-            if (!checkPat4(tx, ty, d, color)) {
+            if (checkPat4(tx, ty, d, color) == false) {
                 break;
             }
             checkPat5(tx, ty, d, color);

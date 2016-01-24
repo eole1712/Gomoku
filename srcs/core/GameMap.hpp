@@ -78,11 +78,10 @@ private:
 
 public:
     virtual void		clear();
+    virtual void        update(unsigned int x, unsigned int y, bool color);
     virtual Case&		getCase(unsigned int x, unsigned int y);
     virtual void		setCase(unsigned int x, unsigned int y, Case::caseContent);
-    virtual void        update(unsigned int x, unsigned int y, bool color);
-    virtual static bool		isIn(unsigned int x, unsigned int y) const;
-    int evaluate();
+    virtual bool		isIn(unsigned int x, unsigned int y) const;
     void print();
     int evaluate(std::pair<int, int> move);
 };
