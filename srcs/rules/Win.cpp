@@ -38,7 +38,7 @@ bool	Win::isOk(IGame* game)
       static_cast<int>(game->getActivePlayer()->getY())
     };
   Case		playingCase = map->getCase(playingPosition.x, playingPosition.y);
-  bool		color = playingCase.getColor();
+  bool		color = (game->getActivePlayer()->getColor() == IPlayer::RED);
 
   if (game->getActivePlayer()->getPoints() > 9)
     {
@@ -56,7 +56,6 @@ bool	Win::isOk(IGame* game)
 	pos = playingPosition - direction[axis] * 2;
       else
 	continue;
-      std::cout << "color" << color << std::endl;
       for (int i = 0; i < 5; ++i) 
 	{
 	  testCase = map->getCase(pos.x, pos.y);
