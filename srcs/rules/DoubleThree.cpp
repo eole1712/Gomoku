@@ -8,15 +8,7 @@
 
 DoubleThree::DoubleThree()
   : _lastError(std::string("Regle des trois non respectée !")),
-    _axis{{1, 0}, {0, 1}, {1, 1}, {-1, 1}}, _boundLimit{-1, 19},
-    _validCase
-    {
-      { Case::EMPTY, Case::RED, Case::RED, Case::RED, Case::EMPTY},
-      { Case::EMPTY, Case::RED, Case::EMPTY, Case::RED, Case::RED},
-      { Case::EMPTY, Case::RED, Case::RED, Case::EMPTY, Case::RED},
-      { Case::RED, Case::RED, Case::EMPTY, Case::RED, Case::EMPTY},
-      { Case::RED, Case::EMPTY, Case::RED, Case::RED, Case::EMPTY}
-    }
+    _boundLimit{-1, 19}
 {}
 
 DoubleThree::~DoubleThree()
@@ -34,97 +26,71 @@ std::string const	&DoubleThree::getError() const
 
 bool		DoubleThree::isOk(IGame * game)
 {
-  align		tmp[5];
-  _myCell = (game->getActivePlayer()->getColor() == IPlayer::BLUE) ? Case::BLUE : Case::RED;
-  _enemyCell = (_myCell == Case::RED) ? Case::BLUE : Case::RED;
-  _playingPosition =
+  vec2 playingPosition =
     {
       static_cast<int>(game->getActivePlayer()->getX()),
       static_cast<int>(game->getActivePlayer()->getY())
     };
   _map = game->getMap();
-  int i = 0;
-  for (; i < 4 && !(checkFreeAlign(_playingPosition, _axis[i], &tmp[0])
-		    && haveSecondAlign(i, &tmp[0])); i++);
-  return i == 4;
-}
-
-bool		DoubleThree::checkFreeAlign(vec2 const & origin, vec2 axis, align * alignOut)
-{
-  std::pair<Case::caseContent, vec2>* alignPtr;
-  std::pair<Case::caseContent, vec2>	alignement[13];
-  Case::caseContent			cell;
-  vec2		pos;
-  bool		swap = _myCell == Case::BLUE;
-  bool		lastCellEmpty = false;
-  char		emptyCellFind = 0;
-  char		alignDirection = 1;
-
-  alignPtr = &alignement[5];
-  for (int i = 0; i < 13; i++)
-    alignement[i] = { Case::BLUE, 0 };
-  alignement[4] = { Case::RED, origin };
-  for (unsigned char j = 0; j < 2; ++j)
+  Case playingCase = _map->getCase(playingPosition.x, playingPosition.y);  
+  if (game->getActivePlayer()->getColor() == IPlayer::BLUE)
     {
-      pos = origin + axis;
-      for (unsigned char i = 0; i < 4 && pos.inBound(_boundLimit) &&
-	     (cell = _map->getCase(pos.x, pos.y).getContent()) != _enemyCell &&
-	     !(cell == Case::EMPTY && (lastCellEmpty || emptyCellFind == 2)); ++i)
-	{
-	  alignPtr[0].first = cell;
-	  alignPtr[0].second = pos;
-	  if (alignPtr[0].first == Case::EMPTY)
-	    {
-	      lastCellEmpty = true;
-	      emptyCellFind++;
-	    }
-	  else
-	    {
-	      lastCellEmpty = false;
-	      if (swap)
-		alignPtr[0].first = Case::RED;
-	    }
-	  alignPtr += alignDirection;
-	  pos += axis;
-	}
-      if (!j)
-	{
-	  lastCellEmpty = false;
-	  if (emptyCellFind == 2)
-	    --emptyCellFind;
-	  axis = -axis;
-	  alignPtr = &alignement[3];
-	  alignDirection = -1;
-	}
+      _color = false;
+      _myCell = Case::BLUE;
     }
-  alignPtr = &alignement[0];
-  while (alignPtr[0].first == Case::BLUE && alignPtr != &alignement[8])
-    ++alignPtr;
-  if (((&alignement[8]) - alignPtr) < 5) // 2 Empty + 3 prise
-    return false;
-  for (unsigned char i = 0; i < 5; i++)
+  else
     {
-      unsigned char j = 0;
-      for (; j < 5 && alignPtr[j].first == _validCase[i][j]; j++);
-      if (j == 5)
-	{
-	  for (unsigned char k = 0; k < 5; ++k)
-	    alignOut[k] = alignPtr[k];
-	  return true;
-	}
+      _color = true;
+      _myCell = Case::RED;
     }
+  _enemyCell = (_myCell == Case::RED) ? Case::BLUE : Case::RED;
+  unsigned int axis = 0;
+  for (; axis < 8 && !findDoubleThreeByAxis(playingPosition, playingCase, axis);
+       ++axis);
+  if (axis == 8)
+      return true;
+  playingCase.setPosable(_color, false);
   return false;
 }
 
-bool		DoubleThree::haveSecondAlign(int const & originAxis, align * alignPtr)
+bool		DoubleThree::findThreeAlignFreeByAxis(vec2 const & playingPosition, Case const & playingCase,
+						      unsigned int axis, std::pair<vec2, vec2> & pos) const
 {
-  align		tmp[5];
-  for (int j = 0; j < 5; j++)
+  if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::YXX, _color))
+    pos = { playingPosition -  _direction[axis], playingPosition + _direction[axis] * 3 };
+  else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYX, _color))
+    pos = { playingPosition -  _direction[axis] * 2, playingPosition + _direction[axis] * 2 };
+  else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::YOXX, _color) ||
+	   playingCase.getValue3(static_cast<Case::dir>(axis), Case::YXOX, _color))
+    pos = { playingPosition -  _direction[axis], playingPosition + _direction[axis] * 4 };
+  else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYOX, _color))
+    pos = { playingPosition -  _direction[axis] * 2, playingPosition + _direction[axis] * 3 };
+  else if (playingCase.getValue3(static_cast<Case::dir>(axis), Case::XYOX, _color))
+    pos = { playingPosition -  _direction[axis] * 2, playingPosition + _direction[axis] * 3 };
+  else
+    return false;
+  if (!_map->getCase(pos.first.x, pos.first.y).isEmpty() ||
+      !_map->getCase(pos.second.x, pos.second.y).isEmpty())
+    return false;
+  std::cout << "find" << std::endl;
+  return true;
+}
+
+bool		DoubleThree::findDoubleThreeByAxis(vec2 const & playingPosition, Case const & playingCase, unsigned int axis) const
+{
+  std::pair<vec2, vec2>	tmp;
+  std::pair<vec2, vec2>	pos;
+  Case			testCase;
+
+  if (!findThreeAlignFreeByAxis(playingPosition, playingCase, axis, pos))
+    return false;
+  for (pos.first += _direction[axis]; pos.first != pos.second; pos.first += _direction[axis])
     {
-      for (int i = 0; i < 4; i++)
+      for (unsigned int secondAxis = 0; secondAxis < 8; ++secondAxis)
 	{
-	  if (i != originAxis && alignPtr[j].first == Case::RED &&
-	      checkFreeAlign(alignPtr[j].second, _axis[i], &tmp[0]))
+	  if (secondAxis != axis &&
+	      !(testCase = _map->getCase(pos.first.x, pos.first.y)).isEmpty() &&
+	      findThreeAlignFreeByAxis(pos.first, testCase, secondAxis, tmp))
 	    return true;
 	}
     }

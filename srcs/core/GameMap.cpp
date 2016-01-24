@@ -530,20 +530,24 @@ void    GameMap::print()
     static std::pair<std::string, Case::pat4> pat4[] = {{"YXXX", Case::YXXX}, {"YOXXX", Case::YOXXX}, {"YXOXX", Case::YXOXX}, {"YXXOX", Case::YXXOX},
         {"XYXX", Case::XYXX}, {"XYOXX", Case::XYOXX}, {"XYXOX", Case::XYXOX}};
     static std::pair<std::string, Case::pat5> pat5[] = {{"YXXXX", Case::YXXXX}, {"XYXXX", Case::XYXXX}, {"XXYXX", Case::XXYXX}};
-    std::ofstream os("map.json");
-    
+    std::ofstream os;
+
+    os.open("map.json");
+
+    std::cout << "file created" << std::endl;
     os << "{\n\"Map\" :" << std::endl;
     os << "[" << std::endl;
+    bool first = true;
     for (auto& cases : _map)
     {
         for (auto& cas : cases) {
-            os << "{" << std::endl;
-            std::string tru =  "\"true\"";
-            std::string fals = "\"false\"";
-            os << "\"posable\"" << (cas.getPosable(aiColor) ? tru : fals)  << ", " << std::endl;
-            
+            os << (first ? "{" : ",{") << std::endl;
+            if (first)
+                first = false;
+            os << "\"posable\" : " << (cas.getPosable(aiColor) ? "\"true\"" : "\"false\"")  << ", " << std::endl;
+
             for (std::pair<std::string, Case::dir> dir : dirs) {
-                os << "{ \"dir\" : \"" << dir.first << "\"" << std::endl;
+                os << "\"" << dir.first << "\" : { " << std::endl;
                 for (std::pair<std::string, Case::pat2> pat : pat2) {
                     std::string str = cas.getValue2(dir.second, pat.second, aiColor) ? "\"true\"" : "\"false\"";
                     os << "\"Ai" << pat.first << "\" : " << str << ", " << std::endl;
@@ -551,21 +555,21 @@ void    GameMap::print()
                     os << "\"noAi" << pat.first << "\" : " << (cas.getValue2(dir.second, pat.second, noaiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
                 }
                 for (std::pair<std::string, Case::pat3> pat : pat3) {
-                    os << "\"Ai" << pat.first << "\"" << (cas.getValue3(dir.second, pat.second, aiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
-                    os << "\"noAi" << pat.first << "\"" << (cas.getValue3(dir.second, pat.second, noaiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
+                    os << "\"Ai" << pat.first << "\" : " << (cas.getValue3(dir.second, pat.second, aiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
+                    os << "\"noAi" << pat.first << "\" : " << (cas.getValue3(dir.second, pat.second, noaiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
                 }
                 for (std::pair<std::string, Case::pat4> pat : pat4) {
-                    os << "\"Ai" << pat.first << "\"" << (cas.getValue4(dir.second, pat.second, aiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
-                    os << "\"noAi" << pat.first << "\"" << (cas.getValue4(dir.second, pat.second, noaiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
+                    os << "\"Ai" << pat.first << "\" : " << (cas.getValue4(dir.second, pat.second, aiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
+                    os << "\"noAi" << pat.first << "\" : " << (cas.getValue4(dir.second, pat.second, noaiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
                 }
                 for (std::pair<std::string, Case::pat5> pat : pat5) {
-                    os << "\"Ai" << pat.first << "\"" << (cas.getValue5(dir.second, pat.second, aiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
-                    os << "\"noAi" << pat.first << "\"" << (cas.getValue5(dir.second, pat.second, noaiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
+                    os << "\"Ai" << pat.first << "\" : " << (cas.getValue5(dir.second, pat.second, aiColor) ? "\"true\"" : "\"false\"") << ", " << std::endl;
+                    os << "\"noAi" << pat.first << "\" : " << (cas.getValue5(dir.second, pat.second, noaiColor) ? "\"true\"" : "\"false\"") << ((pat.second == Case::XXYXX) ? "" : ", ") << std::endl;
                 }
-                os << "}," << std::endl;
+                os << (dir.second == Case::NE ? "}" : "},") << std::endl;
             }
-            os << "}," << std::endl;
+            os << "}" << std::endl;
         }
     }
-    os << "]" << std::endl;
+    os << "]}" << std::endl;
 }
